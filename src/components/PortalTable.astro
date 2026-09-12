@@ -1,0 +1,187 @@
+---
+// PortalTable.astro — Lovable warm table with zebra stripes + quick-set
+const portals = [
+  { portal: 'SSC CGL / CHSL',     format: 'JPG', maxSize: '20 KB',  dimensions: '100 × 120 px',  notes: 'Photo; white background',         targetKB: 20  },
+  { portal: 'SSC (Signature)',     format: 'JPG', maxSize: '12 KB',  dimensions: '140 × 60 px',   notes: 'Signature on white',               targetKB: 12  },
+  { portal: 'UPSC IAS / IPS',     format: 'JPG', maxSize: '40 KB',  dimensions: '400 × 300 px',  notes: 'Formal attire, light bg',          targetKB: 40  },
+  { portal: 'NSDL PAN Card',      format: 'JPG', maxSize: '50 KB',  dimensions: '200 × 230 px',  notes: 'Colour photo',                     targetKB: 50  },
+  { portal: 'State PSC (General)',format: 'JPG', maxSize: '100 KB', dimensions: '300 × 400 px',  notes: 'Varies by state',                  targetKB: 100 },
+  { portal: 'Railway RRB / RRC',  format: 'JPG', maxSize: '50 KB',  dimensions: '200 × 230 px',  notes: 'Plain white background',           targetKB: 50  },
+  { portal: 'NTA (NEET / JEE)',   format: 'JPG', maxSize: '200 KB', dimensions: '3.5 × 4.5 cm',  notes: 'High quality, light bg',           targetKB: 200 },
+  { portal: 'IBPS Bank Exams',    format: 'JPG', maxSize: '50 KB',  dimensions: '200 × 230 px',  notes: 'Formal, plain bg',                 targetKB: 50  },
+];
+---
+
+<section class="portal-section" id="portal-specs" aria-labelledby="portal-heading">
+  <div class="container">
+
+    <div class="section-header">
+      <p class="mono-eyebrow">Portal Specifications</p>
+      <h2 class="heading-lg" id="portal-heading">Government &amp; Exam Portal Requirements</h2>
+      <p class="body-lg">
+        Official image size limits for common Indian government portals.
+        Always verify against the current official notification.
+      </p>
+    </div>
+
+    <div class="table-outer">
+      <table class="portal-table" role="table" aria-label="Portal image specifications">
+        <thead>
+          <tr class="table-head-row">
+            <th scope="col" class="mono-eyebrow th">Portal</th>
+            <th scope="col" class="mono-eyebrow th">Format</th>
+            <th scope="col" class="mono-eyebrow th">Max Size</th>
+            <th scope="col" class="mono-eyebrow th">Dimensions</th>
+            <th scope="col" class="mono-eyebrow th">Notes</th>
+            <th scope="col" class="mono-eyebrow th">Quick Set</th>
+          </tr>
+        </thead>
+        <tbody>
+          {portals.map((row, i) => (
+            <tr class={i % 2 === 1 ? 'tr tr--alt' : 'tr'}>
+              <td class="td td--portal">{row.portal}</td>
+              <td class="td td--format">
+                <span class="format-tag mono-eyebrow">{row.format}</span>
+              </td>
+              <td class="td">
+                <span class="size-tag mono-eyebrow">{row.maxSize}</span>
+              </td>
+              <td class="td td--dims">{row.dimensions}</td>
+              <td class="td td--notes">{row.notes}</td>
+              <td class="td">
+                <a
+                  href="#studio"
+                  class="btn-sm quick-set-btn"
+                  data-kb={row.targetKB}
+                  aria-label={`Set target to ${row.maxSize} for ${row.portal}`}
+                >
+                  Set {row.maxSize}
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="disclaimer body-sm">
+      * Dimensions and size limits are indicative and may change each recruitment cycle.
+      Refer to the official advertisement for exact requirements.
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .portal-section {
+    padding: 80px 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-header {
+    max-width: 640px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .section-header .body-lg { color: var(--color-text-muted); }
+
+  /* Table container — rounded with overflow clip */
+  .table-outer {
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .portal-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+  }
+
+  /* Head */
+  .table-head-row { background-color: rgba(28,28,28,0.02); }
+  [data-theme="dark"] .table-head-row { background-color: rgba(255,255,255,0.02); }
+
+  .th {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+    color: var(--color-text-muted);
+    font-size: 10px;
+  }
+
+  /* Body rows */
+  .tr { background-color: var(--color-cream-card); }
+  .tr--alt { background-color: rgba(28,28,28,0.015); }
+  [data-theme="dark"] .tr--alt { background-color: rgba(255,255,255,0.015); }
+
+  .td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-size: 13px;
+    vertical-align: middle;
+  }
+  .tr:last-child .td { border-bottom: none; }
+
+  .td--portal {
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--color-text);
+  }
+
+  .td--dims { white-space: nowrap; }
+  .td--notes { color: var(--color-text-muted); min-width: 150px; }
+
+  /* Tags */
+  .format-tag, .size-tag {
+    display: inline-flex;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-cream);
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .format-tag { color: var(--color-text-muted); }
+  .size-tag   { color: var(--color-text); font-weight: 600; }
+
+  .disclaimer {
+    color: var(--color-text-muted);
+    margin-top: 14px;
+    padding: 0 2px;
+    opacity: 0.7;
+    font-size: 12px;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.quick-set-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const kb = parseInt((btn as HTMLElement).dataset.kb ?? '20');
+
+      let matched = false;
+      document.querySelectorAll('.preset-pill').forEach(pill => {
+        const pillKB = parseInt((pill as HTMLElement).dataset.kb ?? '0');
+        if (pillKB === kb) { (pill as HTMLElement).click(); matched = true; }
+      });
+
+      if (!matched) {
+        const customPill = document.querySelector('.preset-pill[data-kb="custom"]') as HTMLElement | null;
+        customPill?.click();
+        const customInput = document.getElementById('custom-kb-input') as HTMLInputElement | null;
+        if (customInput) {
+          customInput.value = String(kb);
+          customInput.dispatchEvent(new Event('input'));
+        }
+      }
+
+      document.getElementById('dropzone')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+</script>

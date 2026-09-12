@@ -1,0 +1,817 @@
+---
+// CompressionStudio.astro — Original clean single-card dropzone with deterministic compression engine
+---
+
+<section class="studio-section" aria-labelledby="studio-heading">
+  <div class="container">
+
+    <!-- Studio heading (sr-only, semantic) -->
+    <h2 id="studio-heading" class="sr-only">Image Compression Studio</h2>
+
+    <div class="studio-card card-elevated">
+
+      <!-- ── Dropzone ──────────────────────────────────── -->
+      <div
+        id="dropzone"
+        class="dropzone"
+        role="button"
+        tabindex="0"
+        aria-label="Upload image: drag and drop or click to browse. Accepts JPG, PNG, WebP up to 25 MB."
+      >
+        <label for="file-input" class="dropzone-label">
+          <!-- Icon container -->
+          <div class="dropzone-icon-wrap" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+
+          <p class="dropzone-title">Drop your photo or signature here</p>
+          <p class="dropzone-sub">JPG, PNG, WebP up to 25 MB · Processed 100% in local memory</p>
+
+          <span class="dropzone-browse btn-sm" aria-hidden="true">Browse files</span>
+
+          <input
+            type="file"
+            id="file-input"
+            accept="image/jpeg,image/png,image/webp"
+            class="sr-only"
+            aria-label="Choose image file"
+          />
+        </label>
+      </div>
+
+      <!-- ── Target KB Segmented Selector ─────────────── -->
+      <div class="presets-section">
+        <p class="presets-heading label-sm">Target file size</p>
+
+        <div class="presets-row">
+          <!-- Segmented pill track -->
+          <div class="preset-track" role="group" aria-label="Target file size presets">
+            <button class="preset-pill active" data-kb="20" type="button" id="preset-20">
+              20 KB
+            </button>
+            <button class="preset-pill" data-kb="50" type="button" id="preset-50">50 KB</button>
+            <button class="preset-pill" data-kb="100" type="button" id="preset-100">100 KB</button>
+            <button class="preset-pill" data-kb="custom" type="button" id="preset-custom">Custom</button>
+          </div>
+
+          <!-- Custom input (hidden until "Custom" selected) -->
+          <div class="custom-input-wrap" id="custom-kb-wrap" aria-hidden="true">
+            <input
+              type="number"
+              id="custom-kb-input"
+              class="custom-kb-input"
+              min="5"
+              max="5000"
+              placeholder="50"
+              aria-label="Custom target size in kilobytes"
+            />
+            <span class="custom-kb-unit body-sm">KB</span>
+          </div>
+        </div>
+
+        <!-- Safe range note -->
+        <p class="safe-range-note body-sm" id="safe-range-note">
+          Output will be guaranteed within&nbsp;
+          <strong id="safe-range-text">19.0 – 19.6 KB</strong>
+          (95%–98% of target)
+        </p>
+      </div>
+
+      <!-- ── Signature Enhancement Toggle ─────────────── -->
+      <div class="sig-row">
+        <label class="sig-toggle" for="sig-mode">
+          <input type="checkbox" id="sig-mode" class="sr-only" />
+          <span class="sig-track" aria-hidden="true">
+            <span class="sig-thumb"></span>
+          </span>
+          <span class="sig-label-wrap">
+            <span class="label-sm sig-label-title">Signature Enhancement</span>
+            <span class="body-sm sig-label-desc">
+              Darken ink, normalize paper to pure white — ideal for scanned documents &amp; signatures
+            </span>
+          </span>
+        </label>
+      </div>
+
+      <!-- ── Progress Overlay ───────────────────────────── -->
+      <div id="progress-overlay" class="progress-overlay" aria-live="polite" aria-busy="true" hidden>
+        <div class="progress-inner">
+          <div class="spinner" aria-hidden="true"></div>
+          <p class="label-sm" style="color: var(--color-text)">Optimizing in your browser…</p>
+          <p class="body-sm" id="progress-hint"></p>
+        </div>
+      </div>
+
+      <!-- ── Result Preview Panel ───────────────────────── -->
+      <div id="preview-panel" class="preview-panel" hidden aria-label="Compression results">
+
+        <!-- Split comparison -->
+        <div class="preview-split">
+
+          <!-- Original side -->
+          <div class="preview-side">
+            <div class="preview-side-label">
+              <span class="mono-eyebrow">Original</span>
+            </div>
+            <div class="preview-img-wrap">
+              <img id="original-thumb" class="preview-img" alt="Original image" />
+            </div>
+            <div class="preview-meta">
+              <span class="preview-size" id="original-size">—</span>
+              <span class="preview-dims body-sm" id="original-dims"></span>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div class="preview-arrow" aria-hidden="true">
+            <div class="arrow-pip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Optimized side -->
+          <div class="preview-side">
+            <div class="preview-side-label">
+              <span class="mono-eyebrow">Optimized</span>
+              <span class="chip-success" id="portal-safe-badge">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Portal Compliant
+              </span>
+            </div>
+            <div class="preview-img-wrap">
+              <img id="output-thumb" class="preview-img" alt="Compressed image" />
+            </div>
+            <div class="preview-meta">
+              <span class="preview-size output-size" id="output-size">—</span>
+              <span class="preview-dims body-sm" id="output-dims"></span>
+            </div>
+            <p class="compliance-text body-sm" id="compliance-text"></p>
+            <p class="latency-text body-sm" id="latency-display"></p>
+          </div>
+
+        </div>
+
+        <!-- Download + reset -->
+        <div class="download-row">
+          <button id="download-btn" class="btn-success download-btn" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span id="download-btn-label">Download</span>
+          </button>
+          <button id="reset-btn" class="btn-secondary" type="button">Start over</button>
+        </div>
+
+      </div>
+
+      <!-- ── Error panel ────────────────────────────────── -->
+      <div id="error-panel" class="error-panel" hidden role="alert">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="error-message" class="body-md"></span>
+      </div>
+
+    </div><!-- /.studio-card -->
+
+    <!-- Privacy note -->
+    <p class="privacy-note mono-eyebrow">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+        style="display:inline;vertical-align:middle">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      &nbsp;Processed 100% locally in your browser memory. Your files never touch a server.
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .studio-section {
+    padding: 8px 0 56px;
+  }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+  }
+
+  /* ── Studio card ─────────────────────────────────────── */
+  .studio-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Section dividers inside card */
+  .studio-card > *:not(:last-child) {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ── Dropzone ─────────────────────────────────────────── */
+  .dropzone {
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .dropzone:hover {
+    background-color: var(--color-hover-bg);
+  }
+  .dropzone.drag-over {
+    background-color: rgba(22, 163, 74, 0.04);
+  }
+
+  .dropzone-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 32px;
+    gap: 10px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .dropzone-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .dropzone:hover .dropzone-icon-wrap {
+    transform: translateY(-2px);
+    border-color: var(--color-border-interactive);
+  }
+
+  [data-theme="dark"] .dropzone-icon-wrap {
+    background-color: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  .dropzone-title {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.2px;
+  }
+
+  .dropzone-sub {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .dropzone-browse {
+    margin-top: 6px;
+    pointer-events: none;
+  }
+
+  /* ── Presets ──────────────────────────────────────────── */
+  .presets-section {
+    padding: 22px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .presets-heading {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .presets-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .custom-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .custom-input-wrap[aria-hidden="true"] { display: none; }
+
+  .custom-kb-input {
+    width: 74px;
+    padding: 7px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-cream);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .custom-kb-input:focus {
+    border-color: var(--color-border-interactive);
+    box-shadow: var(--shadow-focus);
+  }
+  [data-theme="dark"] .custom-kb-input {
+    background-color: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+    color: #e8e6e1;
+  }
+
+  .custom-kb-unit { color: var(--color-text-muted); font-size: 13px; }
+
+  .safe-range-note {
+    color: var(--color-text-muted);
+    font-size: 12px;
+  }
+  .safe-range-note strong { color: var(--color-text); font-weight: 600; }
+
+  /* ── Signature toggle ─────────────────────────────────── */
+  .sig-row {
+    padding: 18px 28px;
+  }
+
+  .sig-toggle {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  .sig-track {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: rgba(28,28,28,0.12);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: background-color 0.2s ease;
+    border: 1px solid var(--color-border);
+  }
+  [data-theme="dark"] .sig-track {
+    background-color: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .sig-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease;
+  }
+
+  #sig-mode:checked + .sig-track {
+    background-color: #1c1c1c;
+    border-color: #1c1c1c;
+  }
+  [data-theme="dark"] #sig-mode:checked + .sig-track {
+    background-color: #e8e6e1;
+    border-color: #e8e6e1;
+  }
+  #sig-mode:checked + .sig-track .sig-thumb {
+    transform: translateX(14px);
+  }
+  [data-theme="dark"] #sig-mode:checked + .sig-track .sig-thumb {
+    background-color: #1c1c1c;
+  }
+
+  .sig-label-wrap { display: flex; flex-direction: column; gap: 2px; }
+  .sig-label-title { color: var(--color-text); }
+  .sig-label-desc  { color: var(--color-text-muted); font-size: 12px; }
+
+  /* ── Progress overlay ─────────────────────────────────── */
+  .progress-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+  }
+
+  .progress-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .spinner {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--color-border);
+    border-top-color: #1c1c1c;
+    border-radius: 50%;
+    animation: spin 0.65s linear infinite;
+  }
+  [data-theme="dark"] .spinner { border-top-color: #e8e6e1; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Preview panel ────────────────────────────────────── */
+  .preview-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .preview-split {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 24px 28px;
+  }
+
+  .preview-side {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .preview-side-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .preview-img-wrap {
+    width: 100%;
+    height: 220px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-cream);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  [data-theme="dark"] .preview-img-wrap {
+    background-color: rgba(255,255,255,0.02);
+    border-color: rgba(255,255,255,0.06);
+  }
+
+  .preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .preview-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .preview-size {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    color: var(--color-text);
+  }
+
+  .output-size { color: #16a34a; }
+
+  .preview-dims {
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+
+  .compliance-text {
+    font-size: 12px;
+    color: #16a34a;
+    font-weight: 500;
+  }
+  [data-theme="dark"] .compliance-text { color: #4ade80; }
+
+  .latency-text {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+  }
+
+  /* Arrow between sides */
+  .preview-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+  }
+
+  .arrow-pip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-cream);
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  /* ── Download row ─────────────────────────────────────── */
+  .download-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 28px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .download-btn {
+    padding: 12px 28px;
+    font-size: 15px;
+  }
+
+  /* ── Error panel ──────────────────────────────────────── */
+  .error-panel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(220,38,38,0.3);
+    background-color: rgba(254,242,242,0.8);
+    color: #dc2626;
+    margin: 20px 0 0;
+  }
+  [data-theme="dark"] .error-panel {
+    background-color: rgba(127,0,0,0.15);
+    border-color: rgba(220,38,38,0.3);
+    color: #f87171;
+  }
+
+  /* ── Privacy note ─────────────────────────────────────── */
+  .privacy-note {
+    text-align: center;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+    margin-top: 16px;
+    font-size: 10px;
+  }
+
+  /* ── Responsive ───────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .presets-section { padding: 18px; }
+    .sig-row { padding: 16px 18px; }
+    .dropzone-label { padding: 32px 18px; }
+
+    .preview-split {
+      grid-template-columns: 1fr;
+      padding: 18px;
+      gap: 14px;
+    }
+    .preview-arrow {
+      padding-top: 0;
+      transform: rotate(90deg);
+    }
+    .download-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>
+
+<script>
+  // ── Preserved State ──────────────────────────────────────────────────────────
+  let selectedKB = 20;
+  let currentFile: File | null = null;
+  let outputBlob: Blob | null = null;
+  let worker: Worker | null = null;
+
+  // ── Element Bindings ────────────────────────────────────────────────────────
+  const dropzone        = document.getElementById('dropzone')!;
+  const fileInput       = document.getElementById('file-input') as HTMLInputElement;
+  const progressOverlay = document.getElementById('progress-overlay')!;
+  const previewPanel    = document.getElementById('preview-panel')!;
+  const errorPanel      = document.getElementById('error-panel')!;
+  const errorMsg        = document.getElementById('error-message')!;
+  const originalThumb   = document.getElementById('original-thumb') as HTMLImageElement;
+  const outputThumb     = document.getElementById('output-thumb') as HTMLImageElement;
+  const originalSize    = document.getElementById('original-size')!;
+  const originalDims    = document.getElementById('original-dims')!;
+  const outputSize      = document.getElementById('output-size')!;
+  const outputDims      = document.getElementById('output-dims')!;
+  const latencyDisplay  = document.getElementById('latency-display')!;
+  const complianceText  = document.getElementById('compliance-text')!;
+  const downloadBtn     = document.getElementById('download-btn')!;
+  const downloadLabel   = document.getElementById('download-btn-label')!;
+  const resetBtn        = document.getElementById('reset-btn')!;
+  const customWrap      = document.getElementById('custom-kb-wrap')!;
+  const customInput     = document.getElementById('custom-kb-input') as HTMLInputElement;
+  const sigModeToggle   = document.getElementById('sig-mode') as HTMLInputElement;
+  const progressHint    = document.getElementById('progress-hint')!;
+  const safeRangeText   = document.getElementById('safe-range-text')!;
+
+  // ── Format helpers ──────────────────────────────────────────────────────────
+  function fmtSize(bytes: number): string {
+    if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+    return `${(bytes / 1024).toFixed(1)} KB`;
+  }
+
+  function updateSafeRange(kb: number) {
+    const lo = (kb * 0.95).toFixed(1);
+    const hi = (kb * 0.98).toFixed(1);
+    safeRangeText.textContent = `${lo} – ${hi} KB`;
+  }
+
+  // ── Preset selection ─────────────────────────────────────────────────────────
+  document.querySelectorAll('.preset-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.preset-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const kb = (btn as HTMLElement).dataset.kb;
+      if (kb === 'custom') {
+        customWrap.removeAttribute('aria-hidden');
+        customWrap.style.display = '';
+        selectedKB = parseInt(customInput.value) || 20;
+        updateSafeRange(selectedKB);
+        customInput.focus();
+      } else {
+        customWrap.setAttribute('aria-hidden', 'true');
+        customWrap.style.display = 'none';
+        selectedKB = parseInt(kb ?? '20');
+        updateSafeRange(selectedKB);
+      }
+    });
+  });
+
+  customInput.addEventListener('input', () => {
+    const v = parseInt(customInput.value);
+    if (v > 0) { selectedKB = v; updateSafeRange(v); }
+  });
+
+  // ── Drag & drop ──────────────────────────────────────────────────────────────
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('drag-over'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('drag-over');
+    const file = e.dataTransfer?.files[0];
+    if (file) handleFile(file);
+  });
+  dropzone.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      fileInput.click();
+    }
+  });
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files?.[0];
+    if (file) handleFile(file);
+  });
+
+  // ── File handling ─────────────────────────────────────────────────────────────
+  function handleFile(file: File) {
+    const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!ALLOWED.includes(file.type)) {
+      showError('Unsupported file type. Please upload a JPG, PNG, or WebP image.');
+      return;
+    }
+    if (file.size > 25 * 1024 * 1024) {
+      showError('File too large. Maximum input size is 25 MB.');
+      return;
+    }
+    currentFile = file;
+    hideError();
+    showOriginalPreview(file);
+    runCompression(file);
+  }
+
+  function showOriginalPreview(file: File) {
+    const url = URL.createObjectURL(file);
+    originalThumb.src = url;
+    originalThumb.onload = () => {
+      originalDims.textContent = `${originalThumb.naturalWidth} × ${originalThumb.naturalHeight} px`;
+    };
+    originalSize.textContent = fmtSize(file.size);
+  }
+
+  // ── Compression ───────────────────────────────────────────────────────────────
+  function runCompression(file: File) {
+    progressOverlay.hidden = false;
+    previewPanel.hidden = true;
+    hideError();
+    progressHint.textContent = `Targeting ${selectedKB} KB…`;
+
+    worker?.terminate();
+
+    try {
+      worker = new Worker(
+        new URL('../workers/compress.worker.ts', import.meta.url),
+        { type: 'module' }
+      );
+      worker.postMessage({ file, targetKB: selectedKB, signatureMode: sigModeToggle.checked });
+      worker.onmessage = (e) => {
+        const { type, payload, message } = e.data;
+        if (type === 'result') {
+          const blob = new Blob([payload.arrayBuffer], { type: payload.mimeType });
+          showResult(blob, payload.byteSize, payload.width, payload.height, payload.latencyMs);
+        } else {
+          showError(message ?? 'Compression failed.');
+        }
+        progressOverlay.hidden = true;
+      };
+      worker.onerror = (err) => {
+        progressOverlay.hidden = true;
+        showError('Worker error: ' + err.message);
+      };
+    } catch {
+      import('../utils/compressionEngine').then(({ compressImage }) => {
+        compressImage({ file, targetKB: selectedKB, signatureMode: sigModeToggle.checked })
+          .then((result) => {
+            progressOverlay.hidden = true;
+            showResult(result.blob, result.byteSize, result.width, result.height, result.latencyMs);
+          })
+          .catch((err) => { progressOverlay.hidden = true; showError(String(err)); });
+      });
+    }
+  }
+
+  function showResult(blob: Blob, byteSize: number, width: number, height: number, latencyMs: number) {
+    outputBlob = blob;
+    const url = URL.createObjectURL(blob);
+    outputThumb.src = url;
+    outputSize.textContent = fmtSize(byteSize);
+    outputDims.textContent = `${width} × ${height} px`;
+    latencyDisplay.textContent = `Processed in ${latencyMs} ms`;
+    complianceText.textContent = `✓ ${fmtSize(byteSize)} — under ${selectedKB} KB limit`;
+    downloadLabel.textContent = `Download ${fmtSize(byteSize)} JPG`;
+    previewPanel.hidden = false;
+  }
+
+  // ── Download ──────────────────────────────────────────────────────────────────
+  downloadBtn.addEventListener('click', () => {
+    if (!outputBlob || !currentFile) return;
+    const baseName = currentFile.name.replace(/\.[^.]+$/, '');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(outputBlob);
+    a.download = `${baseName}_${selectedKB}kb.jpg`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+  });
+
+  // ── Reset ─────────────────────────────────────────────────────────────────────
+  resetBtn.addEventListener('click', () => {
+    currentFile = null; outputBlob = null;
+    worker?.terminate(); worker = null;
+    fileInput.value = '';
+    previewPanel.hidden = true;
+    progressOverlay.hidden = true;
+    hideError();
+    if (originalThumb.src) URL.revokeObjectURL(originalThumb.src);
+    if (outputThumb.src)  URL.revokeObjectURL(outputThumb.src);
+    originalThumb.src = ''; outputThumb.src = '';
+  });
+
+  // ── Error ─────────────────────────────────────────────────────────────────────
+  function showError(msg: string) { errorMsg.textContent = msg; errorPanel.hidden = false; }
+  function hideError() { errorPanel.hidden = true; errorMsg.textContent = ''; }
+
+  // ── Init safe range display ───────────────────────────────────────────────────
+  updateSafeRange(selectedKB);
+</script>

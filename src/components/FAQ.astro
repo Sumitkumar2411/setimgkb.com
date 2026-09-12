@@ -1,0 +1,149 @@
+---
+// FAQ.astro — Lovable-style accordion with smooth chevron rotation + border highlight
+const faqs = [
+  {
+    q: 'How accurate is the KB targeting?',
+    a: `SetImgKB uses a binary-search quality algorithm that converges in 10–12 iterations. The output is guaranteed to land in [target × 0.95, target × 0.98]. For a 20 KB target, this means 19.0 KB to 19.6 KB — well within portal tolerance. The exact byte size displayed before download is always accurate.`,
+  },
+  {
+    q: 'Is my image uploaded to any server?',
+    a: `No. Every step — file reading, canvas downscaling, JPEG re-encoding, and the final download — happens entirely in your browser's memory using native Web APIs (Canvas2D, OffscreenCanvas, Web Workers). Nothing is transmitted over the network. Verify by opening DevTools → Network while using the tool: zero requests are made after page load.`,
+  },
+  {
+    q: 'Does image quality drop significantly at very low KB targets?',
+    a: `For very tight targets like 20 KB, the engine proportionally downscales (max 600×800 px) then optimizes JPEG quality within those dimensions. Results are visually acceptable for passport-sized government ID photos. For document scans, enabling "Signature Enhancement" boosts dark ink contrast and normalises paper to pure white — often yielding better legibility at small sizes.`,
+  },
+  {
+    q: 'My portal is still rejecting my file — what should I check?',
+    a: `Three common reasons beyond file size: (1) Dimension mismatch — some portals enforce specific pixel dimensions (e.g., exactly 100×120 px for SSC). Check the portal's exact specification. (2) File type — SetImgKB always outputs JPEG. If the portal requires PNG, it cannot be used for that step. (3) DPI metadata — a small number of portals scan embedded DPI; SetImgKB outputs standard 72 DPI which is accepted by all portals tested.`,
+  },
+];
+---
+
+<section class="faq-section" id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+
+    <div class="section-header">
+      <p class="mono-eyebrow">FAQ</p>
+      <h2 class="heading-lg" id="faq-heading">Common Questions</h2>
+    </div>
+
+    <div class="faq-list" role="list" aria-label="Frequently asked questions">
+      {faqs.map((item, i) => (
+        <details class="faq-item" id={`faq-${i + 1}`}>
+          <summary class="faq-summary">
+            <span class="faq-q">{item.q}</span>
+            <span class="faq-chevron" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-answer">
+            <p class="faq-answer-text">{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    padding: 80px 0 100px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-header {
+    max-width: 480px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* FAQ list */
+  .faq-list {
+    max-width: 720px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-cream-card);
+    transition: background-color 0.2s ease;
+  }
+  .faq-item:last-child { border-bottom: none; }
+
+  /* Open state — subtle highlight */
+  .faq-item[open] {
+    background-color: rgba(28,28,28,0.015);
+  }
+  [data-theme="dark"] .faq-item[open] {
+    background-color: rgba(255,255,255,0.02);
+  }
+
+  /* Left accent bar on open */
+  .faq-item[open] .faq-summary {
+    border-left: 2px solid rgba(28,28,28,0.25);
+    padding-left: calc(20px - 2px);
+  }
+  [data-theme="dark"] .faq-item[open] .faq-summary {
+    border-left-color: rgba(255,255,255,0.2);
+  }
+
+  .faq-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    border-left: 2px solid transparent;
+    transition: background-color 0.15s ease, border-color 0.2s ease, padding-left 0.2s ease;
+  }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-summary::marker { display: none; }
+  .faq-summary:hover { background-color: var(--color-hover-bg); }
+
+  .faq-q {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .faq-chevron {
+    display: flex;
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    transition: transform 0.25s ease;
+  }
+
+  details[open] .faq-chevron { transform: rotate(180deg); }
+
+  .faq-answer {
+    padding: 0 20px 20px;
+    border-left: 2px solid rgba(28,28,28,0.25);
+    margin-left: 0;
+  }
+  [data-theme="dark"] .faq-answer {
+    border-left-color: rgba(255,255,255,0.2);
+  }
+
+  .faq-answer-text {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 600px;
+  }
+</style>
