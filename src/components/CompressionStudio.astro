@@ -732,6 +732,23 @@
   }
 
   // ── Compression ───────────────────────────────────────────────────────────────
+  function fallbackClientCompression(file: File) {
+    import('../utils/compressionEngine').then(({ compressImage }) => {
+      compressImage({ file, targetKB: selectedKB, signatureMode: sigModeToggle.checked })
+        .then((result) => {
+          progressOverlay.hidden = true;
+          showResult(result.blob, result.byteSize, result.width, result.height, result.latencyMs);
+        })
+        .catch((err) => {
+          progressOverlay.hidden = true;
+          showError('Compression failed: ' + (err instanceof Error ? err.message : String(err)));
+        });
+    }).catch((err) => {
+      progressOverlay.hidden = true;
+      showError('Failed to load compression module: ' + String(err));
+    });
+  }
+
   function runCompression(file: File) {
     progressOverlay.hidden = false;
     previewPanel.hidden = true;
@@ -752,23 +769,15 @@
           const blob = new Blob([payload.arrayBuffer], { type: payload.mimeType });
           showResult(blob, payload.byteSize, payload.width, payload.height, payload.latencyMs);
         } else {
-          showError(message ?? 'Compression failed.');
+          fallbackClientCompression(file);
         }
         progressOverlay.hidden = true;
       };
-      worker.onerror = (err) => {
-        progressOverlay.hidden = true;
-        showError('Worker error: ' + err.message);
+      worker.onerror = () => {
+        fallbackClientCompression(file);
       };
     } catch {
-      import('../utils/compressionEngine').then(({ compressImage }) => {
-        compressImage({ file, targetKB: selectedKB, signatureMode: sigModeToggle.checked })
-          .then((result) => {
-            progressOverlay.hidden = true;
-            showResult(result.blob, result.byteSize, result.width, result.height, result.latencyMs);
-          })
-          .catch((err) => { progressOverlay.hidden = true; showError(String(err)); });
-      });
+      fallbackClientCompression(file);
     }
   }
 
@@ -779,7 +788,7 @@
     outputSize.textContent = fmtSize(byteSize);
     outputDims.textContent = `${width} × ${height} px`;
     latencyDisplay.textContent = `Processed in ${latencyMs} ms`;
-    complianceText.textContent = `✓ ${fmtSize(byteSize)} — under ${selectedKB} KB limit`;
+    complianceText.textContent = `✓ Portal Compliant (< ${selectedKB} KB)`;
     downloadLabel.textContent = `Download ${fmtSize(byteSize)} JPG`;
     previewPanel.hidden = false;
   }
@@ -787,10 +796,9 @@
   // ── Download ──────────────────────────────────────────────────────────────────
   downloadBtn.addEventListener('click', () => {
     if (!outputBlob || !currentFile) return;
-    const baseName = currentFile.name.replace(/\.[^.]+$/, '');
     const a = document.createElement('a');
     a.href = URL.createObjectURL(outputBlob);
-    a.download = `${baseName}_${selectedKB}kb.jpg`;
+    a.download = `setimgkb-image-${selectedKB}kb.jpg`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 10000);
   });

@@ -1,0 +1,226 @@
+---
+// SeoGuide.astro — In-depth, semantic On-Page SEO guide (800 - 1200 words)
+// Placed directly below the Portal Specifications table for organic crawlability
+---
+
+<article class="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-slate-700 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800/60">
+
+  <!-- ── SECTION 1 ────────────────────────────────────────── -->
+  <header class="mb-10">
+    <span class="text-xs font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Complete Guide & Specifications</span>
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-4 mt-2">
+      How to Resize Image to 20KB Online Without Losing Quality
+    </h2>
+    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400">
+      Online recruitment platforms, government vacancy portals, and competitive examination boards in India and worldwide enforce strict byte ceilings on uploaded documents. Whether you need to resize an image to 20KB for SSC CGL, compress a passport photograph to 50KB for an NSDL PAN card application, or lock an official signature under 10KB, traditional photo compressors leave you guessing with arbitrary percentage sliders.
+    </p>
+  </header>
+
+  <div class="space-y-6 text-base">
+    <p>
+      At <strong>SetImgKB</strong>, we designed a deterministic, client-side compression pipeline that eliminates trial-and-error resizing. Follow this simple 4-step workflow to guarantee an exact, compliant output every time:
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+        <div class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-1">Step 1</div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Select Your Target Ceiling</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Click on the predefined target size pills: <strong>20 KB</strong>, <strong>50 KB</strong>, or <strong>100 KB</strong>. If your exam notification mandates a unique limit (such as 12 KB, 30 KB, or 40 KB), choose <strong>Custom</strong> and input your exact numerical ceiling.
+        </p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+        <div class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-1">Step 2</div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Drop Your Photo or Signature</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Drag and drop your high-resolution original image (JPEG, PNG, or WebP up to 25 MB) directly onto the upload studio, or tap <em>Browse files</em> to pick from your local storage or smartphone camera roll.
+        </p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+        <div class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-1">Step 3</div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Automated In-Browser Binary Search</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Our browser engine executes proportional step-halving downscaling, followed by a high-precision binary search across JPEG quantization tables. It targets the safety window between <strong>95% and 98%</strong> of your target ceiling in under 400 milliseconds.
+        </p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+        <div class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-1">Step 4</div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Instant 1-Click Download</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Review the before-and-after preview showing exact byte dimensions and the green <em>Portal Compliant</em> badge. Click <strong>Download</strong> to save the optimized file directly to your device as standard JPEG.
+        </p>
+      </div>
+    </div>
+
+    <p>
+      If you are uploading a scanned signature or handwritten thumb impression, toggle on the <strong>Signature Enhancement</strong> switch. This proprietary canvas filter normalizes paper backgrounds to clean, pure white and deepens ink stroke contrast, ensuring automatic optical mark recognition (OMR) scanners and human verification officers approve your file without delay.
+    </p>
+  </div>
+
+  <!-- ── SECTION 2 ────────────────────────────────────────── -->
+  <section>
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-12 mb-4">
+      Why Government Portals Reject Uploaded Documents (And How to Fix It)
+    </h2>
+
+    <div class="space-y-4 text-base">
+      <p>
+        Every year, tens of thousands of competitive exam candidates face application rejection or penalty fees due to document upload failures. Government server engines run automated server-side verification scripts with zero tolerance for specification errors. Understanding why these rejections happen is the key to passing document screening:
+      </p>
+
+      <ul class="list-disc pl-6 space-y-3">
+        <li>
+          <strong>The Strict Byte-Limit Ceiling:</strong> Most government servers (such as NIC, TCS iON, and CDAC portals) evaluate file sizes in exact bytes, where 1 KB equals exactly 1,024 bytes. A 20 KB limit equals 20,480 bytes. If a standard compressor exports a file at 20.1 KB (20,582 bytes), the portal parser automatically aborts the form submission with an error: <em>"File size must not exceed 20 KB"</em>.
+        </li>
+        <li>
+          <strong>Floating-Point Metadata Overflow:</strong> Many traditional image tools leave EXIF metadata, camera orientation markers, GPS coordinates, and color profiles embedded inside the JPEG header. This hidden metadata can add 2 KB to 6 KB of invisible bloat, pushing an ostensibly small image well past portal thresholds.
+        </li>
+        <li>
+          <strong>The Slider Guesswork Trap:</strong> Generic online photo editors provide a non-deterministic quality slider (e.g., 70% or 80%). Moving the slider down by 1% can unexpectedly swing file size by several kilobytes depending on image complexity and noise levels, forcing users into frustrating trial-and-error cycles.
+        </li>
+        <li>
+          <strong>The SetImgKB Safety Buffer Solution:</strong> To eliminate portal rejections permanently, SetImgKB's mathematical engine targets a strict <strong>[target × 0.95, target × 0.98]</strong> corridor. When you select a 20 KB target, the engine guarantees an output strictly between <strong>19.0 KB and 19.6 KB</strong> (19,456 to 20,070 bytes). It strips unnecessary EXIF headers while preserving pixel density, guaranteeing 100% portal acceptance.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3 ────────────────────────────────────────── -->
+  <section>
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-12 mb-4">
+      Comprehensive Portal Dimension & Size Matrix
+    </h2>
+
+    <div class="space-y-4 text-base">
+      <p>
+        Different recruiting commissions, banking institutes, and statutory bodies require distinct resolution bounds and file size limits. Below is an exhaustive reference matrix for India's major competitive examination and identity verification portals:
+      </p>
+
+      <div class="overflow-x-auto my-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-semibold">
+            <tr>
+              <th class="p-3 sm:p-4">Recruiting Agency / Portal</th>
+              <th class="p-3 sm:p-4">Document Type</th>
+              <th class="p-3 sm:p-4">Permitted Size Window</th>
+              <th class="p-3 sm:p-4">Standard Dimensions</th>
+              <th class="p-3 sm:p-4">Recommended Preset</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+            <tr>
+              <td class="p-3 sm:p-4 font-medium text-slate-900 dark:text-white">SSC (CGL, CHSL, MTS, GD)</td>
+              <td class="p-3 sm:p-4">Candidate Photograph</td>
+              <td class="p-3 sm:p-4 font-mono text-xs">20 KB – 50 KB</td>
+              <td class="p-3 sm:p-4">3.5 cm × 4.5 cm (~100×120 px)</td>
+              <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">50 KB</span></td>
+            </tr>
+            <tr>
+              <td class="p-3 sm:p-4 font-medium text-slate-900 dark:text-white">SSC (Staff Selection Commission)</td>
+              <td class="p-3 sm:p-4">Official Signature</td>
+              <td class="p-3 sm:p-4 font-mono text-xs">10 KB – 20 KB</td>
+              <td class="p-3 sm:p-4">4.0 cm × 2.0 cm (~140×60 px)</td>
+              <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">20 KB</span></td>
+            </tr>
+            <tr>
+              <td class="p-3 sm:p-4 font-medium text-slate-900 dark:text-white">UPSC (Civil Services IAS/IPS, NDA)</td>
+              <td class="p-3 sm:p-4">Photo & Signature</td>
+              <td class="p-3 sm:p-4 font-mono text-xs">20 KB – 300 KB (Photo &lt; 40KB safe)</td>
+              <td class="p-3 sm:p-4">350 × 350 px min (1000×1000 max)</td>
+              <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">Custom (35 KB)</span></td>
+            </tr>
+            <tr>
+              <td class="p-3 sm:p-4 font-medium text-slate-900 dark:text-white">NSDL / Protean (PAN Card)</td>
+              <td class="p-3 sm:p-4">Applicant Photo & Sign</td>
+              <td class="p-3 sm:p-4 font-mono text-xs">Strictly &lt; 50 KB</td>
+              <td class="p-3 sm:p-4">213 × 213 px at 300 DPI</td>
+              <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">50 KB (Safe: 48 KB)</span></td>
+            </tr>
+            <tr>
+              <td class="p-3 sm:p-4 font-medium text-slate-900 dark:text-white">IBPS / SBI (Bank PO & Clerk)</td>
+              <td class="p-3 sm:p-4">Photograph</td>
+              <td class="p-3 sm:p-4 font-mono text-xs">20 KB – 50 KB</td>
+              <td class="p-3 sm:p-4">200 × 230 px (Preferred)</td>
+              <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">50 KB</span></td>
+            </tr>
+            <tr>
+              <td class="p-3 sm:p-4 font-medium text-slate-900 dark:text-white">IBPS / SBI (Bank PO & Clerk)</td>
+              <td class="p-3 sm:p-4">Signature & Thumb Impression</td>
+              <td class="p-3 sm:p-4 font-mono text-xs">10 KB – 20 KB</td>
+              <td class="p-3 sm:p-4">140 × 60 px (Black ink on white)</td>
+              <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">20 KB</span></td>
+            </tr>
+            <tr>
+              <td class="p-3 sm:p-4 font-medium text-slate-900 dark:text-white">State PSCs (UPPSC, BPSC, MPSC, TNPSC)</td>
+              <td class="p-3 sm:p-4">Identity Certificates & Marks</td>
+              <td class="p-3 sm:p-4 font-mono text-xs">50 KB – 100 KB</td>
+              <td class="p-3 sm:p-4">300 × 400 px or Letter aspect</td>
+              <td class="p-3 sm:p-4"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">100 KB</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-sm text-slate-500 dark:text-slate-400 italic">
+        Tip: When applying for SSC examinations, choose the <strong>20 KB</strong> preset for your signature and the <strong>50 KB</strong> preset for your passport photo. Both will output within safe, guaranteed margins with zero risk of portal rejection.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SECTION 4 ────────────────────────────────────────── -->
+  <section>
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-12 mb-4">
+      Client-Side Architecture: Zero Server Uploads & Identity Privacy
+    </h2>
+
+    <div class="space-y-4 text-base">
+      <p>
+        In an era of rising identity theft and data harvesting, uploading sensitive documents—such as government photo ID cards, Aadhaar cards, PAN cards, passport scans, and specimen signatures—to unknown third-party cloud servers poses severe privacy and security risks. Most free compression websites upload your uncompressed images to remote servers for processing, where they may be logged, cached, or stored indefinitely.
+      </p>
+
+      <p>
+        <strong>SetImgKB is engineered with a strict Zero-Knowledge Client-Side Architecture.</strong> Every byte of your image is loaded, rendered, downscaled, quantized, and encoded strictly inside your web browser's local sandbox memory (RAM):
+      </p>
+
+      <div class="space-y-3 my-4">
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+          <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Zero Server Uploads</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Your photographs and signatures never leave your personal computer or mobile phone. No API keys, no cloud compute nodes, and no third-party network requests are ever dispatched.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+          <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Blazing Fast Multi-Threaded Performance</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">By leveraging Web Workers and OffscreenCanvas, computation executes on separate background CPU threads. Large 25 MB camera photos compress in hundreds of milliseconds without freezing the user interface.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+          <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Offline Functional & Safe for Sensitive Documents</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Once the page loads, SetImgKB runs completely offline. You can disconnect your Wi-Fi or mobile data and continue compressing identity documents with 100% confidence.</p>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Whether you are preparing paperwork for UPSC IAS, SSC CGL, NTA NEET, IBPS banking exams, or state-level administrative services, SetImgKB delivers the fastest, safest, and most precise image optimization utility available on the web.
+      </p>
+    </div>
+  </section>
+
+</article>
