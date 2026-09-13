@@ -1,5 +1,6 @@
 ---
-// FAQ.astro — Lovable-style accordion with smooth chevron rotation + border highlight
+// FAQ.astro — Coinbase Accordion Specification with High-Intent "People Also Search" Queries
+// Prominent bold H2 (weight 700), readable 16px / leading-relaxed answers, centered presentation.
 const faqs = [
   {
     q: 'How accurate is the KB targeting?',
@@ -17,24 +18,44 @@ const faqs = [
     q: 'My portal is still rejecting my file — what should I check?',
     a: `Three common reasons beyond file size: (1) Dimension mismatch — some portals enforce specific pixel dimensions (e.g., exactly 100×120 px for SSC). Check the portal's exact specification. (2) File type — SetImgKB always outputs JPEG. If the portal requires PNG, it cannot be used for that step. (3) DPI metadata — a small number of portals scan embedded DPI; SetImgKB outputs standard 72 DPI which is accepted by all portals tested.`,
   },
+  {
+    q: 'How to resize image to 20KB for SSC and UPSC online applications?',
+    a: `Select the 20 KB preset on SetImgKB, drop your passport photo or signature, and our binary search engine automatically compresses it to between 19.0 KB and 19.6 KB. This strictly satisfies the 20 KB ceiling required by SSC CGL, CHSL, MTS, and UPSC online registration forms with zero risk of rejection.`,
+  },
+  {
+    q: 'How do I compress a signature to under 10KB or 20KB without blur?',
+    a: `Toggle on the "Signature Enhancement" switch before dropping your signature scan. This filter sharpens dark ink strokes, converts off-white or shadowed paper backgrounds to pure crisp white, and optimizes quantization tables so fine pen strokes stay clean and legible even below 20 KB.`,
+  },
+  {
+    q: 'Can I resize photo to 50KB for NSDL PAN Card on my mobile phone?',
+    a: `Yes. SetImgKB runs 100% in mobile Chrome, Safari, and Firefox. Simply select the 50 KB preset on your smartphone, select your photo from the camera roll, and download the portal-ready JPEG locked between 47.5 KB and 49.0 KB without installing any apps.`,
+  },
+  {
+    q: 'How to reduce photo size in KB without losing clarity or sharpness?',
+    a: `SetImgKB uses multi-step proportional canvas halving combined with intelligent binary search over JPEG quality tables. By downscaling in discrete geometric steps rather than aggressive bilinear squashing, edge sharpness and facial features are preserved while eliminating excess byte weight.`,
+  },
 ];
 ---
 
-<section class="faq-section" id="faq" aria-labelledby="faq-heading">
-  <div class="container">
+<div class="w-full max-w-4xl mx-auto" aria-labelledby="faq-heading">
 
+    <!-- Centered Section Header with Bold H2 -->
     <div class="section-header">
-      <p class="mono-eyebrow">FAQ</p>
-      <h2 class="heading-lg" id="faq-heading">Common Questions</h2>
+      <span class="mono-eyebrow">Frequently Asked Questions</span>
+      <h2 class="display-md" id="faq-heading">Frequently Asked Questions &amp; Search Queries</h2>
+      <p class="body-lg">
+        Answers to high-intent questions regarding exact KB compression, exam portal compliance, mobile resizing, and data security.
+      </p>
     </div>
 
+    <!-- Centered FAQ List (Coinbase 24px Container) -->
     <div class="faq-list" role="list" aria-label="Frequently asked questions">
       {faqs.map((item, i) => (
         <details class="faq-item" id={`faq-${i + 1}`}>
           <summary class="faq-summary">
             <span class="faq-q">{item.q}</span>
             <span class="faq-chevron" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
@@ -47,103 +68,127 @@ const faqs = [
       ))}
     </div>
 
-  </div>
-</section>
+</div>
 
 <style>
-  .faq-section {
-    padding: 80px 0 100px;
-    border-top: 1px solid var(--color-border);
-  }
-
+  /* Centered Section Header */
   .section-header {
-    max-width: 480px;
-    margin-bottom: 32px;
+    max-width: 720px;
+    margin: 0 auto 56px auto;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
   }
 
-  /* FAQ list */
+  .section-header .display-md {
+    font-size: clamp(26px, 3.8vw, 38px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+    color: var(--color-ink);
+  }
+
+  .section-header .body-lg {
+    max-width: 580px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-body);
+  }
+
+  /* Centered FAQ list container (24px Radius) */
   .faq-list {
-    max-width: 720px;
-    border: 1px solid var(--color-border);
-    border-radius: 14px;
+    max-width: 860px;
+    margin: 0 auto;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-xl);
     overflow: hidden;
+    background-color: var(--color-surface-card);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   }
 
   .faq-item {
-    border-bottom: 1px solid var(--color-border);
-    background-color: var(--color-cream-card);
+    border-bottom: 1px solid var(--color-hairline);
+    background-color: var(--color-surface-card);
     transition: background-color 0.2s ease;
   }
-  .faq-item:last-child { border-bottom: none; }
 
-  /* Open state — subtle highlight */
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
   .faq-item[open] {
-    background-color: rgba(28,28,28,0.015);
-  }
-  [data-theme="dark"] .faq-item[open] {
-    background-color: rgba(255,255,255,0.02);
-  }
-
-  /* Left accent bar on open */
-  .faq-item[open] .faq-summary {
-    border-left: 2px solid rgba(28,28,28,0.25);
-    padding-left: calc(20px - 2px);
-  }
-  [data-theme="dark"] .faq-item[open] .faq-summary {
-    border-left-color: rgba(255,255,255,0.2);
+    background-color: var(--color-surface-soft);
   }
 
   .faq-summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    padding: 20px;
+    gap: 20px;
+    padding: 24px 30px;
     cursor: pointer;
     list-style: none;
     user-select: none;
-    border-left: 2px solid transparent;
-    transition: background-color 0.15s ease, border-color 0.2s ease, padding-left 0.2s ease;
+    transition: background-color 0.15s ease;
   }
-  .faq-summary::-webkit-details-marker { display: none; }
-  .faq-summary::marker { display: none; }
-  .faq-summary:hover { background-color: var(--color-hover-bg); }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-summary::marker {
+    display: none;
+  }
+
+  .faq-summary:hover {
+    background-color: var(--color-hover-bg);
+  }
 
   .faq-q {
     font-family: var(--font-sans);
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 700;
     letter-spacing: -0.2px;
-    color: var(--color-text);
+    color: var(--color-ink);
     line-height: 1.4;
   }
 
   .faq-chevron {
     display: flex;
     flex-shrink: 0;
-    color: var(--color-text-muted);
-    transition: transform 0.25s ease;
+    color: var(--color-body);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  details[open] .faq-chevron { transform: rotate(180deg); }
+  details[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
 
   .faq-answer {
-    padding: 0 20px 20px;
-    border-left: 2px solid rgba(28,28,28,0.25);
-    margin-left: 0;
-  }
-  [data-theme="dark"] .faq-answer {
-    border-left-color: rgba(255,255,255,0.2);
+    padding: 0 30px 26px;
   }
 
   .faq-answer-text {
     font-family: var(--font-sans);
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.7;
-    color: var(--color-text-muted);
-    max-width: 600px;
+    color: var(--color-body);
+  }
+
+  @media (max-width: 640px) {
+    .faq-section {
+      padding: 64px 0 80px;
+    }
+    .faq-summary {
+      padding: 20px 18px;
+    }
+    .faq-answer {
+      padding: 0 18px 20px;
+    }
+    .faq-q {
+      font-size: 16px;
+    }
   }
 </style>

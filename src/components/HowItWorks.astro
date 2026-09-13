@@ -1,199 +1,210 @@
 ---
-// HowItWorks.astro — Lovable bento card style
+// HowItWorks.astro — Coinbase 3-up Feature Card Grid Specification
+// Centered presentation, 24px corner radii, 32px padding, circular icon plates.
 ---
 
-<section class="hiw-section" id="how-it-works" aria-labelledby="hiw-heading">
-  <div class="container">
+<div class="w-full max-w-4xl mx-auto" aria-labelledby="hiw-heading">
 
+    <!-- Centered Section Header (Fixes left-aligned text bleed) -->
     <div class="section-header">
-      <p class="mono-eyebrow">How It Works</p>
-      <h2 class="heading-lg" id="hiw-heading">The Exact KB Ceiling, Explained</h2>
+      <span class="mono-eyebrow">Deterministic Architecture</span>
+      <h2 class="display-md" id="hiw-heading">The Exact KB Ceiling, Explained</h2>
       <p class="body-lg">
-        A deterministic three-phase pipeline runs entirely in your browser — no network round-trips, no waiting.
+        A deterministic three-phase pipeline runs entirely in your browser — zero server round-trips, zero latency.
       </p>
     </div>
 
-    <ol class="bento-grid" role="list" aria-label="Compression steps">
+    <!-- Coinbase 3-Up Feature Grid -->
+    <ol class="feature-grid" role="list" aria-label="Compression steps">
 
-      <li class="bento-card">
-        <div class="bento-inner">
-          <div class="bento-step-badge">
-            <span class="mono-eyebrow">01</span>
-          </div>
-          <div class="bento-icon" aria-hidden="true">
+      <!-- Step 1 -->
+      <li class="feature-card">
+        <div class="card-top">
+          <div class="icon-plate" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3"/>
               <path d="M12 1v4M12 19v4M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
             </svg>
           </div>
-          <h3 class="bento-title">Select Your Target</h3>
-          <p class="bento-desc">
-            Choose a preset (20 KB, 50 KB, 100 KB) or set a custom ceiling.
-            The engine guarantees output in <strong>[target × 0.95, target × 0.98]</strong> —
-            for 20 KB, that's 19.0–19.6 KB.
-          </p>
-          <div class="bento-detail">
-            <span class="mono-eyebrow">Target → [KB × 0.95, KB × 0.98]</span>
-          </div>
+          <span class="badge-pill">Step 01</span>
+        </div>
+
+        <h3 class="title-md card-title">Select Your Target</h3>
+        <p class="body-md card-desc">
+          Choose a preset (20 KB, 50 KB, 100 KB) or set a custom ceiling.
+          The engine guarantees output in <strong>[target × 0.95, target × 0.98]</strong> —
+          for 20 KB, that's 19.0–19.6 KB.
+        </p>
+
+        <div class="card-footer">
+          <span class="mono-eyebrow">Target → [KB × 0.95, KB × 0.98]</span>
         </div>
       </li>
 
-      <li class="bento-card bento-card--featured">
-        <div class="bento-inner">
-          <div class="bento-step-badge">
-            <span class="mono-eyebrow">02</span>
-          </div>
-          <div class="bento-icon" aria-hidden="true">
+      <!-- Step 2 (Featured Card) -->
+      <li class="feature-card feature-card--featured">
+        <div class="card-top">
+          <div class="icon-plate" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
             </svg>
           </div>
-          <h3 class="bento-title">Binary In-Memory Optimization</h3>
-          <p class="bento-desc">
-            Proportional downscaling via ≤2× halving steps on OffscreenCanvas preserves
-            edge contrast. Then binary search over JPEG quality (0.01–0.99) converges
-            in 10–12 iterations — no brute force, no uploads.
-          </p>
-          <div class="bento-detail">
-            <span class="mono-eyebrow">≤12 iterations · Zero server round-trips</span>
-          </div>
+          <span class="badge-pill">Step 02</span>
+        </div>
+
+        <h3 class="title-md card-title">Binary In-Memory Optimization</h3>
+        <p class="body-md card-desc">
+          Proportional downscaling via ≤2× halving steps on OffscreenCanvas preserves
+          edge contrast. Then binary search over JPEG quality (0.01–0.99) converges
+          in 10–12 iterations — no brute force, no uploads.
+        </p>
+
+        <div class="card-footer">
+          <span class="mono-eyebrow">≤12 iterations · Zero server round-trips</span>
         </div>
       </li>
 
-      <li class="bento-card">
-        <div class="bento-inner">
-          <div class="bento-step-badge">
-            <span class="mono-eyebrow">03</span>
-          </div>
-          <div class="bento-icon" aria-hidden="true">
+      <!-- Step 3 -->
+      <li class="feature-card">
+        <div class="card-top">
+          <div class="icon-plate" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/>
               <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
           </div>
-          <h3 class="bento-title">Portal-Ready Download</h3>
-          <p class="bento-desc">
-            Your compressed file downloads instantly from browser memory.
-            Standard JPEG accepted by SSC, UPSC, NSDL PAN, and most
-            State exam portals — exact byte size shown before download.
-          </p>
-          <div class="bento-detail">
-            <span class="mono-eyebrow">Standard JPEG · Exact size before download</span>
-          </div>
+          <span class="badge-pill">Step 03</span>
+        </div>
+
+        <h3 class="title-md card-title">Portal-Ready Download</h3>
+        <p class="body-md card-desc">
+          Your compressed file downloads instantly from browser memory.
+          Standard JPEG accepted by SSC, UPSC, NSDL PAN, and most
+          State exam portals — exact byte size shown before download.
+        </p>
+
+        <div class="card-footer">
+          <span class="mono-eyebrow">Standard JPEG · Exact size before download</span>
         </div>
       </li>
 
     </ol>
-  </div>
-</section>
+</div>
 
 <style>
-  .hiw-section {
-    padding: 80px 0;
-    border-top: 1px solid var(--color-border);
-  }
-
+  /* Centered Section Header — fixes left-edge text bleeds */
   .section-header {
-    max-width: 580px;
-    margin-bottom: 40px;
+    max-width: 720px;
+    margin: 0 auto 56px auto;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
   }
 
-  .section-header .body-lg { color: var(--color-text-muted); }
+  .section-header .display-md {
+    font-size: clamp(26px, 3.8vw, 38px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+    color: var(--color-ink);
+  }
 
-  /* Bento grid */
-  .bento-grid {
+  .section-header .body-lg {
+    max-width: 580px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-body);
+  }
+
+  /* Coinbase 3-up Feature Grid */
+  .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 24px;
     list-style: none;
     padding: 0;
+    margin: 0;
   }
 
-  .bento-card {
-    background-color: var(--color-cream-card);
-    border: 1px solid var(--color-border);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: border-color 0.2s ease;
-  }
-  .bento-card:hover { border-color: rgba(28,28,28,0.25); }
-  [data-theme="dark"] .bento-card:hover { border-color: rgba(255,255,255,0.15); }
-
-  /* Featured center card — slightly elevated background */
-  .bento-card--featured {
-    background-color: var(--color-cream);
-    border-color: rgba(28,28,28,0.12);
-  }
-  [data-theme="dark"] .bento-card--featured {
-    background-color: rgba(255,255,255,0.03);
-    border-color: rgba(255,255,255,0.12);
-  }
-
-  .bento-inner {
-    padding: 24px;
+  .feature-card {
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-xl);
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    height: 100%;
+    gap: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
 
-  /* Step badge */
-  .bento-step-badge {
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border-color: var(--color-body);
+  }
+
+  [data-theme="dark"] .feature-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .feature-card--featured {
+    background-color: var(--color-surface-soft);
+  }
+
+  [data-theme="dark"] .feature-card--featured {
+    background-color: var(--color-surface-card);
+  }
+
+  .card-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  /* Icon */
-  .bento-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-    background-color: var(--color-cream);
-    color: var(--color-text-muted);
-  }
-  [data-theme="dark"] .bento-icon {
-    background-color: rgba(255,255,255,0.04);
+  .card-title {
+    color: var(--color-ink);
+    margin-top: 4px;
   }
 
-  .bento-title {
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    color: var(--color-text);
-    line-height: 1.3;
-  }
-
-  .bento-desc {
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--color-text-muted);
+  .card-desc {
+    color: var(--color-body);
     flex: 1;
+    line-height: 1.6;
   }
 
-  .bento-desc strong { color: var(--color-text); font-weight: 600; }
-
-  .bento-detail {
-    padding-top: 12px;
-    border-top: 1px solid var(--color-border);
+  .card-desc strong {
+    color: var(--color-ink);
+    font-weight: 600;
   }
 
-  .bento-detail .mono-eyebrow { color: var(--color-text-muted); }
+  .card-footer {
+    padding-top: 16px;
+    border-top: 1px solid var(--color-hairline);
+  }
 
-  @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } }
-  @media (min-width: 600px) and (max-width: 900px) {
-    .bento-grid { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 960px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 960px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .feature-card:last-child {
+      grid-column: 1 / -1;
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
   }
 </style>

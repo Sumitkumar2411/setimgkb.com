@@ -2,8 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://setimgkb.com/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://setimgkb.com/about-us</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://setimgkb.com/privacy-policy</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://setimgkb.com/terms</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://setimgkb.com/contact-us</loc>
+    <priority>0.5</priority>
   </url>
 </urlset>

@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="404 Page Not Found – SetImgKB"
+  description="The page or document specification you requested does not exist. Return to SetImgKB to resize photos and signatures to exact KB ceilings."
+>
+  <Header />
+
+  <main class="w-full min-h-[72vh] bg-white dark:bg-slate-950 flex flex-col items-center justify-center text-center px-4 sm:px-6 py-16">
+    <div class="max-w-lg mx-auto flex flex-col items-center">
+      
+      <!-- Error Pill Badge -->
+      <div class="mb-4">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-200/80 dark:border-rose-800">
+          <span class="w-2 h-2 rounded-full bg-rose-500 inline-block animate-ping" aria-hidden="true"></span>
+          404 Error
+        </span>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+        Page Not Found
+      </h1>
+
+      <!-- Subtext -->
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+        The page or document specification you requested does not exist or has been moved.
+      </p>
+
+      <!-- Primary Elevated CTA -->
+      <div class="flex flex-col sm:flex-row items-center gap-3">
+        <a href="/" class="btn-primary">
+          Return to Resizer Home
+        </a>
+        <a href="/#portal-specs" class="btn-secondary">
+          View Portal Specs
+        </a>
+      </div>
+
+      <!-- Quick Helpful Links -->
+      <div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800/80 w-full">
+        <p class="text-xs text-slate-400 dark:text-slate-500 mb-3 font-medium">Quick links</p>
+        <div class="flex flex-wrap justify-center gap-4 text-xs font-semibold text-slate-600 dark:text-slate-300">
+          <a href="/#how-it-works" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">How it works</a>
+          <span>&middot;</span>
+          <a href="/#portal-specs" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portal specs</a>
+          <span>&middot;</span>
+          <a href="/#faq" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">FAQ</a>
+          <span>&middot;</span>
+          <a href="/about-us" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

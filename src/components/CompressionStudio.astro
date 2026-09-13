@@ -1,5 +1,6 @@
 ---
-// CompressionStudio.astro — Original clean single-card dropzone with deterministic compression engine
+// CompressionStudio.astro — Coinbase Design System Specification
+// Preserves 100% of DOM IDs, event handlers, and compression engine bindings.
 ---
 
 <section class="studio-section" aria-labelledby="studio-heading">
@@ -19,10 +20,10 @@
         aria-label="Upload image: drag and drop or click to browse. Accepts JPG, PNG, WebP up to 25 MB."
       >
         <label for="file-input" class="dropzone-label">
-          <!-- Icon container -->
-          <div class="dropzone-icon-wrap" aria-hidden="true">
+          <!-- Circular Icon Plate (Coinbase Full Radius) -->
+          <div class="dropzone-icon-plate" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="17 8 12 3 7 8"/>
               <line x1="12" y1="3" x2="12" y2="15"/>
@@ -30,9 +31,9 @@
           </div>
 
           <p class="dropzone-title">Drop your photo or signature here</p>
-          <p class="dropzone-sub">JPG, PNG, WebP up to 25 MB · Processed 100% in local memory</p>
+          <p class="dropzone-sub">JPG, PNG, WebP up to 25 MB · Processed 100% locally in browser memory</p>
 
-          <span class="dropzone-browse btn-sm" aria-hidden="true">Browse files</span>
+          <span class="dropzone-browse" aria-hidden="true">Browse files</span>
 
           <input
             type="file"
@@ -49,7 +50,7 @@
         <p class="presets-heading label-sm">Target file size</p>
 
         <div class="presets-row">
-          <!-- Segmented pill track -->
+          <!-- Segmented Pill Track (Coinbase 100px Pill Geometry) -->
           <div class="preset-track" role="group" aria-label="Target file size presets">
             <button class="preset-pill active" data-kb="20" type="button" id="preset-20">
               20 KB
@@ -59,7 +60,7 @@
             <button class="preset-pill" data-kb="custom" type="button" id="preset-custom">Custom</button>
           </div>
 
-          <!-- Custom input (hidden until "Custom" selected) -->
+          <!-- Custom Input (Coinbase Pill Input) -->
           <div class="custom-input-wrap" id="custom-kb-wrap" aria-hidden="true">
             <input
               type="number"
@@ -74,11 +75,11 @@
           </div>
         </div>
 
-        <!-- Safe range note -->
+        <!-- Safe Range Indicator -->
         <p class="safe-range-note body-sm" id="safe-range-note">
-          Output will be guaranteed within&nbsp;
+          Output guaranteed within&nbsp;
           <strong id="safe-range-text">19.0 – 19.6 KB</strong>
-          (95%–98% of target)
+          &nbsp;(95%–98% safety corridor)
         </p>
       </div>
 
@@ -92,7 +93,7 @@
           <span class="sig-label-wrap">
             <span class="label-sm sig-label-title">Signature Enhancement</span>
             <span class="body-sm sig-label-desc">
-              Darken ink, normalize paper to pure white — ideal for scanned documents &amp; signatures
+              Darken ink strokes, normalize paper to pure white — recommended for scans &amp; signatures
             </span>
           </span>
         </label>
@@ -102,7 +103,7 @@
       <div id="progress-overlay" class="progress-overlay" aria-live="polite" aria-busy="true" hidden>
         <div class="progress-inner">
           <div class="spinner" aria-hidden="true"></div>
-          <p class="label-sm" style="color: var(--color-text)">Optimizing in your browser…</p>
+          <p class="label-sm" style="color: var(--color-ink)">Optimizing in local memory…</p>
           <p class="body-sm" id="progress-hint"></p>
         </div>
       </div>
@@ -110,7 +111,7 @@
       <!-- ── Result Preview Panel ───────────────────────── -->
       <div id="preview-panel" class="preview-panel" hidden aria-label="Compression results">
 
-        <!-- Split comparison -->
+        <!-- Split Comparison -->
         <div class="preview-split">
 
           <!-- Original side -->
@@ -122,12 +123,12 @@
               <img id="original-thumb" class="preview-img" alt="Original image" />
             </div>
             <div class="preview-meta">
-              <span class="preview-size" id="original-size">—</span>
+              <span class="preview-size number-display" id="original-size">—</span>
               <span class="preview-dims body-sm" id="original-dims"></span>
             </div>
           </div>
 
-          <!-- Arrow -->
+          <!-- Arrow Divider -->
           <div class="preview-arrow" aria-hidden="true">
             <div class="arrow-pip">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -143,8 +144,8 @@
             <div class="preview-side-label">
               <span class="mono-eyebrow">Optimized</span>
               <span class="chip-success" id="portal-safe-badge">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 Portal Compliant
@@ -154,7 +155,7 @@
               <img id="output-thumb" class="preview-img" alt="Compressed image" />
             </div>
             <div class="preview-meta">
-              <span class="preview-size output-size" id="output-size">—</span>
+              <span class="preview-size number-display output-size" id="output-size">—</span>
               <span class="preview-dims body-sm" id="output-dims"></span>
             </div>
             <p class="compliance-text body-sm" id="compliance-text"></p>
@@ -163,7 +164,7 @@
 
         </div>
 
-        <!-- Download + reset -->
+        <!-- Download + Reset Action Row -->
         <div class="download-row">
           <button id="download-btn" class="btn-success download-btn" type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -179,9 +180,9 @@
 
       </div>
 
-      <!-- ── Error panel ────────────────────────────────── -->
+      <!-- ── Error Panel ────────────────────────────────── -->
       <div id="error-panel" class="error-panel" hidden role="alert">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10"/>
           <line x1="12" y1="8" x2="12" y2="12"/>
@@ -192,14 +193,14 @@
 
     </div><!-- /.studio-card -->
 
-    <!-- Privacy note -->
-    <p class="privacy-note mono-eyebrow">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-        style="display:inline;vertical-align:middle">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    <!-- Privacy Note (Coinbase Monochromatic Institutional Trust) -->
+    <p class="privacy-note">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
       </svg>
-      &nbsp;Processed 100% locally in your browser memory. Your files never touch a server.
+      <span>Processed 100% locally in your browser memory. Your files never touch a remote server.</span>
     </p>
 
   </div>
@@ -207,42 +208,51 @@
 
 <style>
   .studio-section {
-    padding: 8px 0 56px;
+    padding: 0 0 32px;
   }
 
   .sr-only {
-    position: absolute; width: 1px; height: 1px; padding: 0;
-    margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
-    white-space: nowrap; border: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
-  /* ── Studio card ─────────────────────────────────────── */
+  /* ── Studio Card (Coinbase 24px Radius) ──────────────── */
   .studio-card {
     display: flex;
     flex-direction: column;
-    gap: 0;
     padding: 0;
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-hairline);
+    background-color: var(--color-surface-card);
     max-width: 860px;
     margin: 0 auto;
   }
 
-  /* Section dividers inside card */
+  /* Hairline dividers inside card */
   .studio-card > *:not(:last-child) {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-hairline);
   }
 
   /* ── Dropzone ─────────────────────────────────────────── */
   .dropzone {
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: background-color 0.2s ease;
   }
+
   .dropzone:hover {
     background-color: var(--color-hover-bg);
   }
+
   .dropzone.drag-over {
-    background-color: rgba(22, 163, 74, 0.04);
+    background-color: rgba(0, 82, 255, 0.04);
   }
 
   .dropzone-label {
@@ -250,221 +260,248 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 48px 32px;
-    gap: 10px;
+    padding: 52px 32px;
+    gap: 12px;
     cursor: pointer;
     text-align: center;
   }
 
-  .dropzone-icon-wrap {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-cream);
+  .dropzone-icon-plate {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-hairline);
+    background-color: var(--color-surface-strong);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-text-muted);
+    color: var(--color-ink);
     margin-bottom: 4px;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
-  .dropzone:hover .dropzone-icon-wrap {
-    transform: translateY(-2px);
-    border-color: var(--color-border-interactive);
+    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   }
 
-  [data-theme="dark"] .dropzone-icon-wrap {
-    background-color: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.08);
+  .dropzone:hover .dropzone-icon-plate {
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .dropzone-title {
     font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--color-text);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-ink);
     letter-spacing: -0.2px;
   }
 
   .dropzone-sub {
     font-family: var(--font-sans);
-    font-size: 13px;
-    color: var(--color-text-muted);
-    line-height: 1.5;
+    font-size: 15px;
+    color: var(--color-body);
+    line-height: 1.6;
   }
 
   .dropzone-browse {
-    margin-top: 6px;
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 8px 22px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface-strong);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid transparent;
     pointer-events: none;
+    transition: background-color 0.15s ease;
   }
 
-  /* ── Presets ──────────────────────────────────────────── */
+  .dropzone:hover .dropzone-browse {
+    background-color: var(--color-hairline);
+  }
+
+  /* ── Presets Section ──────────────────────────────────── */
   .presets-section {
-    padding: 22px 28px;
+    padding: 24px 32px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
 
   .presets-heading {
-    color: var(--color-text);
-    font-weight: 500;
+    color: var(--color-ink);
+    font-weight: 700;
+    font-size: 15px;
   }
 
   .presets-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
   }
 
   .custom-input-wrap {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
   }
-  .custom-input-wrap[aria-hidden="true"] { display: none; }
+
+  .custom-input-wrap[aria-hidden="true"] {
+    display: none;
+  }
 
   .custom-kb-input {
-    width: 74px;
-    padding: 7px 10px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-cream);
-    color: var(--color-text);
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 500;
+    width: 80px;
+    height: 38px;
+    padding: 8px 12px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
     outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  }
-  .custom-kb-input:focus {
-    border-color: var(--color-border-interactive);
-    box-shadow: var(--shadow-focus);
-  }
-  [data-theme="dark"] .custom-kb-input {
-    background-color: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.1);
-    color: #e8e6e1;
+    transition: border-color 0.15s ease;
   }
 
-  .custom-kb-unit { color: var(--color-text-muted); font-size: 13px; }
+  .custom-kb-input:focus {
+    border-color: var(--color-primary);
+  }
+
+  .custom-kb-unit {
+    color: var(--color-body);
+    font-size: 14px;
+    font-weight: 600;
+  }
 
   .safe-range-note {
-    color: var(--color-text-muted);
-    font-size: 12px;
+    color: var(--color-body);
+    font-size: 14px;
   }
-  .safe-range-note strong { color: var(--color-text); font-weight: 600; }
 
-  /* ── Signature toggle ─────────────────────────────────── */
+  .safe-range-note strong {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  /* ── Signature Toggle ─────────────────────────────────── */
   .sig-row {
-    padding: 18px 28px;
+    padding: 20px 32px;
   }
 
   .sig-toggle {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
+    gap: 14px;
     cursor: pointer;
-    padding: 4px 0;
+    padding: 2px 0;
   }
 
   .sig-track {
     position: relative;
     display: inline-block;
-    width: 34px;
-    height: 20px;
-    border-radius: 10px;
-    background-color: rgba(28,28,28,0.12);
+    width: 40px;
+    height: 24px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface-strong);
+    border: 1px solid var(--color-hairline);
     flex-shrink: 0;
     margin-top: 2px;
-    transition: background-color 0.2s ease;
-    border: 1px solid var(--color-border);
-  }
-  [data-theme="dark"] .sig-track {
-    background-color: rgba(255,255,255,0.12);
-    border-color: rgba(255,255,255,0.1);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 
   .sig-thumb {
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease;
   }
 
   #sig-mode:checked + .sig-track {
-    background-color: #1c1c1c;
-    border-color: #1c1c1c;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
   }
-  [data-theme="dark"] #sig-mode:checked + .sig-track {
-    background-color: #e8e6e1;
-    border-color: #e8e6e1;
-  }
+
   #sig-mode:checked + .sig-track .sig-thumb {
-    transform: translateX(14px);
-  }
-  [data-theme="dark"] #sig-mode:checked + .sig-track .sig-thumb {
-    background-color: #1c1c1c;
+    transform: translateX(16px);
   }
 
-  .sig-label-wrap { display: flex; flex-direction: column; gap: 2px; }
-  .sig-label-title { color: var(--color-text); }
-  .sig-label-desc  { color: var(--color-text-muted); font-size: 12px; }
+  .sig-label-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
 
-  /* ── Progress overlay ─────────────────────────────────── */
+  .sig-label-title {
+    color: var(--color-ink);
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .sig-label-desc {
+    color: var(--color-body);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── Progress Overlay ─────────────────────────────────── */
   .progress-overlay {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 32px;
+    padding: 48px 32px;
   }
 
   .progress-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     text-align: center;
   }
 
   .spinner {
-    width: 30px;
-    height: 30px;
-    border: 2px solid var(--color-border);
-    border-top-color: #1c1c1c;
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--color-hairline);
+    border-top-color: var(--color-primary);
     border-radius: 50%;
     animation: spin 0.65s linear infinite;
   }
-  [data-theme="dark"] .spinner { border-top-color: #e8e6e1; }
-  @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── Preview panel ────────────────────────────────────── */
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── Preview Panel ────────────────────────────────────── */
   .preview-panel {
     display: flex;
     flex-direction: column;
-    gap: 0;
   }
 
   .preview-split {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    gap: 20px;
+    gap: 24px;
     align-items: start;
-    padding: 24px 28px;
+    padding: 28px 32px;
   }
 
   .preview-side {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
 
   .preview-side-label {
@@ -477,18 +514,13 @@
   .preview-img-wrap {
     width: 100%;
     height: 220px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
-    background-color: var(--color-cream);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-hairline);
+    background-color: var(--color-surface-soft);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  [data-theme="dark"] .preview-img-wrap {
-    background-color: rgba(255,255,255,0.02);
-    border-color: rgba(255,255,255,0.06);
   }
 
   .preview-img {
@@ -505,105 +537,101 @@
   }
 
   .preview-size {
-    font-family: var(--font-sans);
     font-size: 18px;
     font-weight: 600;
-    letter-spacing: -0.4px;
-    color: var(--color-text);
+    color: var(--color-ink);
   }
 
-  .output-size { color: #16a34a; }
+  .output-size {
+    color: var(--color-semantic-up);
+  }
 
   .preview-dims {
-    font-size: 12px;
-    color: var(--color-text-muted);
+    font-size: 13px;
+    color: var(--color-body);
   }
 
   .compliance-text {
-    font-size: 12px;
-    color: #16a34a;
-    font-weight: 500;
+    font-size: 13px;
+    color: var(--color-semantic-up);
+    font-weight: 600;
   }
-  [data-theme="dark"] .compliance-text { color: #4ade80; }
 
   .latency-text {
-    font-size: 11px;
-    color: var(--color-text-muted);
-    opacity: 0.6;
+    font-size: 12px;
+    color: var(--color-muted);
   }
 
-  /* Arrow between sides */
   .preview-arrow {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 80px;
+    padding-top: 88px;
   }
 
   .arrow-pip {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--color-border);
-    background-color: var(--color-cream);
-    color: var(--color-text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-hairline);
+    background-color: var(--color-surface-strong);
+    color: var(--color-body);
     flex-shrink: 0;
   }
 
-  /* ── Download row ─────────────────────────────────────── */
+  /* ── Download Row ─────────────────────────────────────── */
   .download-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 20px 28px;
-    border-top: 1px solid var(--color-border);
+    gap: 14px;
+    padding: 24px 32px;
+    border-top: 1px solid var(--color-hairline);
+    background-color: var(--color-surface-soft);
   }
 
   .download-btn {
-    padding: 12px 28px;
-    font-size: 15px;
+    height: 48px;
+    padding: 12px 32px;
+    font-size: 16px;
   }
 
-  /* ── Error panel ──────────────────────────────────────── */
+  /* ── Error Panel ──────────────────────────────────────── */
   .error-panel {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 14px 20px;
-    border-radius: var(--radius-card);
-    border: 1px solid rgba(220,38,38,0.3);
-    background-color: rgba(254,242,242,0.8);
-    color: #dc2626;
-    margin: 20px 0 0;
-  }
-  [data-theme="dark"] .error-panel {
-    background-color: rgba(127,0,0,0.15);
-    border-color: rgba(220,38,38,0.3);
-    color: #f87171;
+    gap: 12px;
+    padding: 16px 24px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(207, 32, 47, 0.25);
+    background-color: rgba(207, 32, 47, 0.06);
+    color: var(--color-semantic-down);
+    margin: 24px 32px 0;
   }
 
-  /* ── Privacy note ─────────────────────────────────────── */
+  /* ── Privacy Note ─────────────────────────────────────── */
   .privacy-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     text-align: center;
-    color: var(--color-text-muted);
-    opacity: 0.6;
-    margin-top: 16px;
-    font-size: 10px;
+    color: var(--color-muted);
+    margin-top: 20px;
+    font-size: 13px;
   }
 
-  /* ── Responsive ───────────────────────────────────────── */
   @media (max-width: 640px) {
-    .presets-section { padding: 18px; }
-    .sig-row { padding: 16px 18px; }
-    .dropzone-label { padding: 32px 18px; }
+    .presets-section { padding: 20px 18px; }
+    .sig-row { padding: 18px; }
+    .dropzone-label { padding: 36px 18px; }
 
     .preview-split {
       grid-template-columns: 1fr;
-      padding: 18px;
-      gap: 14px;
+      padding: 20px 18px;
+      gap: 16px;
     }
     .preview-arrow {
       padding-top: 0;
@@ -612,6 +640,7 @@
     .download-row {
       flex-direction: column;
       align-items: stretch;
+      padding: 20px 18px;
     }
   }
 </style>
@@ -623,7 +652,7 @@
   let outputBlob: Blob | null = null;
   let worker: Worker | null = null;
 
-  // ── Element Bindings ────────────────────────────────────────────────────────
+  // ── Element Bindings (100% Exact Matching) ──────────────────────────────────
   const dropzone        = document.getElementById('dropzone')!;
   const fileInput       = document.getElementById('file-input') as HTMLInputElement;
   const progressOverlay = document.getElementById('progress-overlay')!;

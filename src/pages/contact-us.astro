@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Contact Us – SetImgKB"
+  description="Need assistance or have feedback on image compression specifications? Contact the SetImgKB support and engineering team at support@setimgkb.com."
+>
+  <Header />
+
+  <main class="w-full min-h-screen bg-white dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-8" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-slate-900 dark:text-white font-semibold">Contact Us</span>
+      </nav>
+
+      <!-- Page Header -->
+      <div class="mb-10 pb-8 border-b border-slate-200/80 dark:border-slate-800 text-center sm:text-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 mb-4">
+          Support & Communications
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
+          Contact the SetImgKB Team
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+          Have questions, noticed an updated government exam photo specification, or want to share feedback? We're here to help.
+        </p>
+      </div>
+
+      <!-- Contact Info Card -->
+      <div class="mb-10 rounded-2xl p-6 sm:p-8 bg-blue-50/60 dark:bg-blue-950/20 border border-blue-200/70 dark:border-blue-800/70 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1">
+            Direct Support Email
+          </div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            support@setimgkb.com
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            We typically respond within 24–48 business hours.
+          </p>
+        </div>
+        <a
+          href="mailto:support@setimgkb.com"
+          class="btn-primary shrink-0"
+        >
+          Send an Email
+        </a>
+      </div>
+
+      <!-- Help & Inquiry Categories -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        
+        <div class="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-lg mb-4">
+            📋
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+            Portal Spec Updates
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Has an exam commission (SSC, UPSC, NTA, State PSC) changed its required photo dimensions or KB ceiling? Notify us so we can update our reference guide.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-lg mb-4">
+            🐛
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+            Bug & Performance Reports
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Encountered an issue compressing an image on a specific browser or device? Please include your browser version and image resolution in your email.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-lg mb-4">
+            🔒
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+            Security & Privacy Inquiries
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            For technical inquiries regarding our client-side Web Worker architecture, zero-storage policy, or security auditing, reach out to our engineering leads.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- FAQ Referral Banner -->
+      <div class="rounded-2xl p-6 sm:p-8 bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-1">
+            Looking for Immediate Answers?
+          </h2>
+          <p class="text-sm text-slate-600 dark:text-slate-300">
+            Check our comprehensive FAQ section covering 20KB/50KB presets, signature sharpening, and common portal rejection causes.
+          </p>
+        </div>
+        <a href="/#faq" class="btn-secondary shrink-0">
+          Browse FAQ
+        </a>
+      </div>
+
+      <!-- Back to Resizer CTA -->
+      <div class="mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800 flex justify-center">
+        <a href="/" class="btn-primary">
+          Return to Resizer Home
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

@@ -1,45 +1,41 @@
 ---
-// Header.astro — Lovable-style sticky glassmorphic nav
+// Header.astro — Centered Navbar with Balanced Constraint
 ---
 
-<header class="site-header" role="banner">
-  <div class="container header-inner">
-
-    <!-- Wordmark -->
-    <a href="/" class="brand" aria-label="SetImgKB home">
-      <span class="brand-name">SetImgKB</span>
+<header class="w-full border-b border-slate-200/80 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="/" class="flex items-center gap-2.5 text-slate-900 dark:text-white font-extrabold text-xl tracking-tight">
+      <img src="/logo.png" alt="SetImgKB" class="w-8 h-8 shrink-0 object-contain rounded-lg" />
+      SetImgKB
     </a>
 
-    <!-- Centre nav links -->
-    <nav class="header-nav" aria-label="Primary navigation">
-      <a href="#how-it-works" class="nav-link">How it works</a>
-      <a href="#portal-specs" class="nav-link">Portal specs</a>
-      <a href="#faq" class="nav-link">FAQ</a>
-    </nav>
-
-    <!-- Right: pill badge + theme toggle -->
-    <div class="header-right">
-      <span class="header-badge" aria-label="Zero uploads — in-browser only">
-        <svg width="9" height="9" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true">
-          <circle cx="4" cy="4" r="4"/>
-        </svg>
-        Zero uploads
-      </span>
-
+    <!-- Nav Links & Badge -->
+    <div class="flex items-center gap-6">
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="#how-it-works" class="hover:text-slate-900 dark:hover:text-white transition-colors">How it works</a>
+        <a href="#portal-specs" class="hover:text-slate-900 dark:hover:text-white transition-colors">Portal specs</a>
+        <a href="#faq" class="hover:text-slate-900 dark:hover:text-white transition-colors">FAQ</a>
+      </nav>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Zero server uploads
+      </div>
+      <!-- Theme Toggle -->
       <button
         id="theme-toggle"
-        class="theme-toggle"
+        class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition-colors cursor-pointer"
         aria-label="Toggle dark/light mode"
         type="button"
       >
         <!-- Sun (shown in dark mode) -->
-        <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none"
+        <svg class="icon-sun hidden dark:block" width="17" height="17" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4"/>
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
         </svg>
         <!-- Moon (shown in light mode) -->
-        <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+        <svg class="icon-moon block dark:hidden" width="17" height="17" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
@@ -47,138 +43,6 @@
     </div>
   </div>
 </header>
-
-<style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background-color: rgba(247, 244, 237, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  [data-theme="dark"] .site-header {
-    background-color: rgba(9, 13, 22, 0.85);
-    border-bottom-color: rgba(255,255,255,0.06);
-  }
-
-  .header-inner {
-    display: flex;
-    align-items: center;
-    height: 58px;
-    gap: 16px;
-  }
-
-  /* Brand */
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-
-  .brand-name {
-    font-family: var(--font-sans);
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.4px;
-    color: var(--color-text);
-  }
-
-  /* Centre nav */
-  .header-nav {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin: 0 auto;
-  }
-
-  .nav-link {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    transition: color 0.15s ease, background-color 0.15s ease;
-  }
-  .nav-link:hover {
-    color: var(--color-text);
-    background-color: var(--color-hover-bg);
-  }
-
-  /* Right side */
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-
-  /* Zero uploads pill badge */
-  .header-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--color-border);
-    font-family: var(--font-sans);
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--color-success-text);
-    background-color: var(--color-success-bg);
-    letter-spacing: 0.01em;
-  }
-
-  [data-theme="dark"] .header-badge {
-    background-color: rgba(22, 163, 74, 0.12);
-    border-color: rgba(22, 163, 74, 0.25);
-    color: #4ade80;
-  }
-
-  /* Theme toggle */
-  .theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
-    background-color: var(--color-cream);
-    color: var(--color-text-muted);
-    cursor: pointer;
-    padding: 0;
-    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-  }
-  .theme-toggle:hover {
-    border-color: var(--color-border-interactive);
-    color: var(--color-text);
-  }
-
-  [data-theme="dark"] .theme-toggle {
-    background-color: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.1);
-  }
-
-  /* Icon visibility */
-  :global([data-theme="light"]) .icon-sun  { display: none; }
-  :global([data-theme="dark"])  .icon-moon { display: none; }
-  :global([data-theme="light"]) .icon-moon { display: block; }
-  :global([data-theme="dark"])  .icon-sun  { display: block; }
-
-  @media (max-width: 640px) {
-    .header-nav  { display: none; }
-    .header-badge { display: none; }
-  }
-</style>
 
 <script>
   const btn = document.getElementById('theme-toggle');
@@ -189,7 +53,7 @@
     localStorage.setItem('theme', next);
     document.querySelector('meta[name="theme-color"]')?.setAttribute(
       'content',
-      next === 'dark' ? '#090d16' : '#f7f4ed'
+      next === 'dark' ? '#0a0b0d' : '#ffffff'
     );
   });
 </script>

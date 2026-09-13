@@ -1,0 +1,141 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="About Us – SetImgKB"
+  description="Learn about the mission behind SetImgKB: deterministic in-browser image compression built to solve strict photo and signature upload rejections for government and competitive exams."
+>
+  <Header />
+
+  <main class="w-full min-h-screen bg-white dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-8" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-slate-900 dark:text-white font-semibold">About Us</span>
+      </nav>
+
+      <!-- Page Header -->
+      <div class="mb-10 pb-8 border-b border-slate-200/80 dark:border-slate-800">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 border border-blue-200/80 dark:border-blue-800 mb-4">
+          Our Mission & Architecture
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
+          Engineering Deterministic Image Resizing for Candidates
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+          SetImgKB was built to permanently solve the problem of photo and signature upload rejections on government, academic, and competitive examination portals.
+        </p>
+      </div>
+
+      <!-- Mission Statement Card -->
+      <div class="mb-12 rounded-2xl p-6 sm:p-8 bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3">
+          The Problem We Solve
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+          Every year, millions of candidates apply for competitive exams and government opportunities (such as SSC CGL, CHSL, UPSC Civil Services, IBPS Bank PO, State PSCs, and NSDL PAN applications). These online portals enforce uncompromising byte-size ceilings—rejecting an upload if a photo is even 20.1 KB instead of the required 20 KB maximum.
+        </p>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          Conventional online image resizers require users to guess arbitrary quality sliders, repeatedly re-upload files, or suffer from severe blur and pixelation. Worse, many online utilities transmit candidates' sensitive identification documents to untrusted cloud servers. We created SetImgKB to replace guesswork with deterministic client-side mathematics.
+        </p>
+      </div>
+
+      <!-- Engineering Pillars -->
+      <section class="mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-6">
+          Four Core Principles of SetImgKB
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Pillar 1 -->
+          <div class="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg mb-4">
+              01
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              Deterministic Byte-Ceiling Precision
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Our proprietary binary-search algorithm computes exact JPEG quantization factors in 10–12 discrete iterations. For a 20 KB ceiling, output is guaranteed between 19.0 KB and 19.6 KB—safely inside the portal's gate without wasting visual fidelity.
+            </p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-lg mb-4">
+              02
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              100% In-Browser Privacy
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Privacy is not an add-on; it is our foundation. By executing all Canvas manipulation and Web Worker compression locally on your processor, zero bytes of candidate photos, PAN cards, or signatures are ever transmitted over the network.
+            </p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg mb-4">
+              03
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              Specialized Signature Contrast Engine
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Signatures scanned on mobile phones often feature paper shadows and faint ink. Our signature enhancement filter binarizes paper backgrounds to pure white while boosting ink stroke clarity, preventing automated portal rejection.
+            </p>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold text-lg mb-4">
+              04
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+              Zero Friction & Universal Access
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              No account creation, no subscriptions, no software downloads, and no advertisements interrupting the application process. SetImgKB functions seamlessly across smartphones, tablets, laptops, and cyber cafe computers.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Technical Overview -->
+      <section class="mb-12 p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3">
+          Behind the Technology
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+          SetImgKB leverages modern web standards including:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+          <li><strong>Web Workers (<code class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 font-mono text-xs">compress.worker.ts</code>):</strong> Keeping your browser UI butter-smooth while complex calculations run on background CPU threads.</li>
+          <li><strong>OffscreenCanvas & 2D Context:</strong> High-performance multi-step proportional downscaling preserving facial geometry.</li>
+          <li><strong>Deterministic Convergence Math:</strong> Dynamic boundary narrowing that halts in under 300 milliseconds on modern devices.</li>
+        </ul>
+      </section>
+
+      <!-- CTA -->
+      <div class="mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+        <a href="/" class="btn-primary">
+          Resize Your Image Now
+        </a>
+        <a href="/#portal-specs" class="btn-secondary">
+          View Exam Specifications
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

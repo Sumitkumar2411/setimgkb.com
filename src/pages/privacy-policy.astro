@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Privacy Policy – SetImgKB"
+  description="Read the SetImgKB Privacy Policy. Learn about our 100% in-browser, client-side image compression architecture with zero server uploads, zero caching, and complete privacy for ID photos and signatures."
+>
+  <Header />
+
+  <main class="w-full min-h-screen bg-white dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-8" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-slate-900 dark:text-white font-semibold">Privacy Policy</span>
+      </nav>
+
+      <!-- Page Header -->
+      <div class="mb-10 pb-8 border-b border-slate-200/80 dark:border-slate-800">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800 mb-4">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-hidden="true"></span>
+          Zero Server Upload Architecture
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
+          Privacy Policy
+        </h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          Last updated: September 13, 2026 &middot; Effective immediately
+        </p>
+      </div>
+
+      <!-- Core Guarantee Callout Box -->
+      <div class="mb-10 rounded-2xl p-6 sm:p-8 bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/80 dark:border-blue-800/80 text-slate-800 dark:text-slate-200">
+        <h2 class="text-xl font-bold text-blue-950 dark:text-blue-200 mb-3 flex items-center gap-2.5">
+          <svg class="w-6 h-6 text-blue-600 dark:text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          Our Core Privacy Commitment: Zero Server Uploads
+        </h2>
+        <p class="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+          Unlike traditional online image converters that transmit your files to cloud servers or backend storage, <strong class="text-slate-900 dark:text-white">SetImgKB runs 100% locally inside your browser</strong>. Your documents, photos, and signatures never leave your device.
+        </p>
+        <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+          <li class="flex items-center gap-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl border border-blue-100 dark:border-blue-900/60">
+            <span class="text-emerald-600 dark:text-emerald-400 text-base">✓</span> Zero server uploads
+          </li>
+          <li class="flex items-center gap-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl border border-blue-100 dark:border-blue-900/60">
+            <span class="text-emerald-600 dark:text-emerald-400 text-base">✓</span> Zero image caching
+          </li>
+          <li class="flex items-center gap-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl border border-blue-100 dark:border-blue-900/60">
+            <span class="text-emerald-600 dark:text-emerald-400 text-base">✓</span> Zero identity tracking
+          </li>
+        </ul>
+      </div>
+
+      <!-- Policy Content Sections -->
+      <article class="prose prose-slate dark:prose-invert max-w-none space-y-8 text-slate-700 dark:text-slate-300 leading-relaxed">
+        
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            1. Client-Side Execution Architecture
+          </h2>
+          <p class="mb-3">
+            SetImgKB is engineered from the ground up as a pure static web utility. When you drag and drop an image or upload a photo:
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mb-4">
+            <li>The file is read directly into your device's memory using the standard browser <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">FileReader</code> and <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">Blob</code> APIs.</li>
+            <li>Compression and downscaling calculations are executed inside an isolated browser background thread (<code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">Web Worker</code>) using <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">HTML5 OffscreenCanvas</code>.</li>
+            <li>The binary search quantization loop generates optimized JPEG blobs purely within volatile RAM.</li>
+            <li>When you click "Download Optimized Image", the browser generates an internal <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">blob:</code> URL that saves directly to your local file system.</li>
+          </ul>
+          <p>
+            At no point in this sequence is any network request initiated to transmit image data, metadata, or pixel buffers over the internet.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            2. Handling of Sensitive Identification Documents
+          </h2>
+          <p class="mb-3">
+            SetImgKB is frequently utilized by students and applicants preparing forms for competitive exams (such as SSC CGL/CHSL, UPSC Civil Services, IBPS, State PSCs) and official identity services (NSDL PAN cards, passport forms). These uploads typically contain sensitive personal identifiers:
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mb-4">
+            <li><strong>Passport Photographs:</strong> High-resolution facial images.</li>
+            <li><strong>Handwritten Signatures:</strong> Signature specimens used for biometric and document verification.</li>
+            <li><strong>Identity Cards & Certificates:</strong> Aadhaar cards, PAN cards, domicile, and educational marksheets.</li>
+          </ul>
+          <p>
+            Because we do not operate an ingestion server, <strong class="text-slate-900 dark:text-white">we have zero access, zero storage, and zero visibility into your uploaded documents</strong>. We cannot see, sell, share, or store your photos or signatures under any circumstances.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            3. Independent Network Verification
+          </h2>
+          <p class="mb-3">
+            We believe privacy guarantees should be technically verifiable, not merely claimed. You can independently confirm our zero-upload guarantee at any time:
+          </p>
+          <ol class="list-decimal pl-6 space-y-2 mb-4">
+            <li>Open SetImgKB in your browser (Google Chrome, Mozilla Firefox, Microsoft Edge, or Apple Safari).</li>
+            <li>Open Developer Tools by pressing <kbd class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs font-mono">F12</kbd> (or right-click and select <em>Inspect</em>).</li>
+            <li>Switch to the <strong>Network</strong> tab.</li>
+            <li>Select or drop any image into the resizer.</li>
+            <li>Observe the network activity log: <strong class="text-slate-900 dark:text-white">zero network requests (HTTP POST, PUT, or WebSocket)</strong> are triggered during image processing or download.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            4. Local Storage and Cookies
+          </h2>
+          <p class="mb-3">
+            SetImgKB does not use tracking cookies or persistent identifier tokens. We use your browser's local storage (<code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">localStorage</code>) strictly for:
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mb-4">
+            <li><strong>Theme Preference:</strong> Storing whether you selected "light" or "dark" theme mode (<code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">localStorage.setItem('theme', ...)</code>) to avoid screen flicker on revisits.</li>
+          </ul>
+          <p>
+            No personal identity information is stored in local storage, session storage, or cookies.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            5. Analytics and Server Logs
+          </h2>
+          <p class="mb-3">
+            Like standard web infrastructure, our hosting provider may collect anonymous aggregate access metrics (such as requested HTML pages, HTTP referrer, browser user-agent, and general country of origin) to maintain server availability and defend against denial-of-service attacks. These metrics are strictly anonymous and contain no user-submitted data.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            6. Inquiries and Contact
+          </h2>
+          <p>
+            If you have questions regarding this Privacy Policy or the security architecture of SetImgKB, please contact us at:
+          </p>
+          <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 font-medium">
+            Email: <a href="mailto:support@setimgkb.com" class="text-blue-600 dark:text-blue-400 underline font-semibold">support@setimgkb.com</a>
+          </div>
+        </section>
+
+      </article>
+
+      <!-- Back to Tool CTA -->
+      <div class="mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800 flex justify-center">
+        <a href="/" class="btn-primary">
+          Return to Resizer Home
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

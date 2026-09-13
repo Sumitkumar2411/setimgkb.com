@@ -1,0 +1,151 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Terms of Service – SetImgKB"
+  description="Read the Terms of Service for SetImgKB. Understand the permitted use of our deterministic client-side image compression tool and review our third-party government exam portal disclaimers."
+>
+  <Header />
+
+  <main class="w-full min-h-screen bg-white dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-8" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-slate-900 dark:text-white font-semibold">Terms of Service</span>
+      </nav>
+
+      <!-- Page Header -->
+      <div class="mb-10 pb-8 border-b border-slate-200/80 dark:border-slate-800">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 mb-4">
+          Usage & Compliance Agreement
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
+          Terms of Service
+        </h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          Last updated: September 13, 2026 &middot; Effective immediately
+        </p>
+      </div>
+
+      <!-- Government Portal Disclaimer Callout -->
+      <div class="mb-10 rounded-2xl p-6 sm:p-8 bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/80 text-slate-800 dark:text-slate-200">
+        <h2 class="text-xl font-bold text-amber-950 dark:text-amber-200 mb-2 flex items-center gap-2.5">
+          <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          Third-Party Government Exam Portal Disclaimer
+        </h2>
+        <p class="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300">
+          SetImgKB is an independent, free client-side software utility. SetImgKB is <strong>not affiliated with, endorsed by, or sponsored by any government department, commission, or testing agency</strong> (including SSC, UPSC, NSDL, IBPS, NTA, RRB, or State Public Service Commissions). Portal file specifications provided on this website are compiled from public notifications for convenience. Candidates must always verify the latest official notification requirements prior to submitting application forms.
+        </p>
+      </div>
+
+      <!-- Terms Content -->
+      <article class="prose prose-slate dark:prose-invert max-w-none space-y-8 text-slate-700 dark:text-slate-300 leading-relaxed">
+        
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            1. Acceptance of Terms
+          </h2>
+          <p>
+            By accessing or using SetImgKB (accessible at <a href="https://setimgkb.com" class="text-blue-600 dark:text-blue-400 underline font-medium">https://setimgkb.com</a>), you acknowledge that you have read, understood, and agreed to be bound by these Terms of Service and our <a href="/privacy-policy" class="text-blue-600 dark:text-blue-400 underline font-medium">Privacy Policy</a>. If you do not agree to these terms, please do not use the service.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            2. Permitted Use
+          </h2>
+          <p class="mb-3">
+            SetImgKB is provided free of charge for lawful, ethical, and personal or institutional purposes:
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mb-4">
+            <li><strong>Personal & Educational Form Preparation:</strong> Compressing candidate photographs, signature scans, marksheet previews, and identity documents to meet strict file size ceilings (e.g. 20 KB, 50 KB, 100 KB) for competitive exams, university admissions, and online employment portals.</li>
+            <li><strong>General Web Optimization:</strong> Optimizing visual media for fast loading on personal websites, blogs, and portfolio submissions.</li>
+          </ul>
+          <p>
+            You agree not to use the service for any malicious, abusive, or unlawful purpose, including attempting to reverse engineer, inject malicious scripts, or disrupt the availability of the web application.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            3. Algorithmic Processing and File Ceilings
+          </h2>
+          <p class="mb-3">
+            SetImgKB executes a binary search convergence algorithm designed to compress image data within deterministic safety margins below your chosen ceiling:
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mb-4">
+            <li>For a <strong>20 KB</strong> preset target, the engine targets an output window between <strong>19.0 KB and 19.6 KB</strong>.</li>
+            <li>For a <strong>50 KB</strong> preset target, the engine targets an output window between <strong>47.5 KB and 49.0 KB</strong>.</li>
+            <li>For a <strong>100 KB</strong> preset target, the engine targets an output window between <strong>95.0 KB and 98.0 KB</strong>.</li>
+          </ul>
+          <p>
+            While our algorithm achieves deterministic byte limits, candidates must review the resulting image visually to ensure compliance with portal-specific photo guidelines (e.g. clear face visibility, neutral background, no glare on spectacles, legible signature ink).
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            4. User Responsibility for Application Submissions
+          </h2>
+          <p>
+            You retain 100% ownership, responsibility, and control over all image files processed on your device. SetImgKB assumes no responsibility for:
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mb-4">
+            <li>Form rejection or disqualification resulting from dimension mismatches (width × height pixel specifications) mandated by specific recruitment portals.</li>
+            <li>Portal downtime, technical changes made by examination authorities, or deadline lapses.</li>
+            <li>Corrupted or unreadable source images provided by the user.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            5. Intellectual Property
+          </h2>
+          <p>
+            The software, layout, visual design, custom algorithms, and brand assets of SetImgKB are protected by copyright and intellectual property laws. You may not replicate, duplicate, sell, or exploit any portion of the service without express prior written consent from the site operators.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            6. Disclaimer of Warranties
+          </h2>
+          <p>
+            SetImgKB is provided on an "as is" and "as available" basis without warranties of any kind, whether express or implied. We do not guarantee uninterrupted, error-free operation, or that results will satisfy every specific portal validation system.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+            7. Contact Information
+          </h2>
+          <p>
+            For questions regarding these Terms of Service or to report portal specification updates:
+          </p>
+          <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 font-medium">
+            Email: <a href="mailto:support@setimgkb.com" class="text-blue-600 dark:text-blue-400 underline font-semibold">support@setimgkb.com</a>
+          </div>
+        </section>
+
+      </article>
+
+      <!-- Back to Tool CTA -->
+      <div class="mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800 flex justify-center">
+        <a href="/" class="btn-primary">
+          Return to Resizer Home
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

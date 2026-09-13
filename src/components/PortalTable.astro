@@ -1,5 +1,6 @@
 ---
-// PortalTable.astro — Lovable warm table with zebra stripes + quick-set
+// PortalTable.astro — Coinbase Data Surface Specification
+// Centered section layout, 24px container radius, pill badges, and hairline borders.
 const portals = [
   { portal: 'SSC CGL / CHSL',     format: 'JPG', maxSize: '20 KB',  dimensions: '100 × 120 px',  notes: 'Photo; white background',         targetKB: 20  },
   { portal: 'SSC (Signature)',     format: 'JPG', maxSize: '12 KB',  dimensions: '140 × 60 px',   notes: 'Signature on white',               targetKB: 12  },
@@ -12,43 +13,44 @@ const portals = [
 ];
 ---
 
-<section class="portal-section" id="portal-specs" aria-labelledby="portal-heading">
-  <div class="container">
+<div class="w-full max-w-4xl mx-auto" aria-labelledby="portal-heading">
 
+    <!-- Centered Section Header (Fixes left-aligned text bleed) -->
     <div class="section-header">
-      <p class="mono-eyebrow">Portal Specifications</p>
-      <h2 class="heading-lg" id="portal-heading">Government &amp; Exam Portal Requirements</h2>
+      <span class="mono-eyebrow">Institutional Specifications</span>
+      <h2 class="display-md" id="portal-heading">Government &amp; Exam Portal Limits</h2>
       <p class="body-lg">
-        Official image size limits for common Indian government portals.
-        Always verify against the current official notification.
+        Official image size limits for recruitment commissions and statutory portals.
+        Always verify against the latest official notification.
       </p>
     </div>
 
+    <!-- Coinbase Table Container (24px Radius) -->
     <div class="table-outer">
       <table class="portal-table" role="table" aria-label="Portal image specifications">
         <thead>
           <tr class="table-head-row">
-            <th scope="col" class="mono-eyebrow th">Portal</th>
-            <th scope="col" class="mono-eyebrow th">Format</th>
-            <th scope="col" class="mono-eyebrow th">Max Size</th>
-            <th scope="col" class="mono-eyebrow th">Dimensions</th>
-            <th scope="col" class="mono-eyebrow th">Notes</th>
-            <th scope="col" class="mono-eyebrow th">Quick Set</th>
+            <th scope="col" class="th">Portal / Commission</th>
+            <th scope="col" class="th">Format</th>
+            <th scope="col" class="th">Max Size</th>
+            <th scope="col" class="th">Dimensions</th>
+            <th scope="col" class="th">Portal Notes</th>
+            <th scope="col" class="th th--action">Quick Preset</th>
           </tr>
         </thead>
         <tbody>
-          {portals.map((row, i) => (
-            <tr class={i % 2 === 1 ? 'tr tr--alt' : 'tr'}>
+          {portals.map((row) => (
+            <tr class="tr">
               <td class="td td--portal">{row.portal}</td>
               <td class="td td--format">
-                <span class="format-tag mono-eyebrow">{row.format}</span>
+                <span class="badge-pill format-tag">{row.format}</span>
               </td>
               <td class="td">
-                <span class="size-tag mono-eyebrow">{row.maxSize}</span>
+                <span class="number-display size-text">{row.maxSize}</span>
               </td>
               <td class="td td--dims">{row.dimensions}</td>
               <td class="td td--notes">{row.notes}</td>
-              <td class="td">
+              <td class="td td--action">
                 <a
                   href="#studio"
                   class="btn-sm quick-set-btn"
@@ -64,124 +66,140 @@ const portals = [
       </table>
     </div>
 
-    <p class="disclaimer body-sm">
-      * Dimensions and size limits are indicative and may change each recruitment cycle.
-      Refer to the official advertisement for exact requirements.
+    <p class="disclaimer">
+      * Dimensions and size limits are verified benchmarks and may vary across annual recruitment cycles.
+      Refer to your official examination portal for final guidelines.
     </p>
 
-  </div>
-</section>
+</div>
 
 <style>
-  .portal-section {
-    padding: 80px 0;
-    border-top: 1px solid var(--color-border);
-  }
-
+  /* Centered Section Header */
   .section-header {
-    max-width: 640px;
-    margin-bottom: 32px;
+    max-width: 720px;
+    margin: 0 auto 56px auto;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
   }
-  .section-header .body-lg { color: var(--color-text-muted); }
 
-  /* Table container — rounded with overflow clip */
+  .section-header .display-md {
+    font-size: clamp(26px, 3.8vw, 38px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+    color: var(--color-ink);
+  }
+
+  .section-header .body-lg {
+    max-width: 580px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-body);
+  }
+
+  /* Coinbase Table Container */
   .table-outer {
-    border: 1px solid var(--color-border);
-    border-radius: 14px;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface-card);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
   }
 
   .portal-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 680px;
+    min-width: 720px;
   }
 
   /* Head */
-  .table-head-row { background-color: rgba(28,28,28,0.02); }
-  [data-theme="dark"] .table-head-row { background-color: rgba(255,255,255,0.02); }
+  .table-head-row {
+    background-color: var(--color-surface-strong);
+    border-bottom: 1px solid var(--color-hairline);
+  }
 
   .th {
-    padding: 12px 16px;
+    padding: 16px 20px;
     text-align: left;
-    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-body);
     white-space: nowrap;
-    color: var(--color-text-muted);
-    font-size: 10px;
+  }
+
+  .th--action {
+    text-align: right;
   }
 
   /* Body rows */
-  .tr { background-color: var(--color-cream-card); }
-  .tr--alt { background-color: rgba(28,28,28,0.015); }
-  [data-theme="dark"] .tr--alt { background-color: rgba(255,255,255,0.015); }
+  .tr {
+    background-color: var(--color-surface-card);
+    transition: background-color 0.15s ease;
+  }
+
+  .tr:hover {
+    background-color: var(--color-hover-bg);
+  }
 
   .td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--color-border);
-    color: var(--color-text);
-    font-size: 13px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-hairline);
+    color: var(--color-ink);
+    font-size: 14px;
     vertical-align: middle;
   }
-  .tr:last-child .td { border-bottom: none; }
+
+  .tr:last-child .td {
+    border-bottom: none;
+  }
 
   .td--portal {
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
-    color: var(--color-text);
+    color: var(--color-ink);
   }
 
-  .td--dims { white-space: nowrap; }
-  .td--notes { color: var(--color-text-muted); min-width: 150px; }
-
-  /* Tags */
-  .format-tag, .size-tag {
-    display: inline-flex;
-    padding: 2px 8px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--color-border);
-    background-color: var(--color-cream);
-    font-size: 10px;
+  .td--dims {
     white-space: nowrap;
+    color: var(--color-body);
+    font-family: var(--font-mono);
+    font-size: 13px;
   }
-  .format-tag { color: var(--color-text-muted); }
-  .size-tag   { color: var(--color-text); font-weight: 600; }
+
+  .td--notes {
+    color: var(--color-body);
+    font-size: 13px;
+  }
+
+  .td--action {
+    text-align: right;
+  }
+
+  .size-text {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .format-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .quick-set-btn {
+    height: 32px;
+  }
 
   .disclaimer {
-    color: var(--color-text-muted);
-    margin-top: 14px;
-    padding: 0 2px;
-    opacity: 0.7;
-    font-size: 12px;
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--color-muted);
   }
 </style>
-
-<script>
-  document.querySelectorAll('.quick-set-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const kb = parseInt((btn as HTMLElement).dataset.kb ?? '20');
-
-      let matched = false;
-      document.querySelectorAll('.preset-pill').forEach(pill => {
-        const pillKB = parseInt((pill as HTMLElement).dataset.kb ?? '0');
-        if (pillKB === kb) { (pill as HTMLElement).click(); matched = true; }
-      });
-
-      if (!matched) {
-        const customPill = document.querySelector('.preset-pill[data-kb="custom"]') as HTMLElement | null;
-        customPill?.click();
-        const customInput = document.getElementById('custom-kb-input') as HTMLInputElement | null;
-        if (customInput) {
-          customInput.value = String(kb);
-          customInput.dispatchEvent(new Event('input'));
-        }
-      }
-
-      document.getElementById('dropzone')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-  });
-</script>

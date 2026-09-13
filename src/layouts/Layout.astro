@@ -10,10 +10,10 @@ interface Props {
 const {
   title = 'Resize Image to 20KB, 50KB & 100KB Online – SetImgKB',
   description = 'Free deterministic client-side image resizer. Lock photos and signatures strictly under 20KB, 50KB, or 100KB for SSC, UPSC, and online job portals without quality loss.',
-  keywords = 'resize image to 20kb, resize image to 50kb, compress image to 100kb, pan card photo resizer, ssc photo resizer under 20kb, upsc signature resizer, image compressor to exact kb, reduce image size in kb',
+  keywords = 'resize image to 20kb, resize image to 50kb, compress image to 100kb, pan card photo resizer, ssc photo resizer under 20kb, upsc signature resizer, image compressor to exact kb, reduce image size in kb, compress signature to 10kb online, photo resizer to 20kb for ssc',
 } = Astro.props;
 
-const canonicalURL = 'https://setimgkb.com/';
+const canonicalURL = new URL(Astro.url.pathname, 'https://setimgkb.com').href;
 
 const softwareAppSchema = {
   '@context': 'https://schema.org',
@@ -66,6 +66,38 @@ const faqSchema = {
         text: "Three common reasons beyond file size: (1) Dimension mismatch — some portals enforce specific pixel dimensions (e.g., exactly 100×120 px for SSC). Check the portal's exact specification. (2) File type — SetImgKB always outputs JPEG. If the portal requires PNG, it cannot be used for that step. (3) DPI metadata — a small number of portals scan embedded DPI; SetImgKB outputs standard 72 DPI which is accepted by all portals tested.",
       },
     },
+    {
+      '@type': 'Question',
+      name: 'How to resize image to 20KB for SSC and UPSC online applications?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Select the 20 KB preset on SetImgKB, drop your passport photo or signature, and our binary search engine automatically compresses it to between 19.0 KB and 19.6 KB. This strictly satisfies the 20 KB ceiling required by SSC CGL, CHSL, MTS, and UPSC online registration forms.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I compress a signature to under 10KB or 20KB without blur?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Toggle on the "Signature Enhancement" switch before dropping your signature scan. This filter sharpens dark ink strokes, converts off-white or shadowed paper backgrounds to pure crisp white, and optimizes quantization tables so fine pen strokes stay clean and legible even below 20 KB.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I resize photo to 50KB for NSDL PAN Card on my mobile phone?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. SetImgKB runs 100% in mobile Chrome, Safari, and Firefox. Simply select the 50 KB preset on your smartphone, select your photo from the camera roll, and download the portal-ready JPEG locked between 47.5 KB and 49.0 KB without installing any apps.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How to reduce photo size in KB without losing clarity or sharpness?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'SetImgKB uses multi-step proportional canvas halving combined with intelligent binary search over JPEG quality tables. By downscaling in discrete geometric steps rather than aggressive bilinear squashing, edge sharpness and facial facial features are preserved while eliminating excess byte weight.',
+      },
+    },
   ],
 };
 ---
@@ -86,19 +118,20 @@ const faqSchema = {
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://setimgkb.com/" />
-    <meta property="og:title" content="Resize Image to 20KB, 50KB & 100KB Online – SetImgKB" />
-    <meta property="og:description" content="Deterministic in-browser image compression. Lock files strictly within government portal limits (19.0 KB–19.6 KB) with zero server uploads." />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:image" content="https://setimgkb.com/og-image.png" />
     <meta property="og:site_name" content="SetImgKB" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Resize Image to 20KB, 50KB & 100KB Online – SetImgKB" />
-    <meta name="twitter:description" content="Lock images and signatures strictly under 20KB or 50KB. Zero server upload, zero data leaks." />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="https://setimgkb.com/og-image.png" />
 
     <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 
@@ -109,6 +142,10 @@ const faqSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(softwareAppSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
+    <!-- Preconnect for Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <!-- Dark mode: no-flash inline script runs before paint -->
     <script is:inline>
       (function () {
@@ -118,12 +155,12 @@ const faqSchema = {
         document.documentElement.setAttribute('data-theme', theme);
         document.querySelector('meta[name="theme-color"]')?.setAttribute(
           'content',
-          theme === 'dark' ? '#090d16' : '#ffffff'
+          theme === 'dark' ? '#0a0b0d' : '#ffffff'
         );
       })();
     </script>
   </head>
-  <body class="bg-white text-slate-900">
+  <body class="bg-white dark:bg-[#0a0b0d] text-[#0a0b0d] dark:text-[#a8acb3] antialiased selection:bg-[#0052ff] selection:text-white">
     <slot />
   </body>
 </html>

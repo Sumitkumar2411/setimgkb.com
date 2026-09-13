@@ -6,6 +6,7 @@ import HowItWorks from '../components/HowItWorks.astro';
 import PortalTable from '../components/PortalTable.astro';
 import SeoGuide from '../components/SeoGuide.astro';
 import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout
@@ -14,230 +15,56 @@ import FAQ from '../components/FAQ.astro';
 >
   <Header />
 
-  <main id="main-content">
+  <main class="w-full min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center overflow-x-hidden">
 
-    <!-- ── HERO ──────────────────────────────────────────── -->
-    <section class="hero-band" aria-label="Hero">
+    <!-- Hero & Dropzone: Keep Intact -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-6 flex flex-col items-center text-center" aria-label="Hero">
+      <!-- Badge Pill -->
+      <div class="mb-4">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-hidden="true"></span>
+          In-Browser Binary Search Engine · Zero Server Uploads
+        </span>
+      </div>
 
-      <!-- Ambient glow mesh — light + dark variants -->
-      <div class="ambient-glow" aria-hidden="true"></div>
+      <!-- H1 Headline (Weight 700 Editorial Calm) -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+        Lock Images to Exact&nbsp;KB
+      </h1>
 
-      <div class="container hero-inner">
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        Deterministic in-browser compression for government portals, exams,
+        and identity uploads. Set your target ceiling — output guaranteed within safety margins.
+      </p>
 
-        <!-- Badge -->
-        <div class="hero-badge-wrap">
-          <span class="hero-badge">
-            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
-              <circle cx="4" cy="4" r="3" fill="#16a34a"/>
-              <circle cx="4" cy="4" r="1.5" fill="#4ade80"/>
-            </svg>
-            In-Browser Binary Search Engine · Zero Uploads
-          </span>
-        </div>
-
-        <!-- H1 -->
-        <h1 class="display-xl hero-h1">
-          Lock Images to<br class="hero-br" /> Exact&nbsp;KB
-        </h1>
-
-        <!-- Subtitle -->
-        <p class="body-lg hero-sub">
-          Deterministic in-browser compression for government portals, exams,
-          and web uploads. Set a KB ceiling — guaranteed output within it.
-        </p>
-
+      <!-- Compression Studio Dropzone Card -->
+      <div id="studio" class="w-full text-left mt-6">
+        <CompressionStudio />
       </div>
     </section>
 
-    <!-- ── COMPRESSION STUDIO ────────────────────────────── -->
-    <div id="studio" class="studio-wrapper">
-      <CompressionStudio />
-    </div>
+    <!-- Workflow / How It Works -->
+    <section id="how-it-works" class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-10">
+      <HowItWorks />
+    </section>
 
-    <!-- ── BELOW THE FOLD ────────────────────────────────── -->
-    <HowItWorks />
-    <PortalTable />
-    <SeoGuide />
-    <FAQ />
+    <!-- Portal Specifications Table -->
+    <section id="portal-specs" class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-10">
+      <PortalTable />
+    </section>
+
+    <!-- SEO Guide Article -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-10 border-t border-slate-100 dark:border-slate-800">
+      <SeoGuide />
+    </section>
+
+    <!-- FAQs -->
+    <section id="faq" class="w-full max-w-3xl mx-auto px-4 sm:px-6 py-10 border-t border-slate-100 dark:border-slate-800">
+      <FAQ />
+    </section>
 
   </main>
 
-  <!-- ── FOOTER ────────────────────────────────────────── -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <span class="footer-name">SetImgKB</span>
-        <span class="footer-tagline">Deterministic image compression for form uploads</span>
-      </div>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="#how-it-works" class="footer-link">How it works</a>
-        <a href="#portal-specs" class="footer-link">Portal specs</a>
-        <a href="#faq" class="footer-link">FAQ</a>
-      </nav>
-      <p class="footer-legal">&copy; {new Date().getFullYear()} SetImgKB. Free to use. No account required.</p>
-    </div>
-  </footer>
-
+  <Footer />
 </Layout>
-
-<style>
-  /* ── Hero ──────────────────────────────────────────────── */
-  .hero-band {
-    position: relative;
-    padding: 80px 0 48px;
-    overflow: hidden;
-  }
-
-  /* Ambient glow — disabled in light mode for pure crisp white canvas */
-  .ambient-glow {
-    display: none;
-  }
-
-  [data-theme="dark"] .ambient-glow {
-    display: block;
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse 70% 55% at 50% -5%,  rgba(99,102,241,0.18)  0%, transparent 65%),
-      radial-gradient(ellipse 50% 45% at 10% 65%,  rgba(59,130,246,0.10)  0%, transparent 60%),
-      radial-gradient(ellipse 55% 50% at 90% 50%,  rgba(139,92,246,0.10)  0%, transparent 60%),
-      radial-gradient(ellipse 45% 40% at 50% 38%,  rgba(16,185,129,0.06)  0%, transparent 50%);
-    filter: blur(0px);
-  }
-
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-  }
-
-  /* Badge */
-  .hero-badge-wrap {
-    display: flex;
-    justify-content: center;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 5px 14px;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(22,163,74,0.25);
-    background-color: rgba(22,163,74,0.07);
-    font-family: var(--font-sans);
-    font-size: 12px;
-    font-weight: 500;
-    color: #15803d;
-    letter-spacing: 0.01em;
-  }
-
-  [data-theme="dark"] .hero-badge {
-    border-color: rgba(74,222,128,0.2);
-    background-color: rgba(22,163,74,0.12);
-    color: #4ade80;
-  }
-
-  /* H1 */
-  .hero-h1 {
-    max-width: 680px;
-    color: var(--color-text);
-  }
-
-  /* Subtitle */
-  .hero-sub {
-    max-width: 500px;
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-  }
-
-  @media (max-width: 640px) {
-    .hero-band { padding: 56px 0 32px; }
-    .hero-br { display: none; }
-  }
-
-  /* ── Studio wrapper ────────────────────────────────────── */
-  .studio-wrapper {
-    padding-bottom: 16px;
-  }
-
-  /* ── Footer ────────────────────────────────────────────── */
-  .site-footer {
-    border-top: 1px solid var(--color-border);
-    background-color: var(--color-cream);
-  }
-
-  [data-theme="dark"] .site-footer {
-    background-color: #090d16;
-    border-top-color: rgba(255,255,255,0.06);
-  }
-
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding-top: 28px;
-    padding-bottom: 28px;
-  }
-
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .footer-name {
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    color: var(--color-text);
-  }
-
-  .footer-tagline {
-    font-size: 13px;
-    color: var(--color-text-muted);
-  }
-
-  .footer-links {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .footer-link {
-    display: inline-flex;
-    padding: 5px 10px;
-    border-radius: var(--radius-sm);
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    transition: color 0.15s ease, background-color 0.15s ease;
-  }
-  .footer-link:hover {
-    color: var(--color-text);
-    background-color: var(--color-hover-bg);
-  }
-
-  .footer-legal {
-    font-size: 12px;
-    color: var(--color-text-muted);
-    opacity: 0.6;
-  }
-
-  @media (max-width: 640px) {
-    .footer-inner { flex-direction: column; align-items: flex-start; }
-    .footer-links { display: none; }
-  }
-</style>

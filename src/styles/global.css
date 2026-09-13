@@ -1,105 +1,90 @@
 /* =========================================================
-   FONTS — Geist as system fallback (Lovable uses Camera Plain Variable,
-   we use Geist as the closest available humanist sans).
-   @import must come first per CSS spec.
+   COINBASE DESIGN SYSTEM TOKENS & STYLES
+   Source: coinbase/DESIGN.md
+   Elevated typography: bold/prominent H2s (weight 700),
+   highly readable 16px base text (leading-relaxed),
+   Coinbase Blue (#0052ff) brand voltage, pill geometry (100px),
+   cards (24px), hairline borders (#dee1e6).
    ========================================================= */
-@import url("https://fonts.bunny.net/css?family=geist:300,400,500,600,700&display=swap");
-@import url("https://fonts.bunny.net/css?family=geist-mono:400,500&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.bunny.net/css?family=geist-mono:400,500;600&display=swap");
 
 @import "tailwindcss";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-/* =========================================================
-   LOVABLE DESIGN TOKENS
-   Source: lovable/DESIGN.md
-   ========================================================= */
 @theme {
-  /* Fonts — Geist is our Camera Plain Variable stand-in */
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+  /* Fonts: Inter replaces licensed Coinbase Sans/Display; Geist Mono for tabular numbers */
+  --font-sans: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 
-  /* Pure white crisp color palette */
-  --color-cream:        #ffffff;   /* page background — pure crisp white */
-  --color-cream-card:   #ffffff;   /* card surface = pure crisp white */
-  --color-cream-btn:    #ffffff;   /* tertiary button surface */
-  --color-charcoal:     #0f172a;   /* primary text — text-slate-900 crisp dark */
-  --color-off-white:    #ffffff;   /* text on dark buttons */
-  --color-muted:        #64748b;   /* body copy, descriptions — text-slate-500 */
-  --color-border:       #e2e8f0;   /* passive dividers + card borders — border-slate-200 */
-  --color-border-interactive: rgba(15,23,42,0.30); /* interactive borders */
-  --color-hover-bg:     rgba(15,23,42,0.04); /* hover micro-tint */
-  --color-overlay-bg:   rgba(15,23,42,0.02); /* faintest overlay */
+  /* Coinbase Brand & Surface Colors (Light Default) */
+  --color-primary:          #0052ff; /* Coinbase Blue */
+  --color-primary-active:   #003ecc;
+  --color-primary-disabled: #a8b8cc;
 
-  /* Dark mode overrides (applied on [data-theme="dark"]) */
-  --color-canvas-dark:  #090d16;
-  --color-card-dark:    #0f1422;
-  --color-border-dark:  rgba(255,255,255,0.08);
-  --color-text-dark:    #e8e6e1;
-  --color-muted-dark:   #9e9b94;
-  /* Custom utility extensions for dropzone */
-  --color-slate-750: #293548;
-  --color-slate-850: #172033;
-  --spacing-18: 4.5rem;
+  --color-ink:              #0a0b0d; /* High-contrast text & headings */
+  --color-body:             #475569; /* Clear, readable body text (text-slate-600) */
+  --color-body-strong:      #0a0b0d;
+  --color-muted:            #64748b; /* Subtitles, meta info (text-slate-500) */
+  --color-muted-soft:       #94a3b8;
 
-  /* Semantic aliases (used throughout components) */
-  --color-bg:           var(--color-cream);
-  --color-surface:      var(--color-cream-card);
-  --color-text:         var(--color-charcoal);
-  --color-text-muted:   var(--color-muted);
-  --color-line:         var(--color-border);
+  --color-canvas:           #ffffff; /* Main page floor */
+  --color-surface-soft:     #f8fafc; /* Alternating section band floor */
+  --color-surface-card:     #ffffff; /* Card surface */
+  --color-surface-strong:   #f1f5f9; /* Secondary buttons, pill tracks, icon plates */
 
-  /* Green accent for success / compliance (per user spec) */
-  --color-success:      #16a34a;
-  --color-success-bg:   #f0fdf4;
-  --color-success-border: #bbf7d0;
-  --color-success-text: #15803d;
+  --color-hairline:         #e2e8f0; /* Crisp 1px hairline border */
+  --color-hairline-soft:    #f1f5f9;
 
-  /* Blue accent for links / focus rings */
-  --color-focus:        rgba(59,130,246,0.5);
+  --color-semantic-up:      #05b169; /* Compliance green / success text */
+  --color-semantic-down:    #cf202f; /* Alert / error text */
 
-  /* Radii — Lovable scale */
-  --radius-micro:  4px;
-  --radius-sm:     6px;
-  --radius-md:     8px;
-  --radius-card:   12px;
-  --radius-lg:     16px;
-  --radius-pill:   9999px;
+  /* Legacy aliases for component backward-compatibility */
+  --color-cream:            var(--color-canvas);
+  --color-cream-card:       var(--color-surface-card);
+  --color-charcoal:         var(--color-ink);
+  --color-text:             var(--color-ink);
+  --color-text-muted:       var(--color-body);
+  --color-border:           var(--color-hairline);
+  --color-border-interactive: var(--color-body);
+  --color-hover-bg:         rgba(10, 11, 13, 0.04);
 
-  /* Spacing — 8pt base */
-  --sp-1:   8px;
-  --sp-2:   16px;
-  --sp-3:   24px;
-  --sp-4:   32px;
-  --sp-5:   40px;
-  --sp-6:   56px;
-  --sp-7:   80px;
-  --sp-8:   96px;
-  --sp-9:   128px;
+  --color-success:          var(--color-semantic-up);
+  --color-success-bg:       rgba(5, 177, 105, 0.08);
+  --color-success-border:   rgba(5, 177, 105, 0.25);
+  --color-success-text:     #05b169;
 
-  /* Button inset shadow — Lovable signature */
-  --shadow-btn-inset:
-    rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset,
-    rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset,
-    rgba(0,0,0,0.05) 0px 1px 2px 0px;
-  --shadow-focus: rgba(0,0,0,0.1) 0px 4px 12px;
+  /* Coinbase Border Radii Scale */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;   /* Feature cards, studio container, bento cards */
+  --radius-card: 24px;
+  --radius-pill: 100px;  /* All buttons, pills, tags, segmented tracks */
+  --radius-full: 9999px; /* Avatars, circular icon plates */
 }
 
 /* =========================================================
-   BASE RESET
+   BASE RESET & CANVAS
    ========================================================= */
 *, *::before, *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 html {
   font-family: var(--font-sans);
   background-color: #ffffff;
-  color: #0f172a;
+  color: #0a0b0d;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -108,260 +93,436 @@ html {
 body {
   min-height: 100vh;
   background-color: #ffffff;
-  color: #0f172a;
+  color: var(--color-body);
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 main {
   background-color: #ffffff;
 }
 
+p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-body);
+}
+
 /* =========================================================
    DARK MODE — data-theme="dark" on <html>
+   Deep near-black editorial canvas (#0a0b0d)
    ========================================================= */
 [data-theme="dark"] {
-  --color-bg:       #090d16;
-  --color-surface:  #0f1422;
-  --color-text:     #e8e6e1;
-  --color-text-muted: #9e9b94;
-  --color-line:     rgba(255,255,255,0.08);
-  --color-border-interactive: rgba(255,255,255,0.25);
-  --color-hover-bg: rgba(255,255,255,0.04);
-  --color-cream:    #090d16;
-  --color-cream-card: #0f1422;
-  --color-charcoal: #e8e6e1;
-  --color-muted:    #9e9b94;
-  --color-border:   rgba(255,255,255,0.08);
+  --color-canvas:           #0a0b0d;
+  --color-surface-soft:     #111317;
+  --color-surface-card:     #16181c;
+  --color-surface-strong:   #22262d;
+
+  --color-ink:              #ffffff;
+  --color-body:             #cbd5e1; /* text-slate-300 for readable contrast */
+  --color-body-strong:      #ffffff;
+  --color-muted:            #94a3b8;
+  --color-muted-soft:       #64748b;
+
+  --color-hairline:         rgba(255, 255, 255, 0.12);
+  --color-hairline-soft:    rgba(255, 255, 255, 0.06);
+
+  --color-text:             #ffffff;
+  --color-text-muted:       #cbd5e1;
+  --color-border:           rgba(255, 255, 255, 0.12);
+  --color-hover-bg:         rgba(255, 255, 255, 0.06);
+
+  --color-cream:            #0a0b0d;
+  --color-cream-card:       #16181c;
+  --color-charcoal:         #ffffff;
+
+  --color-success-bg:       rgba(5, 177, 105, 0.14);
+  --color-success-border:   rgba(5, 177, 105, 0.35);
+  --color-success-text:     #34d399;
 }
 
 [data-theme="dark"] html,
 [data-theme="dark"] body,
 [data-theme="dark"] main {
-  background-color: #090d16;
-  color: #e8e6e1;
-}
-
-[data-theme="dark"] .success-bg {
-  background-color: #052e16 !important;
-  border-color: #065f46 !important;
-  color: #34d399 !important;
+  background-color: #0a0b0d;
+  color: #cbd5e1;
 }
 
 /* =========================================================
-   TYPOGRAPHY
+   TYPOGRAPHY HIERARCHY (Elevated Coinbase Spec)
+   H1 & H2 are prominent, bold (weight 700), authoritative.
+   Body reading text is 16px with relaxed 1.7 line height.
+   Tabular numbers render cleanly in Geist Mono.
    ========================================================= */
 
-/* Display hero: 60px weight-600 letter-spacing -1.5px */
+h1 {
+  font-family: var(--font-sans);
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -1.6px;
+  color: var(--color-ink);
+}
+
+h2 {
+  font-family: var(--font-sans);
+  font-size: clamp(26px, 3.8vw, 38px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.8px;
+  color: var(--color-ink);
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.2px;
+  color: var(--color-ink);
+}
+
+.display-mega {
+  font-family: var(--font-sans);
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--color-ink);
+}
+
 .display-xl {
   font-family: var(--font-sans);
-  font-size: clamp(36px, 5vw, 60px);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-  color: var(--color-text);
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -1.6px;
+  color: var(--color-ink);
 }
 
-/* Section heading: 48px weight-600 letter-spacing -1.2px */
-.heading-lg {
+.display-lg, .heading-lg {
   font-family: var(--font-sans);
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -1.2px;
-  color: var(--color-text);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1px;
+  color: var(--color-ink);
 }
 
-/* Sub-heading: 36px weight-600 letter-spacing -0.9px */
-.heading-md {
+.display-md, .heading-md {
   font-family: var(--font-sans);
-  font-size: clamp(20px, 3vw, 36px);
-  font-weight: 600;
-  line-height: 1.10;
-  letter-spacing: -0.9px;
-  color: var(--color-text);
-}
-
-/* Card title: 20px weight-400 */
-.heading-sm {
-  font-family: var(--font-sans);
-  font-size: 20px;
-  font-weight: 400;
+  font-size: clamp(25px, 3.6vw, 36px);
+  font-weight: 700;
   line-height: 1.25;
+  letter-spacing: -0.8px;
+  color: var(--color-ink);
+}
+
+.display-sm {
+  font-family: var(--font-sans);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  color: var(--color-ink);
+}
+
+.title-lg {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.4px;
+  color: var(--color-ink);
+}
+
+.title-md, .heading-sm {
+  font-family: var(--font-sans);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
   letter-spacing: 0;
-  color: var(--color-text);
+  color: var(--color-ink);
 }
 
-/* Mono eyebrow — kept for section labels */
+.title-sm {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--color-ink);
+}
+
+.body-lg {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-body);
+}
+
+.body-md {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-body);
+}
+
+.body-sm {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+.label-sm {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
 .mono-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: 0.07em;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-muted);
 }
 
-.body-lg  { font-size: 18px; font-weight: 400; line-height: 1.55; color: var(--color-text-muted); }
-.body-md  { font-size: 16px; font-weight: 400; line-height: 1.50; color: var(--color-text-muted); }
-.body-sm  { font-size: 14px; font-weight: 400; line-height: 1.50; color: var(--color-text-muted); }
-.label-sm { font-size: 14px; font-weight: 400; line-height: 1.50; color: var(--color-text); }
+.number-display {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-ink);
+}
 
 /* =========================================================
-   CONTAINER
+   CONTAINER & SECTION CENTERING ARCHITECTURE
    ========================================================= */
+
 .container {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Standardized Centered Section Header */
+.section-header {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-header .heading-lg, .section-header .display-md {
+  max-width: 680px;
+}
+
+.section-header .body-lg {
+  max-width: 580px;
+  color: var(--color-body);
 }
 
 /* =========================================================
-   LOVABLE BUTTON SYSTEM
+   COINBASE BUTTONS (100px Pill Geometry)
    ========================================================= */
 
-/* Primary dark — charcoal bg + off-white text + inset shadow */
-.btn-primary {
+/* Primary CTA — Signature Coinbase Blue Pill */
+.btn-primary, .btn-pill-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #1c1c1c;
-  color: #fcfbf8;
+  background-color: var(--color-primary);
+  color: #ffffff;
   font-family: var(--font-sans);
   font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  padding: 10px 20px;
-  border-radius: var(--radius-sm);
+  font-weight: 600;
+  line-height: 1.15;
+  height: 46px;
+  padding: 12px 26px;
+  border-radius: var(--radius-pill);
   border: none;
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-  box-shadow: var(--shadow-btn-inset);
-  transition: opacity 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-}
-.btn-primary:hover  { opacity: 0.9; box-shadow: var(--shadow-btn-inset), var(--shadow-focus); }
-.btn-primary:active { opacity: 0.8; transform: scale(0.98); }
-.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-
-[data-theme="dark"] .btn-primary {
-  background-color: #e8e6e1;
-  color: #1c1c1c;
+  box-shadow: none;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
-/* Ghost / outline button */
+.btn-primary:hover, .btn-pill-cta:hover {
+  background-color: var(--color-primary-active);
+}
+
+.btn-primary:active, .btn-pill-cta:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled, .btn-pill-cta:disabled {
+  background-color: var(--color-primary-disabled);
+  cursor: not-allowed;
+}
+
+/* Secondary Button — Neutral Light Gray Pill */
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: transparent;
-  color: var(--color-text);
+  background-color: var(--color-surface-strong);
+  color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  padding: 10px 20px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border-interactive);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.15;
+  height: 46px;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-  transition: opacity 0.15s ease, background-color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
-.btn-secondary:hover  { background-color: var(--color-hover-bg); }
-.btn-secondary:active { opacity: 0.8; }
 
-/* Cream / tertiary button */
+.btn-secondary:hover {
+  background-color: var(--color-hairline);
+}
+
+.btn-secondary:active {
+  opacity: 0.85;
+}
+
+[data-theme="dark"] .btn-secondary {
+  background-color: var(--color-surface-strong);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Small Pill Action (e.g. Quick Set, Browse) */
 .btn-sm {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  background-color: var(--color-cream);
-  color: var(--color-text);
+  gap: 6px;
+  background-color: var(--color-surface-strong);
+  color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.50;
-  padding: 5px 12px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
-.btn-sm:hover { border-color: var(--color-border-interactive); }
 
-/* Green download CTA — per user spec */
+.btn-sm:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* Download CTA — Signature High-Converting Coinbase Pill CTA */
 .btn-success {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #16a34a;
+  background-color: var(--color-primary);
   color: #ffffff;
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 600;
-  line-height: 1.5;
-  padding: 12px 28px;
-  border-radius: var(--radius-card);
+  line-height: 1.15;
+  height: 48px;
+  padding: 12px 32px;
+  border-radius: var(--radius-pill);
   border: none;
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(22,163,74,0.25);
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
-}
-.btn-success:hover  { background-color: #15803d; box-shadow: 0 6px 20px rgba(22,163,74,0.35); }
-.btn-success:active { transform: scale(0.97); }
-.btn-success:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* =========================================================
-   CARDS — Lovable style: cream bg + #eceae4 border, no shadow
-   ========================================================= */
-.card {
-  background-color: var(--color-cream-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  padding: 24px;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
-.card-elevated {
-  background-color: var(--color-cream-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  padding: 28px;
+.btn-success:hover {
+  background-color: var(--color-primary-active);
+}
+
+.btn-success:active {
+  transform: scale(0.98);
+}
+
+.btn-success:disabled {
+  background-color: var(--color-primary-disabled);
+  cursor: not-allowed;
 }
 
 /* =========================================================
-   PRESET PILL SEGMENTED TRACK
+   CARDS & CONTAINERS (24px Radius)
    ========================================================= */
+
+.card, .card-elevated {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover, .card-elevated:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================================
+   PRESET PILL SEGMENTED TRACK (Coinbase Style)
+   ========================================================= */
+
 .preset-track {
   display: inline-flex;
-  padding: 5px;
+  padding: 4px;
   border-radius: var(--radius-pill);
-  background-color: rgba(28,28,28,0.05);
-  border: 1px solid var(--color-border);
-  gap: 2px;
+  background-color: var(--color-surface-strong);
+  border: 1px solid var(--color-hairline-soft);
+  gap: 4px;
   flex-wrap: wrap;
-}
-[data-theme="dark"] .preset-track {
-  background-color: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.08);
 }
 
 .preset-pill {
   display: inline-flex;
   align-items: center;
-  padding: 7px 18px;
+  justify-content: center;
+  padding: 8px 18px;
   border-radius: var(--radius-pill);
   border: none;
   background-color: transparent;
-  color: var(--color-muted);
-  font-size: 13px;
+  color: var(--color-body);
+  font-size: 14px;
   font-weight: 500;
   font-family: var(--font-sans);
   cursor: pointer;
@@ -369,98 +530,113 @@ main {
   white-space: nowrap;
   line-height: 1;
 }
+
 .preset-pill:hover {
-  color: var(--color-charcoal);
+  color: var(--color-ink);
 }
-[data-theme="dark"] .preset-pill { color: rgba(255,255,255,0.5); }
-[data-theme="dark"] .preset-pill:hover { color: #e8e6e1; }
 
 .preset-pill.active {
-  background-color: #1c1c1c;
-  color: #fcfbf8;
-  box-shadow: var(--shadow-btn-inset);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   font-weight: 600;
 }
+
+[data-theme="dark"] .preset-pill {
+  color: var(--color-muted);
+}
+
+[data-theme="dark"] .preset-pill:hover {
+  color: #ffffff;
+}
+
 [data-theme="dark"] .preset-pill.active {
-  background-color: #e8e6e1;
-  color: #1c1c1c;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 82, 255, 0.3);
 }
 
 /* =========================================================
-   SUCCESS / COMPLIANCE CHIP
+   BADGES & CHIPS (Coinbase Pill Geometry)
    ========================================================= */
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--color-surface-strong);
+  color: var(--color-ink);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-hairline);
+  letter-spacing: 0.02em;
+}
+
 .chip-success {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   background-color: var(--color-success-bg);
   color: var(--color-success-text);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-success-border);
 }
 
+/* Circular icon plates */
+.icon-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-strong);
+  color: var(--color-ink);
+  flex-shrink: 0;
+}
+
 /* =========================================================
-   DIVIDER
+   DIVIDERS & FOCUS RINGS
    ========================================================= */
+
 .divider {
   border: none;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-hairline);
 }
 
-/* =========================================================
-   FOCUS
-   ========================================================= */
 :focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-focus);
+  box-shadow: 0 0 0 2px var(--color-canvas), 0 0 0 4px var(--color-primary);
 }
 
-/* =========================================================
-   IMAGES
-   ========================================================= */
-img { display: block; max-width: 100%; }
-
-/* =========================================================
-   TRANSITIONS (theme switch only — not all props)
-   ========================================================= */
-html, body {
-  transition: background-color 0.25s ease, color 0.25s ease;
+img {
+  display: block;
+  max-width: 100%;
 }
-.card, .card-elevated, header, footer, nav {
-  transition: background-color 0.25s ease, border-color 0.25s ease;
-}
-img, canvas, video { transition: none !important; }
 
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
+/* Theme switch transitions */
+html, body, .card, .card-elevated, header, footer, nav {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+img, canvas, video {
+  transition: none !important;
+}
+
+/* Smooth minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 ::-webkit-scrollbar-thumb {
-  background: rgba(28,28,28,0.15);
+  background: var(--color-hairline);
   border-radius: 3px;
-}
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
-}
-
-/* =========================================================
-   RESPONSIVE TYPE
-   ========================================================= */
-@media (max-width: 640px) {
-  .display-xl {
-    font-size: 36px;
-    letter-spacing: -1.2px;
-  }
-  .heading-lg {
-    font-size: 28px;
-    letter-spacing: -0.9px;
-  }
-  .heading-md {
-    font-size: 22px;
-    letter-spacing: -0.5px;
-  }
 }
