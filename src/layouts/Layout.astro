@@ -15,88 +15,53 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, 'https://setimgkb.com').href;
 
-const softwareAppSchema = {
+const schemaGraph = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'SetImgKB',
-  applicationCategory: 'UtilitiesApplication',
-  operatingSystem: 'Web',
-  url: 'https://setimgkb.com/',
-  description: 'Deterministic client-side image optimizer to compress photos and signatures to exact KB ceilings for exam and government portals.',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-  },
-};
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
+  '@graph': [
     {
-      '@type': 'Question',
-      name: 'How accurate is the KB targeting?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'SetImgKB uses a binary-search quality algorithm that converges in 10–12 iterations. The output is guaranteed to land in [target × 0.95, target × 0.98]. For a 20 KB target, this means 19.0 KB to 19.6 KB — well within portal tolerance. The exact byte size displayed before download is always accurate.',
+      '@type': 'WebApplication',
+      '@id': 'https://setimgkb.com/#webapp',
+      url: 'https://setimgkb.com/',
+      name: 'SetImgKB',
+      applicationCategory: 'MultimediaApplication',
+      operatingSystem: 'All',
+      browserRequirements: 'Requires HTML5 Canvas support',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
       },
+      description: 'Deterministic client-side photo and signature compressor targeting strict government portal file size ceilings (20KB, 50KB, 100KB).',
     },
     {
-      '@type': 'Question',
-      name: 'Is my image uploaded to any server?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: "No. Every step — file reading, canvas downscaling, JPEG re-encoding, and the final download — happens entirely in your browser's memory using native Web APIs (Canvas2D, OffscreenCanvas, Web Workers). Nothing is transmitted over the network. Verify by opening DevTools → Network while using the tool: zero requests are made after page load.",
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Does image quality drop significantly at very low KB targets?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'For very tight targets like 20 KB, the engine proportionally downscales (max 600×800 px) then optimizes JPEG quality within those dimensions. Results are visually acceptable for passport-sized government ID photos. For document scans, enabling "Signature Enhancement" boosts dark ink contrast and normalises paper to pure white — often yielding better legibility at small sizes.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'My portal is still rejecting my file — what should I check?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: "Three common reasons beyond file size: (1) Dimension mismatch — some portals enforce specific pixel dimensions (e.g., exactly 100×120 px for SSC). Check the portal's exact specification. (2) File type — SetImgKB always outputs JPEG. If the portal requires PNG, it cannot be used for that step. (3) DPI metadata — a small number of portals scan embedded DPI; SetImgKB outputs standard 72 DPI which is accepted by all portals tested.",
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How to resize image to 20KB for SSC and UPSC online applications?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Select the 20 KB preset on SetImgKB, drop your passport photo or signature, and our binary search engine automatically compresses it to between 19.0 KB and 19.6 KB. This strictly satisfies the 20 KB ceiling required by SSC CGL, CHSL, MTS, and UPSC online registration forms.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How do I compress a signature to under 10KB or 20KB without blur?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Toggle on the "Signature Enhancement" switch before dropping your signature scan. This filter sharpens dark ink strokes, converts off-white or shadowed paper backgrounds to pure crisp white, and optimizes quantization tables so fine pen strokes stay clean and legible even below 20 KB.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Can I resize photo to 50KB for NSDL PAN Card on my mobile phone?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes. SetImgKB runs 100% in mobile Chrome, Safari, and Firefox. Simply select the 50 KB preset on your smartphone, select your photo from the camera roll, and download the portal-ready JPEG locked between 47.5 KB and 49.0 KB without installing any apps.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How to reduce photo size in KB without losing clarity or sharpness?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'SetImgKB uses multi-step proportional canvas halving combined with intelligent binary search over JPEG quality tables. By downscaling in discrete geometric steps rather than aggressive bilinear squashing, edge sharpness and facial facial features are preserved while eliminating excess byte weight.',
-      },
+      '@type': 'FAQPage',
+      '@id': 'https://setimgkb.com/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How to reduce image size in KB without losing quality?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'SetImgKB uses in-browser Canvas binary search downscaling and optimized chroma subsampling to mathematically converge on your target KB limit without introducing blurring artifacts.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Why do government portals reject photos even if they are under the KB limit?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Portals reject uploads due to hidden EXIF metadata overflow, incorrect pixel aspect ratios, or non-deterministic sliders that export files marginally above byte boundaries.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it safe to upload personal identity documents and signatures?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. SetImgKB operates with a zero-upload architecture. Processing is executed 100% inside your local browser memory; no images are ever transmitted to external servers.',
+          },
+        },
+      ],
     },
   ],
 };
@@ -109,26 +74,28 @@ const faqSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- SEO -->
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap.xml" />
 
-    <!-- Open Graph -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://setimgkb.com/og-image.png" />
+    <meta property="og:description" content="Lock photos and signatures strictly under 20KB, 50KB, or 100KB for government portals with zero server uploads." />
+    <meta property="og:image" content="https://setimgkb.com/logo.png" />
     <meta property="og:site_name" content="SetImgKB" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://setimgkb.com/og-image.png" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content="Lock photos and signatures strictly under 20KB, 50KB, or 100KB for government portals with zero server uploads." />
+    <meta property="twitter:image" content="https://setimgkb.com/logo.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo.png" />
@@ -139,8 +106,7 @@ const faqSchema = {
     <meta name="generator" content={Astro.generator} />
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(softwareAppSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
 
     <!-- Preconnect for Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

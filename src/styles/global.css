@@ -640,3 +640,8 @@ img, canvas, video {
   background: var(--color-hairline);
   border-radius: 3px;
 }
+
+.text-2xs {
+  font-size: 10px;
+  line-height: 14px;
+}

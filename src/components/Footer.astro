@@ -5,7 +5,7 @@ const currentYear = new Date().getFullYear();
 
 <footer class="w-full border-t border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-950 py-12" role="contentinfo">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 pb-8 border-b border-slate-100 dark:border-slate-800/80 text-center md:text-left">
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 pb-8 text-center md:text-left">
       <!-- Brand & Mission -->
       <div class="flex flex-col items-center md:items-start max-w-sm">
         <a href="/" class="flex items-center gap-2.5 text-slate-900 dark:text-white font-extrabold text-xl tracking-tight">
@@ -22,7 +22,7 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <!-- Footer Navigation Grid -->
-      <div class="grid grid-cols-2 gap-8 sm:gap-12 text-sm">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 text-sm">
         <div>
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">Tools & Specs</h4>
           <ul class="space-y-2.5 text-slate-600 dark:text-slate-300 font-medium">
@@ -55,12 +55,69 @@ const currentYear = new Date().getFullYear();
             </li>
           </ul>
         </div>
+
+        <!-- Sister Utilities / Developer Ecosystem -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+            Creator Utilities
+          </h4>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>
+              <a 
+                href="https://aitubekit.com" 
+                target="_blank" 
+                rel="noopener" 
+                class="inline-flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <span>AI TubeKit</span>
+                <span class="text-2xs px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-medium border border-blue-200/60 dark:border-blue-800">YouTube SEO</span>
+              </a>
+              <p class="text-xs text-slate-500 dark:text-slate-500 mt-0.5">
+                Free tag extractor &amp; 500-char metadata suite for YouTube Studio.
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <!-- Centered Copyright -->
-    <div class="pt-6 text-center text-xs text-slate-500 dark:text-slate-400">
-      <p>&copy; {currentYear} SetImgKB. Free in-browser utility. No accounts, no tracking.</p>
+    <!-- Bottom Unified Bar -->
+    <div class="mt-12 pt-8 border-t border-slate-200/70 dark:border-slate-800/60 w-full flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      
+      <!-- Left: Copyright & Zero Tracking Assurance -->
+      <p class="font-normal text-center sm:text-left">
+        &copy; 2026 <strong class="font-semibold text-slate-700 dark:text-slate-200">SetImgKB</strong>. Free in-browser utility. No accounts, zero tracking.
+      </p>
+
+      <!-- Right: National Dedication Watermark with Crisp Circular Tiranga SVG -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-2xs select-none">
+        <span class="font-medium text-slate-600 dark:text-slate-300">Dedicated to the Nation</span>
+        
+        <!-- Circular Indian Flag Badge (Ashoka Chakra Vector) -->
+        <svg class="w-4 h-4 shrink-0 rounded-full shadow-2xs overflow-hidden" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Indian National Flag">
+          <circle cx="50" cy="50" r="50" fill="#FFFFFF"/>
+          <path d="M0 0H100V33.33H0V0Z" fill="#FF9933"/>
+          <path d="M0 66.67H100V100H0V66.67Z" fill="#138808"/>
+          <!-- Ashoka Chakra -->
+          <circle cx="50" cy="50" r="14" stroke="#000080" stroke-width="2" fill="none"/>
+          <circle cx="50" cy="50" r="3.2" fill="#000080"/>
+          <!-- 24 Spokes Representation -->
+          <g stroke="#000080" stroke-width="1.2" stroke-linecap="round">
+            <line x1="50" y1="36" x2="50" y2="64"/>
+            <line x1="36" y1="50" x2="64" y2="50"/>
+            <line x1="40.1" y1="40.1" x2="59.9" y2="59.9"/>
+            <line x1="40.1" y1="59.9" x2="59.9" y2="40.1"/>
+            <line x1="44.8" y1="36.9" x2="55.2" y2="63.1"/>
+            <line x1="36.9" y1="44.8" x2="63.1" y2="55.2"/>
+            <line x1="55.2" y1="36.9" x2="44.8" y2="63.1"/>
+            <line x1="63.1" y1="44.8" x2="36.9" y2="55.2"/>
+          </g>
+        </svg>
+
+        <span class="text-slate-300 dark:text-slate-700">•</span>
+        <span class="text-slate-500 dark:text-slate-400">For Every Aspirant</span>
+      </div>
+
     </div>
   </div>
 </footer>
