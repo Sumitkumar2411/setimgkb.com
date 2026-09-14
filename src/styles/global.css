@@ -19,10 +19,10 @@
   --font-sans: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 
-  /* Coinbase Brand & Surface Colors (Light Default) */
-  --color-primary:          #0052ff; /* Coinbase Blue */
-  --color-primary-active:   #003ecc;
-  --color-primary-disabled: #a8b8cc;
+  /* SetImgKB Brand & Surface Colors (Light Default) */
+  --color-primary:          #2563eb; /* SetImgKB Logo Blue (#2563EB / Tailwind blue-600) */
+  --color-primary-active:   #1d4ed8; /* Tailwind blue-700 */
+  --color-primary-disabled: #93c5fd; /* Tailwind blue-300 */
 
   --color-ink:              #0a0b0d; /* High-contrast text & headings */
   --color-body:             #475569; /* Clear, readable body text (text-slate-600) */
@@ -537,7 +537,7 @@ h3 {
 
 .preset-pill.active {
   background-color: var(--color-canvas);
-  color: var(--color-ink);
+  color: var(--color-primary);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   font-weight: 600;
 }
@@ -553,7 +553,7 @@ h3 {
 [data-theme="dark"] .preset-pill.active {
   background-color: var(--color-primary);
   color: #ffffff;
-  box-shadow: 0 1px 4px rgba(0, 82, 255, 0.3);
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.4);
 }
 
 /* =========================================================

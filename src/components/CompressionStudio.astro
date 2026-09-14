@@ -252,7 +252,7 @@
   }
 
   .dropzone.drag-over {
-    background-color: rgba(0, 82, 255, 0.04);
+    background-color: rgba(37, 99, 235, 0.05);
   }
 
   .dropzone-label {
@@ -314,13 +314,15 @@
     font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 600;
-    border: 1px solid transparent;
+    border: 1px solid var(--color-hairline);
     pointer-events: none;
-    transition: background-color 0.15s ease;
+    transition: all 0.2s ease;
   }
 
   .dropzone:hover .dropzone-browse {
-    background-color: var(--color-hairline);
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #ffffff;
   }
 
   /* ── Presets Section ──────────────────────────────────── */
@@ -367,11 +369,12 @@
     font-weight: 600;
     text-align: center;
     outline: none;
-    transition: border-color 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .custom-kb-input:focus {
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
   }
 
   .custom-kb-unit {
