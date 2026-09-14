@@ -82,119 +82,113 @@
           &nbsp;(95%–98% safety corridor)
         </p>
 
-        <!-- ── Custom Dimensions (Optional) ─────────────── -->
-        <div class="mt-4 pt-3 border-t border-slate-200/70 dark:border-slate-800/80">
-          <button
-            type="button"
-            id="dim-toggle-btn"
-            class="flex items-center justify-between w-full py-1 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer group select-none"
-            aria-expanded="false"
-            aria-controls="dim-panel"
-          >
-            <span class="inline-flex items-center gap-2">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" aria-hidden="true">
+        <!-- ── Dimension Controls Strip (Permanent & 300 DPI Portal Compliant) ── -->
+        <div class="mt-4 pt-3.5 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col gap-2.5">
+          <!-- Header Row -->
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 dark:text-blue-400" aria-hidden="true">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                 <path d="M9 3v18"></path>
                 <path d="M3 9h18"></path>
               </svg>
-              <span>Custom Dimensions (Optional)</span>
+              <span>Dimensions &amp; Scaling (Optional)</span>
             </span>
-            <svg
-              id="dim-chevron"
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="transition-transform duration-200 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400"
-              aria-hidden="true"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
+            <span id="dim-px-equivalent" class="text-[11px] font-mono text-slate-400 dark:text-slate-500">
+              300 DPI compliance
+            </span>
+          </div>
 
-          <!-- Collapsed by default -->
-          <div id="dim-panel" class="hidden mt-3 pt-2 space-y-3" aria-hidden="true">
-            <!-- Grid for Width & Height Inputs -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label for="dim-width" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
-                  Width (px)
-                </label>
-                <input
-                  type="number"
-                  id="dim-width"
-                  min="10"
-                  max="10000"
-                  placeholder="Auto"
-                  class="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 outline-none transition-colors"
-                />
-              </div>
-              <div>
-                <label for="dim-height" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
-                  Height (px)
-                </label>
-                <input
-                  type="number"
-                  id="dim-height"
-                  min="10"
-                  max="10000"
-                  placeholder="Auto"
-                  class="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 outline-none transition-colors"
-                />
-              </div>
+          <!-- Single-line responsive flex / grid controls -->
+          <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
+            <!-- Width Input -->
+            <div class="flex items-center">
+              <input
+                type="number"
+                id="dim-width"
+                step="1"
+                min="0.1"
+                placeholder="Width"
+                class="w-20 sm:w-24 h-9 px-2.5 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all"
+                aria-label="Target image width"
+              />
             </div>
 
-            <!-- Controls: Lock Aspect Ratio & Quick Presets -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-1">
-              <!-- Lock Aspect Ratio Toggle -->
-              <label for="dim-lock-aspect" class="inline-flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  id="dim-lock-aspect"
-                  checked
-                  class="w-4 h-4 rounded text-blue-600 border-slate-300 dark:border-slate-700 focus:ring-blue-600 accent-blue-600 cursor-pointer"
-                />
-                <span class="inline-flex items-center gap-1.5">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400" aria-hidden="true">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                  </svg>
-                  Lock Aspect Ratio
-                </span>
-              </label>
+            <span class="text-xs font-bold text-slate-400 dark:text-slate-500 select-none">×</span>
 
-              <!-- Quick Portal Preset Chips -->
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="text-xs text-slate-400 dark:text-slate-500 mr-0.5">Presets:</span>
-                <button
-                  type="button"
-                  class="dim-preset-chip inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-800 transition-colors cursor-pointer"
-                  data-w="200"
-                  data-h="230"
-                >
-                  Passport: 200 × 230
-                </button>
-                <button
-                  type="button"
-                  class="dim-preset-chip inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-800 transition-colors cursor-pointer"
-                  data-w="140"
-                  data-h="60"
-                >
-                  Signature: 140 × 60
-                </button>
-                <button
-                  type="button"
-                  id="dim-reset-btn"
-                  class="inline-flex items-center px-2 py-1 text-xs font-medium text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 transition-colors cursor-pointer"
-                  title="Reset to source image dimensions"
-                >
-                  Reset
-                </button>
-              </div>
+            <!-- Height Input -->
+            <div class="flex items-center">
+              <input
+                type="number"
+                id="dim-height"
+                step="1"
+                min="0.1"
+                placeholder="Height"
+                class="w-20 sm:w-24 h-9 px-2.5 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all"
+                aria-label="Target image height"
+              />
+            </div>
+
+            <!-- Unit Selector Dropdown -->
+            <div class="relative">
+              <select
+                id="dim-unit"
+                class="h-9 pl-2.5 pr-7 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-slate-300 dark:hover:border-slate-600 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition-all cursor-pointer appearance-none"
+                aria-label="Dimension unit"
+              >
+                <option value="px" selected>px</option>
+                <option value="cm">cm</option>
+                <option value="mm">mm</option>
+                <option value="inch">inch</option>
+              </select>
+              <svg class="w-3.5 h-3.5 absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+
+            <!-- Aspect Ratio Lock toggle button/icon -->
+            <button
+              type="button"
+              id="dim-lock-btn"
+              class="h-9 px-2.5 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg border border-blue-200 dark:border-blue-900/60 bg-blue-50/80 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-all cursor-pointer select-none"
+              title="Toggle aspect ratio lock"
+              aria-label="Lock aspect ratio"
+              aria-pressed="true"
+            >
+              <svg id="dim-lock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span class="hidden sm:inline font-medium" id="dim-lock-label">Lock</span>
+            </button>
+
+            <!-- Portal Presets Chips -->
+            <div class="flex items-center gap-1.5 flex-wrap ml-auto">
+              <span class="text-xs text-slate-400 dark:text-slate-500 mr-0.5 hidden xl:inline">Presets:</span>
+              <button
+                type="button"
+                id="preset-passport"
+                class="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-800 transition-all cursor-pointer"
+                title="Passport Photo Standard: 3.5 × 4.5 cm (300 DPI)"
+              >
+                Passport: 3.5 × 4.5 cm
+              </button>
+              <button
+                type="button"
+                id="preset-signature"
+                class="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-800 transition-all cursor-pointer"
+                title="Portal Signature Standard: 140 × 60 px"
+              >
+                Signature: 140 × 60 px
+              </button>
+              <button
+                type="button"
+                id="dim-reset-btn"
+                class="inline-flex items-center px-2 py-1.5 text-xs font-medium text-slate-400 hover:text-rose-600 dark:text-slate-500 dark:hover:text-rose-400 transition-colors cursor-pointer"
+                title="Reset to source native dimensions"
+              >
+                Reset
+              </button>
             </div>
           </div>
         </div>
@@ -775,8 +769,10 @@
   // ── Dimension State ──────────────────────────────────────────────────────────
   let originalWidth = 0;
   let originalHeight = 0;
-  let targetWidth = 0;
-  let targetHeight = 0;
+  let targetPxWidth = 0;
+  let targetPxHeight = 0;
+  let currentUnit = 'px';
+  let isAspectLocked = true;
   let aspectRatio = 1;
   let isCustomDimensionsSet = false;
 
@@ -805,14 +801,61 @@
   const safeRangeText   = document.getElementById('safe-range-text')!;
 
   // ── Custom Dimension Bindings ───────────────────────────────────────────────
-  const dimToggleBtn   = document.getElementById('dim-toggle-btn') as HTMLButtonElement | null;
-  const dimChevron     = document.getElementById('dim-chevron') as HTMLElement | null;
-  const dimPanel       = document.getElementById('dim-panel') as HTMLElement | null;
-  const dimWidthInput  = document.getElementById('dim-width') as HTMLInputElement | null;
-  const dimHeightInput = document.getElementById('dim-height') as HTMLInputElement | null;
-  const dimLockAspect  = document.getElementById('dim-lock-aspect') as HTMLInputElement | null;
-  const dimResetBtn    = document.getElementById('dim-reset-btn') as HTMLButtonElement | null;
-  const dimPresetChips = document.querySelectorAll('.dim-preset-chip');
+  const dimWidthInput     = document.getElementById('dim-width') as HTMLInputElement | null;
+  const dimHeightInput    = document.getElementById('dim-height') as HTMLInputElement | null;
+  const dimUnitSelect     = document.getElementById('dim-unit') as HTMLSelectElement | null;
+  const dimLockBtn        = document.getElementById('dim-lock-btn') as HTMLButtonElement | null;
+  const dimLockIcon       = document.getElementById('dim-lock-icon') as SVGElement | null;
+  const dimLockLabel      = document.getElementById('dim-lock-label') as HTMLElement | null;
+  const dimResetBtn       = document.getElementById('dim-reset-btn') as HTMLButtonElement | null;
+  const presetPassportBtn = document.getElementById('preset-passport') as HTMLButtonElement | null;
+  const presetSigBtn      = document.getElementById('preset-signature') as HTMLButtonElement | null;
+  const dimPxEquivalent   = document.getElementById('dim-px-equivalent') as HTMLElement | null;
+
+  // ── 300 DPI Unit Conversion Engine ──────────────────────────────────────────
+  // Base DPI = 300
+  // When unit is 'cm': canvas_px = (value / 2.54) * 300
+  // When unit is 'mm': canvas_px = (value / 25.4) * 300
+  // When unit is 'inch': canvas_px = value * 300
+  // When unit is 'px': canvas_px = value
+  function toCanvasPx(val: number, unit: string): number {
+    if (!val || isNaN(val) || val <= 0) return 0;
+    if (unit === 'cm') return Math.round((val / 2.54) * 300);
+    if (unit === 'mm') return Math.round((val / 25.4) * 300);
+    if (unit === 'inch') return Math.round(val * 300);
+    return Math.round(val);
+  }
+
+  function fromCanvasPx(px: number, unit: string): number {
+    if (!px || isNaN(px) || px <= 0) return 0;
+    if (unit === 'cm') return parseFloat(((px / 300) * 2.54).toFixed(2));
+    if (unit === 'mm') return parseFloat(((px / 300) * 25.4).toFixed(1));
+    if (unit === 'inch') return parseFloat((px / 300).toFixed(2));
+    return Math.round(px);
+  }
+
+  function updateEquivalentBadge() {
+    if (!dimPxEquivalent) return;
+    if (currentUnit !== 'px' && targetPxWidth > 0 && targetPxHeight > 0) {
+      dimPxEquivalent.textContent = `≈ ${targetPxWidth} × ${targetPxHeight} px @ 300 DPI`;
+    } else {
+      dimPxEquivalent.textContent = '300 DPI compliance';
+    }
+  }
+
+  function updateInputSteps(unit: string) {
+    if (!dimWidthInput || !dimHeightInput) return;
+    if (unit === 'px') {
+      dimWidthInput.step = '1';
+      dimHeightInput.step = '1';
+    } else if (unit === 'mm') {
+      dimWidthInput.step = '0.1';
+      dimHeightInput.step = '0.1';
+    } else {
+      dimWidthInput.step = '0.01';
+      dimHeightInput.step = '0.01';
+    }
+  }
 
   // ── Format helpers ──────────────────────────────────────────────────────────
   function fmtSize(bytes: number): string {
@@ -890,102 +933,163 @@
   }
 
   // ── Custom Dimension Events & Logic ─────────────────────────────────────────
-  dimToggleBtn?.addEventListener('click', () => {
-    const isExpanded = dimToggleBtn.getAttribute('aria-expanded') === 'true';
-    dimToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
-    if (isExpanded) {
-      dimPanel?.classList.add('hidden');
-      dimPanel?.setAttribute('aria-hidden', 'true');
-      dimChevron?.classList.remove('rotate-180');
-    } else {
-      dimPanel?.classList.remove('hidden');
-      dimPanel?.setAttribute('aria-hidden', 'false');
-      dimChevron?.classList.add('rotate-180');
-    }
-  });
-
   dimWidthInput?.addEventListener('input', () => {
-    const val = parseInt(dimWidthInput.value);
+    const val = parseFloat(dimWidthInput.value);
     if (!isNaN(val) && val > 0) {
-      targetWidth = val;
       isCustomDimensionsSet = true;
-      if (dimLockAspect?.checked && aspectRatio > 0) {
-        targetHeight = Math.round(targetWidth / aspectRatio);
-        if (dimHeightInput) dimHeightInput.value = String(targetHeight);
+      if (isAspectLocked && aspectRatio > 0) {
+        const newH = currentUnit === 'px'
+          ? Math.round(val / aspectRatio)
+          : currentUnit === 'mm'
+            ? parseFloat((val / aspectRatio).toFixed(1))
+            : parseFloat((val / aspectRatio).toFixed(2));
+        if (dimHeightInput) dimHeightInput.value = String(newH);
+        targetPxHeight = toCanvasPx(newH, currentUnit);
       }
+      targetPxWidth = toCanvasPx(val, currentUnit);
+      updateEquivalentBadge();
     } else {
-      targetWidth = 0;
+      targetPxWidth = 0;
     }
   });
 
   dimWidthInput?.addEventListener('change', () => {
-    if (currentFile && targetWidth > 0 && targetHeight > 0) {
+    if (currentFile && targetPxWidth > 0 && targetPxHeight > 0) {
       runCompression(currentFile);
     }
   });
 
   dimHeightInput?.addEventListener('input', () => {
-    const val = parseInt(dimHeightInput.value);
+    const val = parseFloat(dimHeightInput.value);
     if (!isNaN(val) && val > 0) {
-      targetHeight = val;
       isCustomDimensionsSet = true;
-      if (dimLockAspect?.checked && aspectRatio > 0) {
-        targetWidth = Math.round(targetHeight * aspectRatio);
-        if (dimWidthInput) dimWidthInput.value = String(targetWidth);
+      if (isAspectLocked && aspectRatio > 0) {
+        const newW = currentUnit === 'px'
+          ? Math.round(val * aspectRatio)
+          : currentUnit === 'mm'
+            ? parseFloat((val * aspectRatio).toFixed(1))
+            : parseFloat((val * aspectRatio).toFixed(2));
+        if (dimWidthInput) dimWidthInput.value = String(newW);
+        targetPxWidth = toCanvasPx(newW, currentUnit);
       }
+      targetPxHeight = toCanvasPx(val, currentUnit);
+      updateEquivalentBadge();
     } else {
-      targetHeight = 0;
+      targetPxHeight = 0;
     }
   });
 
   dimHeightInput?.addEventListener('change', () => {
-    if (currentFile && targetWidth > 0 && targetHeight > 0) {
+    if (currentFile && targetPxWidth > 0 && targetPxHeight > 0) {
       runCompression(currentFile);
     }
   });
 
-  dimLockAspect?.addEventListener('change', () => {
-    if (dimLockAspect.checked && targetWidth > 0 && targetHeight > 0) {
-      aspectRatio = targetWidth / targetHeight;
+  dimUnitSelect?.addEventListener('change', () => {
+    const newUnit = dimUnitSelect.value;
+    const oldUnit = currentUnit;
+    if (newUnit === oldUnit) return;
+
+    const currentWVal = parseFloat(dimWidthInput?.value || '0');
+    const currentHVal = parseFloat(dimHeightInput?.value || '0');
+
+    if (currentWVal > 0 && currentHVal > 0) {
+      const pxW = toCanvasPx(currentWVal, oldUnit);
+      const pxH = toCanvasPx(currentHVal, oldUnit);
+      targetPxWidth = pxW;
+      targetPxHeight = pxH;
+
+      const newW = fromCanvasPx(pxW, newUnit);
+      const newH = fromCanvasPx(pxH, newUnit);
+
+      if (dimWidthInput) dimWidthInput.value = String(newW);
+      if (dimHeightInput) dimHeightInput.value = String(newH);
+    }
+
+    currentUnit = newUnit;
+    updateInputSteps(newUnit);
+    updateEquivalentBadge();
+  });
+
+  dimLockBtn?.addEventListener('click', () => {
+    isAspectLocked = !isAspectLocked;
+    dimLockBtn.setAttribute('aria-pressed', String(isAspectLocked));
+
+    if (isAspectLocked) {
+      dimLockBtn.className = 'h-9 px-2.5 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg border border-blue-200 dark:border-blue-900/60 bg-blue-50/80 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-all cursor-pointer select-none';
+      if (dimLockLabel) dimLockLabel.textContent = 'Lock';
+      if (dimLockIcon) {
+        dimLockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
+      }
+      const wVal = parseFloat(dimWidthInput?.value || '0');
+      const hVal = parseFloat(dimHeightInput?.value || '0');
+      if (wVal > 0 && hVal > 0) {
+        aspectRatio = wVal / hVal;
+      }
+    } else {
+      dimLockBtn.className = 'h-9 px-2.5 inline-flex items-center gap-1.5 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all cursor-pointer select-none';
+      if (dimLockLabel) dimLockLabel.textContent = 'Unlock';
+      if (dimLockIcon) {
+        dimLockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
+      }
     }
   });
 
-  dimPresetChips.forEach((chip) => {
-    chip.addEventListener('click', () => {
-      const btn = chip as HTMLElement;
-      const w = parseInt(btn.dataset.w ?? '0');
-      const h = parseInt(btn.dataset.h ?? '0');
-      if (w > 0 && h > 0) {
-        targetWidth = w;
-        targetHeight = h;
-        if (dimWidthInput) dimWidthInput.value = String(w);
-        if (dimHeightInput) dimHeightInput.value = String(h);
-        isCustomDimensionsSet = true;
-        aspectRatio = w / h;
-        if (currentFile) {
-          runCompression(currentFile);
-        }
-      }
-    });
+  presetPassportBtn?.addEventListener('click', () => {
+    currentUnit = 'cm';
+    if (dimUnitSelect) dimUnitSelect.value = 'cm';
+    updateInputSteps('cm');
+    if (dimWidthInput) dimWidthInput.value = '3.5';
+    if (dimHeightInput) dimHeightInput.value = '4.5';
+    targetPxWidth = toCanvasPx(3.5, 'cm');
+    targetPxHeight = toCanvasPx(4.5, 'cm');
+    aspectRatio = 3.5 / 4.5;
+    isCustomDimensionsSet = true;
+    updateEquivalentBadge();
+    if (currentFile) {
+      runCompression(currentFile);
+    }
+  });
+
+  presetSigBtn?.addEventListener('click', () => {
+    currentUnit = 'px';
+    if (dimUnitSelect) dimUnitSelect.value = 'px';
+    updateInputSteps('px');
+    if (dimWidthInput) dimWidthInput.value = '140';
+    if (dimHeightInput) dimHeightInput.value = '60';
+    targetPxWidth = 140;
+    targetPxHeight = 60;
+    aspectRatio = 140 / 60;
+    isCustomDimensionsSet = true;
+    updateEquivalentBadge();
+    if (currentFile) {
+      runCompression(currentFile);
+    }
   });
 
   dimResetBtn?.addEventListener('click', () => {
+    currentUnit = 'px';
+    if (dimUnitSelect) dimUnitSelect.value = 'px';
+    updateInputSteps('px');
+
     if (originalWidth > 0 && originalHeight > 0) {
-      targetWidth = originalWidth;
-      targetHeight = originalHeight;
+      targetPxWidth = originalWidth;
+      targetPxHeight = originalHeight;
       if (dimWidthInput) dimWidthInput.value = String(originalWidth);
       if (dimHeightInput) dimHeightInput.value = String(originalHeight);
-      aspectRatio = originalWidth / originalHeight;
+      aspectRatio = originalWidth / (originalHeight || 1);
       isCustomDimensionsSet = false;
+      updateEquivalentBadge();
       if (currentFile) {
         runCompression(currentFile);
       }
     } else {
       if (dimWidthInput) dimWidthInput.value = '';
       if (dimHeightInput) dimHeightInput.value = '';
-      targetWidth = 0;
-      targetHeight = 0;
+      targetPxWidth = 0;
+      targetPxHeight = 0;
       isCustomDimensionsSet = false;
+      updateEquivalentBadge();
     }
   });
 
@@ -999,20 +1103,24 @@
       originalDims.textContent = `${originalWidth} × ${originalHeight} px`;
 
       if (!isCustomDimensionsSet) {
+        currentUnit = 'px';
+        if (dimUnitSelect) dimUnitSelect.value = 'px';
+        updateInputSteps('px');
         if (dimWidthInput) dimWidthInput.value = String(originalWidth);
         if (dimHeightInput) dimHeightInput.value = String(originalHeight);
-        targetWidth = originalWidth;
-        targetHeight = originalHeight;
+        targetPxWidth = originalWidth;
+        targetPxHeight = originalHeight;
       }
+      updateEquivalentBadge();
     };
     originalSize.textContent = fmtSize(file.size);
   }
 
   // ── Compression ───────────────────────────────────────────────────────────────
   function fallbackClientCompression(file: File) {
-    const hasCustom = isCustomDimensionsSet && targetWidth > 0 && targetHeight > 0;
-    const customW = hasCustom ? targetWidth : undefined;
-    const customH = hasCustom ? targetHeight : undefined;
+    const hasCustom = isCustomDimensionsSet && targetPxWidth > 0 && targetPxHeight > 0;
+    const customW = hasCustom ? targetPxWidth : undefined;
+    const customH = hasCustom ? targetPxHeight : undefined;
 
     import('../utils/compressionEngine').then(({ compressImage }) => {
       compressImage({
@@ -1044,9 +1152,9 @@
 
     worker?.terminate();
 
-    const hasCustom = isCustomDimensionsSet && targetWidth > 0 && targetHeight > 0;
-    const customW = hasCustom ? targetWidth : undefined;
-    const customH = hasCustom ? targetHeight : undefined;
+    const hasCustom = isCustomDimensionsSet && targetPxWidth > 0 && targetPxHeight > 0;
+    const customW = hasCustom ? targetPxWidth : undefined;
+    const customH = hasCustom ? targetPxHeight : undefined;
 
     try {
       worker = new Worker(
@@ -1123,10 +1231,14 @@
     originalThumb.src = ''; outputThumb.src = '';
 
     originalWidth = 0; originalHeight = 0;
-    targetWidth = 0; targetHeight = 0;
+    targetPxWidth = 0; targetPxHeight = 0;
     isCustomDimensionsSet = false;
+    currentUnit = 'px';
+    if (dimUnitSelect) dimUnitSelect.value = 'px';
+    updateInputSteps('px');
     if (dimWidthInput) dimWidthInput.value = '';
     if (dimHeightInput) dimHeightInput.value = '';
+    updateEquivalentBadge();
   });
 
   // ── Error ─────────────────────────────────────────────────────────────────────

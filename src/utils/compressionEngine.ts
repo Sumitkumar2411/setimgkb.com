@@ -90,6 +90,25 @@ function downsampleCanvas(
     srcH = stepH;
   }
 
+  // Ensure final canvas matches exact target dimensions (handles upscaling or aspect adjustments)
+  if (current.width !== targetW || current.height !== targetH) {
+    let finalCanvas: HTMLCanvasElement | OffscreenCanvas;
+    if (useOffscreen && typeof OffscreenCanvas !== 'undefined') {
+      finalCanvas = new OffscreenCanvas(targetW, targetH);
+    } else if (typeof document !== 'undefined') {
+      finalCanvas = document.createElement('canvas');
+      (finalCanvas as HTMLCanvasElement).width = targetW;
+      (finalCanvas as HTMLCanvasElement).height = targetH;
+    } else {
+      finalCanvas = new OffscreenCanvas(targetW, targetH);
+    }
+    const finalCtx = finalCanvas.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+    finalCtx.imageSmoothingEnabled = true;
+    finalCtx.imageSmoothingQuality = 'high';
+    finalCtx.drawImage(current, 0, 0, targetW, targetH);
+    return finalCanvas;
+  }
+
   return current;
 }
 
