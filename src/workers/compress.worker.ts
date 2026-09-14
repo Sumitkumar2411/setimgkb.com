@@ -10,14 +10,16 @@
 import { compressImage } from '../utils/compressionEngine';
 
 self.addEventListener('message', async (event: MessageEvent) => {
-  const { file, targetKB, signatureMode } = event.data as {
+  const { file, targetKB, signatureMode, customWidth, customHeight } = event.data as {
     file: File;
     targetKB: number;
     signatureMode: boolean;
+    customWidth?: number;
+    customHeight?: number;
   };
 
   try {
-    const result = await compressImage({ file, targetKB, signatureMode });
+    const result = await compressImage({ file, targetKB, signatureMode, customWidth, customHeight });
     // Transfer the ArrayBuffer for zero-copy performance
     const arrayBuffer = await result.blob.arrayBuffer();
     self.postMessage(

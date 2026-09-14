@@ -15,6 +15,8 @@ export interface CompressionOptions {
   file: File;
   targetKB: number;
   signatureMode?: boolean;
+  customWidth?: number;
+  customHeight?: number;
 }
 
 export interface CompressionResult {
@@ -181,7 +183,7 @@ async function loadImageSource(file: File): Promise<ImageBitmap | HTMLImageEleme
 }
 
 export async function compressImage(options: CompressionOptions): Promise<CompressionResult> {
-  const { file, targetKB, signatureMode = false } = options;
+  const { file, targetKB, signatureMode = false, customWidth, customHeight } = options;
   const t0 = performance.now();
 
   const useOffscreen = typeof OffscreenCanvas !== 'undefined';
@@ -191,11 +193,20 @@ export async function compressImage(options: CompressionOptions): Promise<Compre
   const origW = 'naturalWidth' in sourceImg ? (sourceImg as HTMLImageElement).naturalWidth : sourceImg.width;
   const origH = 'naturalHeight' in sourceImg ? (sourceImg as HTMLImageElement).naturalHeight : sourceImg.height;
 
-  // 2. Compute target dimensions (maintain aspect ratio within cap)
-  const { maxW, maxH } = getDimensionCap(targetKB);
-  const baseScale = Math.min(1, maxW / origW, maxH / origH);
-  let targetW = Math.round(origW * baseScale);
-  let targetH = Math.round(origH * baseScale);
+  // 2. Compute target dimensions
+  const hasCustomDims = typeof customWidth === 'number' && typeof customHeight === 'number' && customWidth > 0 && customHeight > 0;
+  let targetW: number;
+  let targetH: number;
+
+  if (hasCustomDims) {
+    targetW = Math.round(customWidth);
+    targetH = Math.round(customHeight);
+  } else {
+    const { maxW, maxH } = getDimensionCap(targetKB);
+    const baseScale = Math.min(1, maxW / origW, maxH / origH);
+    targetW = Math.round(origW * baseScale);
+    targetH = Math.round(origH * baseScale);
+  }
 
   const targetBytes = targetKB * 1024;
   const lowerBound  = targetBytes * 0.95;
@@ -259,8 +270,8 @@ export async function compressImage(options: CompressionOptions): Promise<Compre
       break;
     }
 
-    // If candidate still exceeds targetBytes even at low quality, drop scale by 10%
-    if (scaleAttempt < MAX_SCALE_ATTEMPTS - 1) {
+    // If candidate still exceeds targetBytes even at low quality, drop scale by 10% (unless custom dimensions requested)
+    if (!hasCustomDims && scaleAttempt < MAX_SCALE_ATTEMPTS - 1) {
       targetW = Math.max(80, Math.round(targetW * 0.9));
       targetH = Math.max(80, Math.round(targetH * 0.9));
     }
@@ -277,7 +288,9 @@ export async function compressImage(options: CompressionOptions): Promise<Compre
 
   // Fallback candidate if extreme bounds
   if (!bestBlob) {
-    const fallbackCanvas = downsampleCanvas(sourceImg, origW, origH, Math.max(80, Math.round(targetW * 0.7)), Math.max(80, Math.round(targetH * 0.7)), useOffscreen);
+    const fallbackW = hasCustomDims ? targetW : Math.max(80, Math.round(targetW * 0.7));
+    const fallbackH = hasCustomDims ? targetH : Math.max(80, Math.round(targetH * 0.7));
+    const fallbackCanvas = downsampleCanvas(sourceImg, origW, origH, fallbackW, fallbackH, useOffscreen);
     bestBlob = await canvasToBlob(fallbackCanvas, 0.05);
     bestSize = bestBlob.size;
     finalWidth = fallbackCanvas.width;

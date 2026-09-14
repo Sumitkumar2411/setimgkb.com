@@ -81,6 +81,123 @@
           <strong id="safe-range-text">19.0 – 19.6 KB</strong>
           &nbsp;(95%–98% safety corridor)
         </p>
+
+        <!-- ── Custom Dimensions (Optional) ─────────────── -->
+        <div class="mt-4 pt-3 border-t border-slate-200/70 dark:border-slate-800/80">
+          <button
+            type="button"
+            id="dim-toggle-btn"
+            class="flex items-center justify-between w-full py-1 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer group select-none"
+            aria-expanded="false"
+            aria-controls="dim-panel"
+          >
+            <span class="inline-flex items-center gap-2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <path d="M9 3v18"></path>
+                <path d="M3 9h18"></path>
+              </svg>
+              <span>Custom Dimensions (Optional)</span>
+            </span>
+            <svg
+              id="dim-chevron"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="transition-transform duration-200 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+              aria-hidden="true"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <!-- Collapsed by default -->
+          <div id="dim-panel" class="hidden mt-3 pt-2 space-y-3" aria-hidden="true">
+            <!-- Grid for Width & Height Inputs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label for="dim-width" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
+                  Width (px)
+                </label>
+                <input
+                  type="number"
+                  id="dim-width"
+                  min="10"
+                  max="10000"
+                  placeholder="Auto"
+                  class="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 outline-none transition-colors"
+                />
+              </div>
+              <div>
+                <label for="dim-height" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
+                  Height (px)
+                </label>
+                <input
+                  type="number"
+                  id="dim-height"
+                  min="10"
+                  max="10000"
+                  placeholder="Auto"
+                  class="w-full h-10 px-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-blue-600 outline-none transition-colors"
+                />
+              </div>
+            </div>
+
+            <!-- Controls: Lock Aspect Ratio & Quick Presets -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-1">
+              <!-- Lock Aspect Ratio Toggle -->
+              <label for="dim-lock-aspect" class="inline-flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  id="dim-lock-aspect"
+                  checked
+                  class="w-4 h-4 rounded text-blue-600 border-slate-300 dark:border-slate-700 focus:ring-blue-600 accent-blue-600 cursor-pointer"
+                />
+                <span class="inline-flex items-center gap-1.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400" aria-hidden="true">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  Lock Aspect Ratio
+                </span>
+              </label>
+
+              <!-- Quick Portal Preset Chips -->
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-xs text-slate-400 dark:text-slate-500 mr-0.5">Presets:</span>
+                <button
+                  type="button"
+                  class="dim-preset-chip inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-800 transition-colors cursor-pointer"
+                  data-w="200"
+                  data-h="230"
+                >
+                  Passport: 200 × 230
+                </button>
+                <button
+                  type="button"
+                  class="dim-preset-chip inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-800 transition-colors cursor-pointer"
+                  data-w="140"
+                  data-h="60"
+                >
+                  Signature: 140 × 60
+                </button>
+                <button
+                  type="button"
+                  id="dim-reset-btn"
+                  class="inline-flex items-center px-2 py-1 text-xs font-medium text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 transition-colors cursor-pointer"
+                  title="Reset to source image dimensions"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- ── Signature Enhancement Toggle ─────────────── -->
@@ -655,6 +772,14 @@
   let outputBlob: Blob | null = null;
   let worker: Worker | null = null;
 
+  // ── Dimension State ──────────────────────────────────────────────────────────
+  let originalWidth = 0;
+  let originalHeight = 0;
+  let targetWidth = 0;
+  let targetHeight = 0;
+  let aspectRatio = 1;
+  let isCustomDimensionsSet = false;
+
   // ── Element Bindings (100% Exact Matching) ──────────────────────────────────
   const dropzone        = document.getElementById('dropzone')!;
   const fileInput       = document.getElementById('file-input') as HTMLInputElement;
@@ -678,6 +803,16 @@
   const sigModeToggle   = document.getElementById('sig-mode') as HTMLInputElement;
   const progressHint    = document.getElementById('progress-hint')!;
   const safeRangeText   = document.getElementById('safe-range-text')!;
+
+  // ── Custom Dimension Bindings ───────────────────────────────────────────────
+  const dimToggleBtn   = document.getElementById('dim-toggle-btn') as HTMLButtonElement | null;
+  const dimChevron     = document.getElementById('dim-chevron') as HTMLElement | null;
+  const dimPanel       = document.getElementById('dim-panel') as HTMLElement | null;
+  const dimWidthInput  = document.getElementById('dim-width') as HTMLInputElement | null;
+  const dimHeightInput = document.getElementById('dim-height') as HTMLInputElement | null;
+  const dimLockAspect  = document.getElementById('dim-lock-aspect') as HTMLInputElement | null;
+  const dimResetBtn    = document.getElementById('dim-reset-btn') as HTMLButtonElement | null;
+  const dimPresetChips = document.querySelectorAll('.dim-preset-chip');
 
   // ── Format helpers ──────────────────────────────────────────────────────────
   function fmtSize(bytes: number): string {
@@ -754,19 +889,139 @@
     runCompression(file);
   }
 
+  // ── Custom Dimension Events & Logic ─────────────────────────────────────────
+  dimToggleBtn?.addEventListener('click', () => {
+    const isExpanded = dimToggleBtn.getAttribute('aria-expanded') === 'true';
+    dimToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+    if (isExpanded) {
+      dimPanel?.classList.add('hidden');
+      dimPanel?.setAttribute('aria-hidden', 'true');
+      dimChevron?.classList.remove('rotate-180');
+    } else {
+      dimPanel?.classList.remove('hidden');
+      dimPanel?.setAttribute('aria-hidden', 'false');
+      dimChevron?.classList.add('rotate-180');
+    }
+  });
+
+  dimWidthInput?.addEventListener('input', () => {
+    const val = parseInt(dimWidthInput.value);
+    if (!isNaN(val) && val > 0) {
+      targetWidth = val;
+      isCustomDimensionsSet = true;
+      if (dimLockAspect?.checked && aspectRatio > 0) {
+        targetHeight = Math.round(targetWidth / aspectRatio);
+        if (dimHeightInput) dimHeightInput.value = String(targetHeight);
+      }
+    } else {
+      targetWidth = 0;
+    }
+  });
+
+  dimWidthInput?.addEventListener('change', () => {
+    if (currentFile && targetWidth > 0 && targetHeight > 0) {
+      runCompression(currentFile);
+    }
+  });
+
+  dimHeightInput?.addEventListener('input', () => {
+    const val = parseInt(dimHeightInput.value);
+    if (!isNaN(val) && val > 0) {
+      targetHeight = val;
+      isCustomDimensionsSet = true;
+      if (dimLockAspect?.checked && aspectRatio > 0) {
+        targetWidth = Math.round(targetHeight * aspectRatio);
+        if (dimWidthInput) dimWidthInput.value = String(targetWidth);
+      }
+    } else {
+      targetHeight = 0;
+    }
+  });
+
+  dimHeightInput?.addEventListener('change', () => {
+    if (currentFile && targetWidth > 0 && targetHeight > 0) {
+      runCompression(currentFile);
+    }
+  });
+
+  dimLockAspect?.addEventListener('change', () => {
+    if (dimLockAspect.checked && targetWidth > 0 && targetHeight > 0) {
+      aspectRatio = targetWidth / targetHeight;
+    }
+  });
+
+  dimPresetChips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const btn = chip as HTMLElement;
+      const w = parseInt(btn.dataset.w ?? '0');
+      const h = parseInt(btn.dataset.h ?? '0');
+      if (w > 0 && h > 0) {
+        targetWidth = w;
+        targetHeight = h;
+        if (dimWidthInput) dimWidthInput.value = String(w);
+        if (dimHeightInput) dimHeightInput.value = String(h);
+        isCustomDimensionsSet = true;
+        aspectRatio = w / h;
+        if (currentFile) {
+          runCompression(currentFile);
+        }
+      }
+    });
+  });
+
+  dimResetBtn?.addEventListener('click', () => {
+    if (originalWidth > 0 && originalHeight > 0) {
+      targetWidth = originalWidth;
+      targetHeight = originalHeight;
+      if (dimWidthInput) dimWidthInput.value = String(originalWidth);
+      if (dimHeightInput) dimHeightInput.value = String(originalHeight);
+      aspectRatio = originalWidth / originalHeight;
+      isCustomDimensionsSet = false;
+      if (currentFile) {
+        runCompression(currentFile);
+      }
+    } else {
+      if (dimWidthInput) dimWidthInput.value = '';
+      if (dimHeightInput) dimHeightInput.value = '';
+      targetWidth = 0;
+      targetHeight = 0;
+      isCustomDimensionsSet = false;
+    }
+  });
+
   function showOriginalPreview(file: File) {
     const url = URL.createObjectURL(file);
     originalThumb.src = url;
     originalThumb.onload = () => {
-      originalDims.textContent = `${originalThumb.naturalWidth} × ${originalThumb.naturalHeight} px`;
+      originalWidth = originalThumb.naturalWidth;
+      originalHeight = originalThumb.naturalHeight;
+      aspectRatio = originalWidth / (originalHeight || 1);
+      originalDims.textContent = `${originalWidth} × ${originalHeight} px`;
+
+      if (!isCustomDimensionsSet) {
+        if (dimWidthInput) dimWidthInput.value = String(originalWidth);
+        if (dimHeightInput) dimHeightInput.value = String(originalHeight);
+        targetWidth = originalWidth;
+        targetHeight = originalHeight;
+      }
     };
     originalSize.textContent = fmtSize(file.size);
   }
 
   // ── Compression ───────────────────────────────────────────────────────────────
   function fallbackClientCompression(file: File) {
+    const hasCustom = isCustomDimensionsSet && targetWidth > 0 && targetHeight > 0;
+    const customW = hasCustom ? targetWidth : undefined;
+    const customH = hasCustom ? targetHeight : undefined;
+
     import('../utils/compressionEngine').then(({ compressImage }) => {
-      compressImage({ file, targetKB: selectedKB, signatureMode: sigModeToggle.checked })
+      compressImage({
+        file,
+        targetKB: selectedKB,
+        signatureMode: sigModeToggle.checked,
+        customWidth: customW,
+        customHeight: customH,
+      })
         .then((result) => {
           progressOverlay.hidden = true;
           showResult(result.blob, result.byteSize, result.width, result.height, result.latencyMs);
@@ -789,12 +1044,22 @@
 
     worker?.terminate();
 
+    const hasCustom = isCustomDimensionsSet && targetWidth > 0 && targetHeight > 0;
+    const customW = hasCustom ? targetWidth : undefined;
+    const customH = hasCustom ? targetHeight : undefined;
+
     try {
       worker = new Worker(
         new URL('../workers/compress.worker.ts', import.meta.url),
         { type: 'module' }
       );
-      worker.postMessage({ file, targetKB: selectedKB, signatureMode: sigModeToggle.checked });
+      worker.postMessage({
+        file,
+        targetKB: selectedKB,
+        signatureMode: sigModeToggle.checked,
+        customWidth: customW,
+        customHeight: customH,
+      });
       worker.onmessage = (e) => {
         const { type, payload, message } = e.data;
         if (type === 'result') {
@@ -856,6 +1121,12 @@
     if (originalThumb.src) URL.revokeObjectURL(originalThumb.src);
     if (outputThumb.src)  URL.revokeObjectURL(outputThumb.src);
     originalThumb.src = ''; outputThumb.src = '';
+
+    originalWidth = 0; originalHeight = 0;
+    targetWidth = 0; targetHeight = 0;
+    isCustomDimensionsSet = false;
+    if (dimWidthInput) dimWidthInput.value = '';
+    if (dimHeightInput) dimHeightInput.value = '';
   });
 
   // ── Error ─────────────────────────────────────────────────────────────────────
