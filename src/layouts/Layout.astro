@@ -107,10 +107,11 @@ const schemaGraph = {
     <meta property="twitter:description" content="Lock photos and signatures strictly under 20KB, 50KB, or 100KB for government portals with zero server uploads." />
     <meta property="twitter:image" content="https://setimgkb.com/logo.png" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/logo.png" />
-    <link rel="shortcut icon" type="image/png" href="/logo.png" />
-    <link rel="apple-touch-icon" href="/logo.png" />
+    <!-- Standard Favicon with cache-buster -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="alternate icon" href="/favicon.ico?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
 
     <!-- Generator -->
     <meta name="generator" content={Astro.generator} />
