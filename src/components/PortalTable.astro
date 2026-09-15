@@ -2,8 +2,8 @@
 // PortalTable.astro — Coinbase Data Surface Specification
 // Centered section layout, 24px container radius, pill badges, and hairline borders.
 const portals = [
-  { portal: 'SSC CGL / CHSL',     format: 'JPG', maxSize: '20 KB',  dimensions: '100 × 120 px',  notes: 'Photo; white background',         targetKB: 20  },
-  { portal: 'SSC (Signature)',     format: 'JPG', maxSize: '12 KB',  dimensions: '140 × 60 px',   notes: 'Signature on white',               targetKB: 12  },
+  { portal: 'SSC CGL / CHSL',     format: 'JPG', maxSize: '50 KB',  dimensions: '3.5 × 4.5 cm',  notes: 'Photo (20-50 KB); white bg',      targetKB: 50, href: '/ssc-photo-signature-resizer' },
+  { portal: 'SSC (Signature)',     format: 'JPG', maxSize: '20 KB',  dimensions: '140 × 60 px',   notes: 'Signature (10-20 KB) on white',    targetKB: 20, href: '/ssc-photo-signature-resizer' },
   { portal: 'UPSC IAS / IPS',     format: 'JPG', maxSize: '40 KB',  dimensions: '400 × 300 px',  notes: 'Formal attire, light bg',          targetKB: 40  },
   { portal: 'NSDL PAN Card',      format: 'JPG', maxSize: '50 KB',  dimensions: '200 × 230 px',  notes: 'Colour photo',                     targetKB: 50  },
   { portal: 'State PSC (General)',format: 'JPG', maxSize: '100 KB', dimensions: '300 × 400 px',  notes: 'Varies by state',                  targetKB: 100 },
@@ -41,7 +41,16 @@ const portals = [
         <tbody>
           {portals.map((row) => (
             <tr class="tr">
-              <td class="td td--portal">{row.portal}</td>
+              <td class="td td--portal">
+                {row.href ? (
+                  <a href={row.href} class="hover:text-blue-600 dark:hover:text-blue-400 font-semibold inline-flex items-center gap-1.5 transition-colors">
+                    <span>{row.portal}</span>
+                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900/60">Tool &rarr;</span>
+                  </a>
+                ) : (
+                  row.portal
+                )}
+              </td>
               <td class="td td--format">
                 <span class="badge-pill format-tag">{row.format}</span>
               </td>

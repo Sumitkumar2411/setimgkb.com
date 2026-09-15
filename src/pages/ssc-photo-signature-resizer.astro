@@ -1,0 +1,475 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import SscResizerStudio from '../components/SscResizerStudio.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "SSC CHSL Photo & Signature Resizer (20KB - 50KB) Online — SetImgKB";
+const pageDescription = "Resize and compress SSC CHSL photo (20KB-50KB, 3.5x4.5cm) and signature (10KB-20KB, 140x60px) strictly to official notification guidelines. 100% client-side.";
+const pageKeywords = "ssc chsl photo resizer, ssc signature resizer 10 to 20 kb, ssc photo resize 20 to 50 kb, ssc chsl signature size, ssc cgl photo resizer, ssc photo resizer 3.5 x 4.5 cm, ssc signature size 140x60, ssc photo compressor online, ssc photo size converter";
+const canonicalURL = "https://setimgkb.com/ssc-photo-signature-resizer";
+
+const sscFaqSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      '@id': 'https://setimgkb.com/ssc-photo-signature-resizer#app',
+      url: canonicalURL,
+      name: 'SSC CHSL Photo & Signature Resizer',
+      applicationCategory: 'MultimediaApplication',
+      operatingSystem: 'All',
+      browserRequirements: 'Requires HTML5 Canvas and modern browser',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      description: 'Dedicated client-side resizer and compressor for Staff Selection Commission (SSC CHSL, CGL, MTS, GD) photo and signature uploads.',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://setimgkb.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'SSC Photo & Signature Resizer',
+          item: canonicalURL,
+        },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://setimgkb.com/ssc-photo-signature-resizer#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What is the official photo size and dimension for SSC CHSL 2026?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'According to the official Staff Selection Commission notification, the candidate passport photograph must have a file size between 20 KB and 50 KB in JPEG/JPG format. Dimensions must be 3.5 cm (width) × 4.5 cm (height), equivalent to 413 × 531 pixels at 300 DPI. The background must be light or plain white without caps or dark glasses.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What are the signature specifications for the SSC portal?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The candidate signature must be between 10 KB and 20 KB in JPEG/JPG format. The dimension requirement is 140 pixels width × 60 pixels height (or 4.0 cm × 2.0 cm). The signature must be penned in black or dark blue ink on white unruled paper and must not be in running capital letters.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Why does the SSC portal say "Dimensions not matched" or "File size exceeds limit"?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Smartphone photos frequently include hidden EXIF metadata (camera model, GPS data, colour profile chunks) adding 20–40 KB of header bloat that causes portal parsers to reject the file. Furthermore, non-deterministic compression tools often export files slightly above the 50 KB or 20 KB ceiling. SetImgKB strips all EXIF metadata and mathematically converges strictly within a safe 95%–98% corridor below the ceiling.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Are glasses, spectacles, or caps permitted in the SSC photo upload?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No caps, hats, goggles, or spectacles with tinted or reflective lenses are permitted. If you wear regular clear prescription spectacles, ensure there is zero flash reflection or glare obscuring the pupils. Both ears and the full facial oval must remain clearly visible.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Are my personal documents or signatures uploaded to any server?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Never. SetImgKB operates with a zero-server upload architecture. All image resizing, downsampling, and JPEG encoding take place 100% inside your local web browser memory using HTML5 Canvas. No image data is ever transmitted across the internet.',
+          },
+        },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonicalURL}
+  schema={sscFaqSchema}
+>
+  <Header />
+
+  <main class="w-full min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center overflow-x-hidden">
+
+    <!-- Hero & Tool Workspace Section -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-10 flex flex-col items-center text-center" aria-label="SSC CHSL Resizer Tool">
+      
+      <!-- Breadcrumb Navigation -->
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-6 self-start sm:self-center" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+        <span class="text-slate-300 dark:text-slate-700">/</span>
+        <span class="text-slate-500 dark:text-slate-400">Portal Tools</span>
+        <span class="text-slate-300 dark:text-slate-700">/</span>
+        <span class="text-slate-900 dark:text-white font-semibold">SSC CHSL Resizer</span>
+      </nav>
+
+      <!-- Badge Pill -->
+      <div class="mb-4">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-hidden="true"></span>
+          SSC CHSL &amp; CGL 2026 Notification Calibrated
+        </span>
+      </div>
+
+      <!-- H1 Headline -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+        SSC CHSL <span class="text-blue-600">Photo &amp; Signature</span> Resizer
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+        Pre-calibrated to official Staff Selection Commission upload specifications. Zero server uploads, processed instantly in local memory.
+      </p>
+
+      <!-- SSC Resizer Studio Workspace Component -->
+      <div id="ssc-studio" class="w-full text-left">
+        <SscResizerStudio />
+      </div>
+
+    </section>
+
+    <!-- Official SSC CHSL Notification Specifications Grid -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-100 dark:border-slate-800" aria-labelledby="specs-heading">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Staff Selection Commission</span>
+        <h2 id="specs-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 mb-3 tracking-tight">
+          Official SSC Notification Upload Specifications
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          Strict parameters mandated in the official SSC CHSL (10+2) and CGL recruitment notifications to prevent application rejection.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Passport Photograph Card -->
+        <div class="bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-2xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
+                  1
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Candidate Photograph</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800">
+                20 KB – 50 KB
+              </span>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+              Required for your application form, roll number confirmation, and entry admit card.
+            </p>
+
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>Dimensions:</strong> 3.5 cm (width) × 4.5 cm (height)</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>Pixel Equivalent:</strong> ≈ 413 × 531 px (rendered at 300 DPI)</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>File Size Ceiling:</strong> Strictly between 20.0 KB and 50.0 KB</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>Format:</strong> JPEG / JPG file type only</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>Background:</strong> Light plain background (white or off-white preferred)</span>
+              </li>
+              <li class="flex items-start gap-2.5 text-rose-600 dark:text-rose-400">
+                <svg class="w-4 h-4 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                <span><strong>Strictly Prohibited:</strong> Caps, goggles, sunglasses, and selfie distortions</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Candidate Signature Card -->
+        <div class="bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-2xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm">
+                  2
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Candidate Signature</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800">
+                10 KB – 20 KB
+              </span>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+              Scanned signature used for biometric verification and exam attendance sheets.
+            </p>
+
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>Dimensions:</strong> 4.0 cm (width) × 2.0 cm (height)</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>Pixel Requirement:</strong> Exactly 140 pixels width × 60 pixels height</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>File Size Ceiling:</strong> Strictly between 10.0 KB and 20.0 KB</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>Paper &amp; Ink:</strong> Black or dark blue ink on clean unruled white sheet</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong>Contrast:</strong> High contrast, normalized paper background</span>
+              </li>
+              <li class="flex items-start gap-2.5 text-rose-600 dark:text-rose-400">
+                <svg class="w-4 h-4 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                <span><strong>Strictly Prohibited:</strong> Capital letters for entire signature, blurred scans</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it Works Step by Step Guide -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-100 dark:border-slate-800" aria-labelledby="guide-heading">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Step-By-Step Workflow</span>
+        <h2 id="guide-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 mb-3 tracking-tight">
+          How to Resize Photo &amp; Signature for SSC CHSL Online
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          Resize your documents in four simple steps without installing apps or uploading files to remote servers.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Step 1 -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 rounded-2xl flex flex-col items-start shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-extrabold text-sm flex items-center justify-center mb-3">
+            01
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1.5">Select Document Mode</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Click <strong>Passport Photo</strong> (50 KB ceiling) or <strong>Signature</strong> (20 KB ceiling). The preset parameters lock automatically.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 rounded-2xl flex flex-col items-start shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-extrabold text-sm flex items-center justify-center mb-3">
+            02
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1.5">Upload Your Image</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Drag and drop or browse any JPEG, PNG, or WebP photo up to 25 MB directly from your mobile phone or PC.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 rounded-2xl flex flex-col items-start shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-extrabold text-sm flex items-center justify-center mb-3">
+            03
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1.5">Instant Local Math</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            In-memory Canvas downscales to 300 DPI, runs binary search quality optimization, and strips EXIF headers in &lt; 200 ms.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 rounded-2xl flex flex-col items-start shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-extrabold text-sm flex items-center justify-center mb-3">
+            04
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1.5">Download Portal JPG</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Click download to receive your pre-named compliant JPG ready for instant submission on the official SSC application portal.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why SSC Portal Rejects Uploads Section -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-100 dark:border-slate-800" aria-labelledby="reasons-heading">
+      <div class="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10">
+        <div class="max-w-3xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">Technical Explanations</span>
+          <h2 id="reasons-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 mb-4 tracking-tight">
+            Why SSC Portal Rejects Images (And How SetImgKB Fixes It)
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+            Every year, thousands of SSC CHSL and CGL candidates face application disqualification due to portal validation errors. Here is the technical breakdown of why traditional resizing tools fail:
+          </p>
+
+          <div class="space-y-6">
+            <!-- Trap 1 -->
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                !
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">
+                  1. Smartphone EXIF &amp; Metadata Bloat
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Modern iPhone and Android smartphones embed 15 KB to 50 KB of non-image metadata inside image headers (GPS coordinates, device model, lens aperture, and thumbnail previews). Standard online tools only compress pixel data without stripping headers, causing the final file size to violate byte boundaries or crash the SSC verification parser. <strong>SetImgKB renders directly to an HTML5 canvas, reconstructing the image from raw raster pixels and stripping 100% of metadata.</strong>
+                </p>
+              </div>
+            </div>
+
+            <!-- Trap 2 -->
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                !
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">
+                  2. Non-Deterministic Quality Sliders
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Tools that give you a "Quality: 80%" slider rely on guesswork. High-detail photos might end up at 52 KB (exceeding the 50 KB ceiling), while low-detail photos shrink to 18 KB (failing the 20 KB floor). <strong>SetImgKB uses an iterative binary search engine that converges exactly within a strict 95%–98% corridor below your target ceiling.</strong>
+                </p>
+              </div>
+            </div>
+
+            <!-- Trap 3 -->
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                !
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">
+                  3. Aspect Ratio Distortion on Admit Cards
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Arbitrarily forcing an image into dimensions without locked proportional scaling stretches facial features vertically or squashes them horizontally. When printed on SSC examination admit cards, distorted photos fail visual facial matching at exam centres. <strong>SetImgKB locks the official 3.5 × 4.5 cm aspect ratio with iterative 2× downsampling to preserve crisp biometric edges.</strong>
+                </p>
+              </div>
+            </div>
+
+            <!-- Trap 4 -->
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                !
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">
+                  4. Muddy Grey Backgrounds on Signature Scans
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Taking a photo of a signature indoors often creates dark shadows and low-contrast grey backgrounds that automated threshold filters on the SSC server flag as unreadable. <strong>SetImgKB's signature mode normalizes near-white background pixels to pure RGB(255, 255, 255) and deepens ink strokes for maximum legibility.</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section id="faq" class="w-full max-w-3xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-100 dark:border-slate-800" aria-labelledby="faq-heading">
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Candidate Help</span>
+        <h2 id="faq-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 mb-3 tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Everything SSC CHSL and CGL candidates need to know about photo and signature requirements.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm cursor-pointer select-none">
+            <span>What is the exact photo size and dimension required for SSC CHSL?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            The candidate passport photograph must have a file size between <strong>20 KB and 50 KB</strong> in JPEG/JPG format. The physical dimension requirement is <strong>3.5 cm in width and 4.5 cm in height</strong>, which corresponds to <strong>413 × 531 pixels</strong> when exported at 300 DPI standard.
+          </div>
+        </details>
+
+        <!-- FAQ 2 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm cursor-pointer select-none">
+            <span>What is the signature file size and dimension limit for the SSC portal?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            The candidate signature must be between <strong>10 KB and 20 KB</strong> in JPEG/JPG format. The dimension requirement is exactly <strong>140 pixels width × 60 pixels height</strong> (or 4.0 cm × 2.0 cm). The signature should be written in black or dark blue ink on plain unruled white paper.
+          </div>
+        </details>
+
+        <!-- FAQ 3 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm cursor-pointer select-none">
+            <span>Is date and name required to be printed on the SSC CHSL photograph?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            In recent SSC notification cycles (including SSC CHSL and CGL), the Commission does <strong>not</strong> mandate printing your name or date on the photograph unless explicitly instructed in a specific regional notice. However, the photo must be fresh and taken not more than 3 months prior to the date of publication of the examination notification.
+          </div>
+        </details>
+
+        <!-- FAQ 4 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm cursor-pointer select-none">
+            <span>Can I wear spectacles or glasses in my SSC photograph?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            Spectacles are discouraged. If you must wear clear medical prescription spectacles, ensure there is absolutely zero reflection or glare from camera flash obscuring your eyes. Polarized, tinted, or coloured glasses, sunglasses, and caps are strictly prohibited and will lead to automatic application rejection.
+          </div>
+        </details>
+
+        <!-- FAQ 5 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm cursor-pointer select-none">
+            <span>Are my documents or signatures stored on your servers?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            Zero server uploads. All processing takes place locally inside your browser's private memory using Web Workers and HTML5 Canvas. Your sensitive personal photos and signatures never leave your device.
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

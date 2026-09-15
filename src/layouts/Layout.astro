@@ -5,15 +5,19 @@ interface Props {
   title?: string;
   description?: string;
   keywords?: string;
+  canonical?: string;
+  schema?: Record<string, any>;
 }
 
 const {
   title = 'SetImgKB — Resize Image to 20KB, 50KB & 100KB Online',
   description = 'Compress images to exact target KB size (20KB, 50KB, 100KB) directly in your browser. Fast, secure, and portal-ready with zero server uploads.',
   keywords = 'resize image to 20kb, resize image to 50kb, compress image to 100kb, pan card photo resizer, ssc photo resizer under 20kb, upsc signature resizer, image compressor to exact kb, reduce image size in kb, compress signature to 10kb online, photo resizer to 20kb for ssc',
+  canonical,
+  schema,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, 'https://setimgkb.com').href;
+const canonicalURL = canonical || new URL(Astro.url.pathname, 'https://setimgkb.com').href;
 
 const schemaGraph = {
   '@context': 'https://schema.org',
@@ -89,7 +93,7 @@ const schemaGraph = {
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
-    <link rel="canonical" href="https://setimgkb.com/" />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap.xml" />
 
     <!-- Open Graph / Facebook -->
@@ -117,7 +121,7 @@ const schemaGraph = {
     <meta name="generator" content={Astro.generator} />
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema || schemaGraph)} />
 
     <!-- Preconnect for Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
