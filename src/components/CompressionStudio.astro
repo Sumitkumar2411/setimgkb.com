@@ -1,15 +1,84 @@
 ---
 // CompressionStudio.astro — Coinbase Design System Specification
 // Preserves 100% of DOM IDs, event handlers, and compression engine bindings.
+
+interface Props {
+  mode?: 'default' | 'ssc';
+}
+
+const { mode = 'default' } = Astro.props;
+const isSsc = mode === 'ssc';
 ---
 
-<section class="studio-section" aria-labelledby="studio-heading">
+<section class="studio-section" data-mode={mode} aria-labelledby="studio-heading">
   <div class="container">
 
     <!-- Studio heading (sr-only, semantic) -->
-    <h2 id="studio-heading" class="sr-only">Image Compression Studio</h2>
+    <h2 id="studio-heading" class="sr-only">
+      {isSsc ? 'SSC CHSL Photo & Signature Resizer' : 'Image Compression Studio'}
+    </h2>
 
     <div class="studio-card card-elevated">
+
+      {isSsc && (
+        <div class="ssc-mode-bar p-4 sm:p-6 bg-slate-50/70 dark:bg-slate-900/60 border-b border-slate-200/80 dark:border-slate-800">
+          <!-- Trust Signal Badge Pill -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3.5 border-b border-slate-200/80 dark:border-slate-800/80 text-xs">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full font-semibold bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-800/70 shadow-2xs">
+              <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>✓ Meets SSC Portal Standards | Metadata &amp; EXIF Automatically Stripped</span>
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400 font-mono text-[11px]">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              100% Client-Side Engine
+            </span>
+          </div>
+
+          <!-- Mode Switcher Bar (Segmented Tabs above Dropzone) -->
+          <div>
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
+              Select SSC Document Type
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-1.5 bg-slate-200/70 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800" role="tablist" aria-label="SSC Presets">
+              <button
+                type="button"
+                id="ssc-tab-photo"
+                class="ssc-tab-btn active flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer bg-white text-blue-600 dark:bg-slate-800 dark:text-blue-400 shadow-xs border border-slate-200/80 dark:border-slate-700 ring-2 ring-blue-500/20"
+                role="tab"
+                aria-selected="true"
+              >
+                <svg class="w-4 h-4 shrink-0 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                <div class="flex flex-col items-start leading-tight text-left">
+                  <span>Passport Photo</span>
+                  <span class="text-[11px] font-normal text-slate-500 dark:text-slate-400">20KB – 50KB | 3.5 × 4.5 cm</span>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                id="ssc-tab-signature"
+                class="ssc-tab-btn flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl font-semibold text-xs sm:text-sm transition-all cursor-pointer text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                role="tab"
+                aria-selected="false"
+              >
+                <svg class="w-4 h-4 shrink-0 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                <div class="flex flex-col items-start leading-tight text-left">
+                  <span>Signature</span>
+                  <span class="text-[11px] font-normal text-slate-500 dark:text-slate-400">10KB – 20KB | 140 × 60 px</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <!-- ── Dropzone ──────────────────────────────────── -->
       <div
@@ -30,8 +99,12 @@
             </svg>
           </div>
 
-          <p class="dropzone-title">Drop your photo or signature here</p>
-          <p class="dropzone-sub">JPG, PNG, WebP up to 25 MB · Processed 100% locally in browser memory</p>
+          <p class="dropzone-title" id="dropzone-title">
+            {isSsc ? 'Drop your SSC photo or signature here' : 'Drop your photo or signature here'}
+          </p>
+          <p class="dropzone-sub">
+            {isSsc ? 'JPG, PNG, WebP up to 25 MB · Instant client-side downscaling & EXIF stripped' : 'JPG, PNG, WebP up to 25 MB · Processed 100% locally in browser memory'}
+          </p>
 
           <span class="dropzone-browse" aria-hidden="true">Browse files</span>
 
@@ -800,6 +873,13 @@
   const progressHint    = document.getElementById('progress-hint')!;
   const safeRangeText   = document.getElementById('safe-range-text')!;
 
+  // ── SSC Mode Detection & Tab Elements ───────────────────────────────────────
+  const studioSection = document.querySelector('.studio-section') as HTMLElement | null;
+  const isSscMode = studioSection?.dataset.mode === 'ssc';
+  let activeSscTab: 'photo' | 'signature' = 'photo';
+  const sscTabPhoto = document.getElementById('ssc-tab-photo');
+  const sscTabSig   = document.getElementById('ssc-tab-signature');
+
   // ── Custom Dimension Bindings ───────────────────────────────────────────────
   const dimWidthInput     = document.getElementById('dim-width') as HTMLInputElement | null;
   const dimHeightInput    = document.getElementById('dim-height') as HTMLInputElement | null;
@@ -899,6 +979,75 @@
     if (v > 0) { selectedKB = v; updateSafeRange(v); }
   });
 
+  // ── SSC Mode Tab Switcher & Presets ──────────────────────────────────────────
+  function setSscTab(tab: 'photo' | 'signature', recompress = true) {
+    activeSscTab = tab;
+    if (tab === 'photo') {
+      sscTabPhoto?.classList.add('active', 'bg-white', 'text-blue-600', 'dark:bg-slate-800', 'dark:text-blue-400', 'shadow-xs', 'border', 'border-slate-200/80', 'dark:border-slate-700', 'ring-2', 'ring-blue-500/20');
+      sscTabPhoto?.classList.remove('text-slate-600', 'dark:text-slate-400');
+      sscTabPhoto?.setAttribute('aria-selected', 'true');
+
+      sscTabSig?.classList.remove('active', 'bg-white', 'text-blue-600', 'dark:bg-slate-800', 'dark:text-blue-400', 'shadow-xs', 'border', 'border-slate-200/80', 'dark:border-slate-700', 'ring-2', 'ring-blue-500/20');
+      sscTabSig?.classList.add('text-slate-600', 'dark:text-slate-400');
+      sscTabSig?.setAttribute('aria-selected', 'false');
+
+      selectedKB = 50;
+      document.querySelectorAll('.preset-pill').forEach(b => b.classList.remove('active'));
+      document.getElementById('preset-50')?.classList.add('active');
+
+      currentUnit = 'cm';
+      if (dimUnitSelect) dimUnitSelect.value = 'cm';
+      updateInputSteps('cm');
+      if (dimWidthInput) dimWidthInput.value = '3.5';
+      if (dimHeightInput) dimHeightInput.value = '4.5';
+      targetPxWidth = toCanvasPx(3.5, 'cm');
+      targetPxHeight = toCanvasPx(4.5, 'cm');
+      aspectRatio = 3.5 / 4.5;
+      isCustomDimensionsSet = true;
+      isAspectLocked = true;
+      if (sigModeToggle) sigModeToggle.checked = false;
+
+      const safeNote = document.getElementById('safe-range-note');
+      if (safeNote) safeNote.innerHTML = 'Output guaranteed within <strong id="safe-range-text">47.5 – 49.0 KB</strong> (strictly within SSC 20KB – 50KB corridor)';
+      if (dimPxEquivalent) dimPxEquivalent.textContent = '≈ 413 × 531 px @ 300 DPI (SSC Standard)';
+    } else {
+      sscTabSig?.classList.add('active', 'bg-white', 'text-blue-600', 'dark:bg-slate-800', 'dark:text-blue-400', 'shadow-xs', 'border', 'border-slate-200/80', 'dark:border-slate-700', 'ring-2', 'ring-blue-500/20');
+      sscTabSig?.classList.remove('text-slate-600', 'dark:text-slate-400');
+      sscTabSig?.setAttribute('aria-selected', 'true');
+
+      sscTabPhoto?.classList.remove('active', 'bg-white', 'text-blue-600', 'dark:bg-slate-800', 'dark:text-blue-400', 'shadow-xs', 'border', 'border-slate-200/80', 'dark:border-slate-700', 'ring-2', 'ring-blue-500/20');
+      sscTabPhoto?.classList.add('text-slate-600', 'dark:text-slate-400');
+      sscTabPhoto?.setAttribute('aria-selected', 'false');
+
+      selectedKB = 20;
+      document.querySelectorAll('.preset-pill').forEach(b => b.classList.remove('active'));
+      document.getElementById('preset-20')?.classList.add('active');
+
+      currentUnit = 'px';
+      if (dimUnitSelect) dimUnitSelect.value = 'px';
+      updateInputSteps('px');
+      if (dimWidthInput) dimWidthInput.value = '140';
+      if (dimHeightInput) dimHeightInput.value = '60';
+      targetPxWidth = 140;
+      targetPxHeight = 60;
+      aspectRatio = 140 / 60;
+      isCustomDimensionsSet = true;
+      isAspectLocked = true;
+      if (sigModeToggle) sigModeToggle.checked = true;
+
+      const safeNote = document.getElementById('safe-range-note');
+      if (safeNote) safeNote.innerHTML = 'Output guaranteed within <strong id="safe-range-text">19.0 – 19.6 KB</strong> (strictly within SSC 10KB – 20KB corridor)';
+      if (dimPxEquivalent) dimPxEquivalent.textContent = '140 × 60 px (SSC Portal Standard)';
+    }
+
+    if (recompress && currentFile) {
+      runCompression(currentFile);
+    }
+  }
+
+  sscTabPhoto?.addEventListener('click', () => setSscTab('photo'));
+  sscTabSig?.addEventListener('click', () => setSscTab('signature'));
+
   // ── Drag & drop ──────────────────────────────────────────────────────────────
   dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('drag-over'); });
   dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
@@ -914,6 +1063,11 @@
       fileInput.click();
     }
   });
+  dropzone.addEventListener('click', (e) => {
+    if (e.target === dropzone) {
+      fileInput.click();
+    }
+  });
   fileInput.addEventListener('change', () => {
     const file = fileInput.files?.[0];
     if (file) handleFile(file);
@@ -922,7 +1076,9 @@
   // ── File handling ─────────────────────────────────────────────────────────────
   function handleFile(file: File) {
     const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
-    if (!ALLOWED.includes(file.type)) {
+    const ext = file.name.toLowerCase().split('.').pop() || '';
+    const isAllowedExt = ['jpg', 'jpeg', 'png', 'webp'].includes(ext);
+    if (!ALLOWED.includes(file.type) && !isAllowedExt) {
       showError('Unsupported file type. Please upload a JPG, PNG, or WebP image.');
       return;
     }
@@ -933,16 +1089,19 @@
     currentFile = file;
     hideError();
 
-    // Default dimensions on new image upload MUST reflect real pixel size in 'px', NOT prefilled cm/px
-    isCustomDimensionsSet = false;
-    currentUnit = 'px';
-    if (dimUnitSelect) dimUnitSelect.value = 'px';
-    updateInputSteps('px');
-    targetPxWidth = 0;
-    targetPxHeight = 0;
-    if (dimWidthInput) dimWidthInput.value = '';
-    if (dimHeightInput) dimHeightInput.value = '';
-    updateEquivalentBadge();
+    if (isSscMode) {
+      setSscTab(activeSscTab, false);
+    } else {
+      isCustomDimensionsSet = false;
+      currentUnit = 'px';
+      if (dimUnitSelect) dimUnitSelect.value = 'px';
+      updateInputSteps('px');
+      targetPxWidth = 0;
+      targetPxHeight = 0;
+      if (dimWidthInput) dimWidthInput.value = '';
+      if (dimHeightInput) dimHeightInput.value = '';
+      updateEquivalentBadge();
+    }
 
     showOriginalPreview(file);
     runCompression(file);
@@ -1118,7 +1277,7 @@
       aspectRatio = originalWidth / (originalHeight || 1);
       originalDims.textContent = `${originalWidth} × ${originalHeight} px`;
 
-      if (!isCustomDimensionsSet) {
+      if (!isCustomDimensionsSet && !isSscMode) {
         currentUnit = 'px';
         if (dimUnitSelect) dimUnitSelect.value = 'px';
         updateInputSteps('px');
@@ -1209,8 +1368,14 @@
     outputSize.textContent = fmtSize(byteSize);
     outputDims.textContent = `${width} × ${height} px`;
     latencyDisplay.textContent = `Processed in ${latencyMs} ms`;
-    complianceText.textContent = `✓ Portal Compliant (< ${selectedKB} KB)`;
-    downloadLabel.textContent = `Download ${fmtSize(byteSize)} JPG`;
+    complianceText.textContent = isSscMode
+      ? (activeSscTab === 'signature'
+          ? `✓ SSC Signature Compliant (${fmtSize(byteSize)} ≤ 20KB, 140×60px)`
+          : `✓ SSC Photo Compliant (${fmtSize(byteSize)} ≤ 50KB, 3.5×4.5cm)`)
+      : `✓ Portal Compliant (< ${selectedKB} KB)`;
+    downloadLabel.textContent = isSscMode
+      ? (activeSscTab === 'signature' ? `Download SSC Signature (${fmtSize(byteSize)})` : `Download SSC Photo (${fmtSize(byteSize)})`)
+      : `Download ${fmtSize(byteSize)} JPG`;
     previewPanel.hidden = false;
 
     setTimeout(() => {
@@ -1229,7 +1394,9 @@
     if (!outputBlob || !currentFile) return;
     const a = document.createElement('a');
     a.href = URL.createObjectURL(outputBlob);
-    a.download = `setimgkb-image-${selectedKB}kb.jpg`;
+    a.download = isSscMode
+      ? (activeSscTab === 'signature' ? 'ssc-chsl-signature-20kb.jpg' : 'ssc-chsl-photo-50kb.jpg')
+      : `setimgkb-image-${selectedKB}kb.jpg`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 10000);
   });
@@ -1247,20 +1414,28 @@
     originalThumb.src = ''; outputThumb.src = '';
 
     originalWidth = 0; originalHeight = 0;
-    targetPxWidth = 0; targetPxHeight = 0;
-    isCustomDimensionsSet = false;
-    currentUnit = 'px';
-    if (dimUnitSelect) dimUnitSelect.value = 'px';
-    updateInputSteps('px');
-    if (dimWidthInput) dimWidthInput.value = '';
-    if (dimHeightInput) dimHeightInput.value = '';
-    updateEquivalentBadge();
+    if (isSscMode) {
+      setSscTab(activeSscTab, false);
+    } else {
+      targetPxWidth = 0; targetPxHeight = 0;
+      isCustomDimensionsSet = false;
+      currentUnit = 'px';
+      if (dimUnitSelect) dimUnitSelect.value = 'px';
+      updateInputSteps('px');
+      if (dimWidthInput) dimWidthInput.value = '';
+      if (dimHeightInput) dimHeightInput.value = '';
+      updateEquivalentBadge();
+    }
   });
 
   // ── Error ─────────────────────────────────────────────────────────────────────
   function showError(msg: string) { errorMsg.textContent = msg; errorPanel.hidden = false; }
   function hideError() { errorPanel.hidden = true; errorMsg.textContent = ''; }
 
-  // ── Init safe range display ───────────────────────────────────────────────────
-  updateSafeRange(selectedKB);
+  // ── Init safe range & presets display ─────────────────────────────────────────
+  if (isSscMode) {
+    setSscTab('photo', false);
+  } else {
+    updateSafeRange(selectedKB);
+  }
 </script>
