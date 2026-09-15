@@ -35,6 +35,22 @@ function getDimensionCap(targetKB: number): { maxW: number; maxH: number } {
   return { maxW: 1600, maxH: 2000 };
 }
 
+function createCanvas(w: number, h: number, useOffscreen: boolean): HTMLCanvasElement | OffscreenCanvas {
+  const safeW = Math.min(Math.max(1, Math.round(w)), 4096);
+  const safeH = Math.min(Math.max(1, Math.round(h)), 4096);
+  if (useOffscreen && typeof OffscreenCanvas !== 'undefined') {
+    return new OffscreenCanvas(safeW, safeH);
+  } else if (typeof document !== 'undefined') {
+    const c = document.createElement('canvas');
+    c.width = safeW;
+    c.height = safeH;
+    return c;
+  } else if (typeof OffscreenCanvas !== 'undefined') {
+    return new OffscreenCanvas(safeW, safeH);
+  }
+  throw new Error('Canvas rendering context not available');
+}
+
 // Draw an image/canvas source to a new canvas at the given dimensions
 // Uses iterative ≤2× halving to preserve edge contrast and prevent aliasing
 function downsampleCanvas(
@@ -45,41 +61,31 @@ function downsampleCanvas(
   targetH: number,
   useOffscreen: boolean
 ): HTMLCanvasElement | OffscreenCanvas {
-  let srcW = sourceW;
-  let srcH = sourceH;
+  const safeTargetW = Math.min(Math.max(1, Math.round(targetW)), 4096);
+  const safeTargetH = Math.min(Math.max(1, Math.round(targetH)), 4096);
 
-  let current: HTMLCanvasElement | OffscreenCanvas;
-  if (useOffscreen && typeof OffscreenCanvas !== 'undefined') {
-    current = new OffscreenCanvas(srcW, srcH);
-  } else if (typeof document !== 'undefined') {
-    current = document.createElement('canvas');
-    current.width = srcW;
-    current.height = srcH;
-  } else if (typeof OffscreenCanvas !== 'undefined') {
-    current = new OffscreenCanvas(srcW, srcH);
-  } else {
-    throw new Error('Canvas rendering context not available');
+  // If dimensions match target exactly (or direct 1:1 compression without rescaling)
+  if (sourceW === safeTargetW && sourceH === safeTargetH) {
+    const directCanvas = createCanvas(safeTargetW, safeTargetH, useOffscreen);
+    const ctx = directCanvas.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+    ctx.drawImage(source, 0, 0, safeTargetW, safeTargetH);
+    return directCanvas;
   }
 
+  // Safety clamp on initial canvas size so we never allocate > 4096px
+  let srcW = Math.min(sourceW, 4096);
+  let srcH = Math.min(sourceH, 4096);
+
+  let current = createCanvas(srcW, srcH, useOffscreen);
   const initCtx = current.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
   initCtx.drawImage(source, 0, 0, srcW, srcH);
 
   // Iterative halving: never more than 2× reduction per step
-  while (srcW > targetW || srcH > targetH) {
-    const stepW = Math.max(targetW, Math.ceil(srcW / 2));
-    const stepH = Math.max(targetH, Math.ceil(srcH / 2));
+  while (srcW > safeTargetW || srcH > safeTargetH) {
+    const stepW = Math.max(safeTargetW, Math.ceil(srcW / 2));
+    const stepH = Math.max(safeTargetH, Math.ceil(srcH / 2));
 
-    let next: HTMLCanvasElement | OffscreenCanvas;
-    if (useOffscreen && typeof OffscreenCanvas !== 'undefined') {
-      next = new OffscreenCanvas(stepW, stepH);
-    } else if (typeof document !== 'undefined') {
-      next = document.createElement('canvas');
-      (next as HTMLCanvasElement).width = stepW;
-      (next as HTMLCanvasElement).height = stepH;
-    } else {
-      next = new OffscreenCanvas(stepW, stepH);
-    }
-
+    const next = createCanvas(stepW, stepH, useOffscreen);
     const ctx = next.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
@@ -91,21 +97,12 @@ function downsampleCanvas(
   }
 
   // Ensure final canvas matches exact target dimensions (handles upscaling or aspect adjustments)
-  if (current.width !== targetW || current.height !== targetH) {
-    let finalCanvas: HTMLCanvasElement | OffscreenCanvas;
-    if (useOffscreen && typeof OffscreenCanvas !== 'undefined') {
-      finalCanvas = new OffscreenCanvas(targetW, targetH);
-    } else if (typeof document !== 'undefined') {
-      finalCanvas = document.createElement('canvas');
-      (finalCanvas as HTMLCanvasElement).width = targetW;
-      (finalCanvas as HTMLCanvasElement).height = targetH;
-    } else {
-      finalCanvas = new OffscreenCanvas(targetW, targetH);
-    }
+  if (current.width !== safeTargetW || current.height !== safeTargetH) {
+    const finalCanvas = createCanvas(safeTargetW, safeTargetH, useOffscreen);
     const finalCtx = finalCanvas.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
     finalCtx.imageSmoothingEnabled = true;
     finalCtx.imageSmoothingQuality = 'high';
-    finalCtx.drawImage(current, 0, 0, targetW, targetH);
+    finalCtx.drawImage(current, 0, 0, safeTargetW, safeTargetH);
     return finalCanvas;
   }
 
@@ -209,120 +206,132 @@ export async function compressImage(options: CompressionOptions): Promise<Compre
 
   // 1. Load image safely using createImageBitmap or window.Image
   const sourceImg = await loadImageSource(file);
-  const origW = 'naturalWidth' in sourceImg ? (sourceImg as HTMLImageElement).naturalWidth : sourceImg.width;
-  const origH = 'naturalHeight' in sourceImg ? (sourceImg as HTMLImageElement).naturalHeight : sourceImg.height;
 
-  // 2. Compute target dimensions
-  const hasCustomDims = typeof customWidth === 'number' && typeof customHeight === 'number' && customWidth > 0 && customHeight > 0;
-  let targetW: number;
-  let targetH: number;
+  try {
+    const origW = 'naturalWidth' in sourceImg ? (sourceImg as HTMLImageElement).naturalWidth : sourceImg.width;
+    const origH = 'naturalHeight' in sourceImg ? (sourceImg as HTMLImageElement).naturalHeight : sourceImg.height;
 
-  if (hasCustomDims) {
-    targetW = Math.round(customWidth);
-    targetH = Math.round(customHeight);
-  } else {
-    const { maxW, maxH } = getDimensionCap(targetKB);
-    const baseScale = Math.min(1, maxW / origW, maxH / origH);
-    targetW = Math.round(origW * baseScale);
-    targetH = Math.round(origH * baseScale);
-  }
+    // 2. Compute target dimensions
+    const hasCustomDims = typeof customWidth === 'number' && typeof customHeight === 'number' && customWidth > 0 && customHeight > 0;
+    let targetW: number;
+    let targetH: number;
 
-  const targetBytes = targetKB * 1024;
-  const lowerBound  = targetBytes * 0.95;
-  const upperBound  = targetBytes * 0.98;
-
-  let bestBlob: Blob | null = null;
-  let bestSize = 0;
-  let finalWidth = targetW;
-  let finalHeight = targetH;
-  const MAX_SCALE_ATTEMPTS = 5;
-
-  for (let scaleAttempt = 0; scaleAttempt < MAX_SCALE_ATTEMPTS; scaleAttempt++) {
-    // 3. Downsample canvas
-    const downsampled = downsampleCanvas(sourceImg, origW, origH, targetW, targetH, useOffscreen);
-
-    // 4. Signature enhancement (optional)
-    if (signatureMode) {
-      applySignatureEnhancement(downsampled);
+    if (hasCustomDims) {
+      targetW = Math.min(Math.max(1, Math.round(customWidth)), 4096);
+      targetH = Math.min(Math.max(1, Math.round(customHeight)), 4096);
+    } else {
+      // If user has NOT explicitly modified dimensions or selected a preset, bypass canvas rescaling entirely
+      // Clamped to 4096 safety ceiling
+      if (origW > 4096 || origH > 4096) {
+        const scale = Math.min(4096 / origW, 4096 / origH);
+        targetW = Math.round(origW * scale);
+        targetH = Math.round(origH * scale);
+      } else {
+        targetW = origW;
+        targetH = origH;
+      }
     }
 
-    finalWidth = downsampled.width;
-    finalHeight = downsampled.height;
+    const targetBytes = targetKB * 1024;
+    const lowerBound  = targetBytes * 0.95;
+    const upperBound  = targetBytes * 0.98;
 
-    // 5. Binary-search quality discovery (max 10 iterations)
-    let lo = 0.01, hi = 0.99;
-    let localBestBlob: Blob | null = null;
-    let localBestSize = 0;
-    const MAX_ITERS = 10;
+    let bestBlob: Blob | null = null;
+    let bestSize = 0;
+    let finalWidth = targetW;
+    let finalHeight = targetH;
+    const MAX_SCALE_ATTEMPTS = 4;
+    const MAX_ITERS = 6; // Capped to 6 iterations for sub-250ms latency
 
-    for (let i = 0; i < MAX_ITERS; i++) {
-      const mid = (lo + hi) / 2;
-      const blob = await canvasToBlob(downsampled, mid);
-      const size = blob.size;
+    for (let scaleAttempt = 0; scaleAttempt < MAX_SCALE_ATTEMPTS; scaleAttempt++) {
+      // 3. Downsample canvas (or 1:1 direct render if native dimensions match)
+      const downsampled = downsampleCanvas(sourceImg, origW, origH, targetW, targetH, useOffscreen);
 
-      if (size >= lowerBound && size <= upperBound) {
-        localBestBlob = blob;
-        localBestSize = size;
+      // 4. Signature enhancement (optional)
+      if (signatureMode) {
+        applySignatureEnhancement(downsampled);
+      }
+
+      finalWidth = downsampled.width;
+      finalHeight = downsampled.height;
+
+      // 5. Binary-search quality discovery (capped at 6 iterations)
+      let lo = 0.01, hi = 0.99;
+      let localBestBlob: Blob | null = null;
+      let localBestSize = 0;
+
+      for (let i = 0; i < MAX_ITERS; i++) {
+        const mid = (lo + hi) / 2;
+        const blob = await canvasToBlob(downsampled, mid);
+        const size = blob.size;
+
+        if (size >= lowerBound && size <= upperBound) {
+          localBestBlob = blob;
+          localBestSize = size;
+          break;
+        }
+
+        if (size > upperBound) {
+          // Exceeds upper limit: reduce quality
+          hi = mid;
+        } else {
+          // Under upper limit: increase quality
+          lo = mid;
+          localBestBlob = blob;
+          localBestSize = size;
+        }
+
+        if (i === MAX_ITERS - 1 && !localBestBlob) {
+          localBestBlob = blob;
+          localBestSize = size;
+        }
+      }
+
+      // Check if the candidate is strictly under target ceiling (targetBytes)
+      if (localBestBlob && localBestBlob.size <= targetBytes) {
+        bestBlob = localBestBlob;
+        bestSize = localBestSize;
         break;
       }
 
-      if (size > upperBound) {
-        // Exceeds upper limit: reduce quality
-        hi = mid;
-      } else {
-        // Under upper limit: increase quality
-        lo = mid;
-        localBestBlob = blob;
-        localBestSize = size;
-      }
-
-      if (i === MAX_ITERS - 1 && !localBestBlob) {
-        localBestBlob = blob;
-        localBestSize = size;
+      // If candidate still exceeds targetBytes even at lowest quality, adaptively drop scale (unless custom dimensions requested)
+      if (!hasCustomDims && scaleAttempt < MAX_SCALE_ATTEMPTS - 1) {
+        const sizeRatio = localBestSize > targetBytes ? Math.sqrt(targetBytes / localBestSize) : 0.85;
+        const scaleFactor = Math.min(0.85, Math.max(0.4, sizeRatio * 0.95));
+        targetW = Math.max(80, Math.round(targetW * scaleFactor));
+        targetH = Math.max(80, Math.round(targetH * scaleFactor));
       }
     }
 
-    // Check if the candidate is strictly under target ceiling (targetBytes)
-    if (localBestBlob && localBestBlob.size <= targetBytes) {
-      bestBlob = localBestBlob;
-      bestSize = localBestSize;
-      break;
+    // Fallback candidate if extreme bounds
+    if (!bestBlob) {
+      const fallbackW = hasCustomDims ? targetW : Math.max(80, Math.round(targetW * 0.7));
+      const fallbackH = hasCustomDims ? targetH : Math.max(80, Math.round(targetH * 0.7));
+      const fallbackCanvas = downsampleCanvas(sourceImg, origW, origH, fallbackW, fallbackH, useOffscreen);
+      bestBlob = await canvasToBlob(fallbackCanvas, 0.05);
+      bestSize = bestBlob.size;
+      finalWidth = fallbackCanvas.width;
+      finalHeight = fallbackCanvas.height;
     }
 
-    // If candidate still exceeds targetBytes even at low quality, drop scale by 10% (unless custom dimensions requested)
-    if (!hasCustomDims && scaleAttempt < MAX_SCALE_ATTEMPTS - 1) {
-      targetW = Math.max(80, Math.round(targetW * 0.9));
-      targetH = Math.max(80, Math.round(targetH * 0.9));
+    const latencyMs = Math.round(performance.now() - t0);
+
+    return {
+      blob: bestBlob,
+      byteSize: bestSize,
+      width: finalWidth,
+      height: finalHeight,
+      latencyMs,
+    };
+  } finally {
+    // Keep ImageBitmap immutable and alive throughout all iterations.
+    // ONLY call .close() inside the final cleanup/finally block after compression is finished.
+    if ('close' in sourceImg && typeof (sourceImg as ImageBitmap).close === 'function') {
+      try {
+        (sourceImg as ImageBitmap).close();
+      } catch {
+        // Ignored
+      }
     }
   }
-
-  // Cleanup ImageBitmap if applicable
-  if ('close' in sourceImg && typeof (sourceImg as ImageBitmap).close === 'function') {
-    try {
-      (sourceImg as ImageBitmap).close();
-    } catch {
-      // Ignored
-    }
-  }
-
-  // Fallback candidate if extreme bounds
-  if (!bestBlob) {
-    const fallbackW = hasCustomDims ? targetW : Math.max(80, Math.round(targetW * 0.7));
-    const fallbackH = hasCustomDims ? targetH : Math.max(80, Math.round(targetH * 0.7));
-    const fallbackCanvas = downsampleCanvas(sourceImg, origW, origH, fallbackW, fallbackH, useOffscreen);
-    bestBlob = await canvasToBlob(fallbackCanvas, 0.05);
-    bestSize = bestBlob.size;
-    finalWidth = fallbackCanvas.width;
-    finalHeight = fallbackCanvas.height;
-  }
-
-  const latencyMs = Math.round(performance.now() - t0);
-
-  return {
-    blob: bestBlob,
-    byteSize: bestSize,
-    width: finalWidth,
-    height: finalHeight,
-    latencyMs,
-  };
 }

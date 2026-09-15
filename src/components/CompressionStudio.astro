@@ -820,24 +820,28 @@
   // When unit is 'px': canvas_px = value
   function toCanvasPx(val: number, unit: string): number {
     if (!val || isNaN(val) || val <= 0) return 0;
-    if (unit === 'cm') return Math.round((val / 2.54) * 300);
-    if (unit === 'mm') return Math.round((val / 25.4) * 300);
-    if (unit === 'inch') return Math.round(val * 300);
-    return Math.round(val);
+    let px = Math.round(val);
+    if (unit === 'cm') px = Math.round((val / 2.54) * 300);
+    else if (unit === 'mm') px = Math.round((val / 25.4) * 300);
+    else if (unit === 'inch') px = Math.round(val * 300);
+    return Math.min(Math.max(1, px), 4096);
   }
 
   function fromCanvasPx(px: number, unit: string): number {
     if (!px || isNaN(px) || px <= 0) return 0;
-    if (unit === 'cm') return parseFloat(((px / 300) * 2.54).toFixed(2));
-    if (unit === 'mm') return parseFloat(((px / 300) * 25.4).toFixed(1));
-    if (unit === 'inch') return parseFloat((px / 300).toFixed(2));
-    return Math.round(px);
+    const clampedPx = Math.min(px, 4096);
+    if (unit === 'cm') return parseFloat(((clampedPx / 300) * 2.54).toFixed(2));
+    if (unit === 'mm') return parseFloat(((clampedPx / 300) * 25.4).toFixed(1));
+    if (unit === 'inch') return parseFloat((clampedPx / 300).toFixed(2));
+    return Math.round(clampedPx);
   }
 
   function updateEquivalentBadge() {
     if (!dimPxEquivalent) return;
     if (currentUnit !== 'px' && targetPxWidth > 0 && targetPxHeight > 0) {
-      dimPxEquivalent.textContent = `≈ ${targetPxWidth} × ${targetPxHeight} px @ 300 DPI`;
+      const displayW = Math.min(targetPxWidth, 4096);
+      const displayH = Math.min(targetPxHeight, 4096);
+      dimPxEquivalent.textContent = `≈ ${displayW} × ${displayH} px @ 300 DPI`;
     } else {
       dimPxEquivalent.textContent = '300 DPI compliance';
     }
@@ -928,6 +932,18 @@
     }
     currentFile = file;
     hideError();
+
+    // Default dimensions on new image upload MUST reflect real pixel size in 'px', NOT prefilled cm/px
+    isCustomDimensionsSet = false;
+    currentUnit = 'px';
+    if (dimUnitSelect) dimUnitSelect.value = 'px';
+    updateInputSteps('px');
+    targetPxWidth = 0;
+    targetPxHeight = 0;
+    if (dimWidthInput) dimWidthInput.value = '';
+    if (dimHeightInput) dimHeightInput.value = '';
+    updateEquivalentBadge();
+
     showOriginalPreview(file);
     runCompression(file);
   }
@@ -944,9 +960,9 @@
             ? parseFloat((val / aspectRatio).toFixed(1))
             : parseFloat((val / aspectRatio).toFixed(2));
         if (dimHeightInput) dimHeightInput.value = String(newH);
-        targetPxHeight = toCanvasPx(newH, currentUnit);
+        targetPxHeight = Math.min(toCanvasPx(newH, currentUnit), 4096);
       }
-      targetPxWidth = toCanvasPx(val, currentUnit);
+      targetPxWidth = Math.min(toCanvasPx(val, currentUnit), 4096);
       updateEquivalentBadge();
     } else {
       targetPxWidth = 0;
@@ -970,9 +986,9 @@
             ? parseFloat((val * aspectRatio).toFixed(1))
             : parseFloat((val * aspectRatio).toFixed(2));
         if (dimWidthInput) dimWidthInput.value = String(newW);
-        targetPxWidth = toCanvasPx(newW, currentUnit);
+        targetPxWidth = Math.min(toCanvasPx(newW, currentUnit), 4096);
       }
-      targetPxHeight = toCanvasPx(val, currentUnit);
+      targetPxHeight = Math.min(toCanvasPx(val, currentUnit), 4096);
       updateEquivalentBadge();
     } else {
       targetPxHeight = 0;
@@ -994,8 +1010,8 @@
     const currentHVal = parseFloat(dimHeightInput?.value || '0');
 
     if (currentWVal > 0 && currentHVal > 0) {
-      const pxW = toCanvasPx(currentWVal, oldUnit);
-      const pxH = toCanvasPx(currentHVal, oldUnit);
+      const pxW = Math.min(toCanvasPx(currentWVal, oldUnit), 4096);
+      const pxH = Math.min(toCanvasPx(currentHVal, oldUnit), 4096);
       targetPxWidth = pxW;
       targetPxHeight = pxH;
 
@@ -1073,8 +1089,8 @@
     updateInputSteps('px');
 
     if (originalWidth > 0 && originalHeight > 0) {
-      targetPxWidth = originalWidth;
-      targetPxHeight = originalHeight;
+      targetPxWidth = Math.min(originalWidth, 4096);
+      targetPxHeight = Math.min(originalHeight, 4096);
       if (dimWidthInput) dimWidthInput.value = String(originalWidth);
       if (dimHeightInput) dimHeightInput.value = String(originalHeight);
       aspectRatio = originalWidth / (originalHeight || 1);
@@ -1108,8 +1124,8 @@
         updateInputSteps('px');
         if (dimWidthInput) dimWidthInput.value = String(originalWidth);
         if (dimHeightInput) dimHeightInput.value = String(originalHeight);
-        targetPxWidth = originalWidth;
-        targetPxHeight = originalHeight;
+        targetPxWidth = Math.min(originalWidth, 4096);
+        targetPxHeight = Math.min(originalHeight, 4096);
       }
       updateEquivalentBadge();
     };
@@ -1119,8 +1135,8 @@
   // ── Compression ───────────────────────────────────────────────────────────────
   function fallbackClientCompression(file: File) {
     const hasCustom = isCustomDimensionsSet && targetPxWidth > 0 && targetPxHeight > 0;
-    const customW = hasCustom ? targetPxWidth : undefined;
-    const customH = hasCustom ? targetPxHeight : undefined;
+    const customW = hasCustom ? Math.min(Math.round(targetPxWidth), 4096) : undefined;
+    const customH = hasCustom ? Math.min(Math.round(targetPxHeight), 4096) : undefined;
 
     import('../utils/compressionEngine').then(({ compressImage }) => {
       compressImage({
@@ -1153,8 +1169,8 @@
     worker?.terminate();
 
     const hasCustom = isCustomDimensionsSet && targetPxWidth > 0 && targetPxHeight > 0;
-    const customW = hasCustom ? targetPxWidth : undefined;
-    const customH = hasCustom ? targetPxHeight : undefined;
+    const customW = hasCustom ? Math.min(Math.round(targetPxWidth), 4096) : undefined;
+    const customH = hasCustom ? Math.min(Math.round(targetPxHeight), 4096) : undefined;
 
     try {
       worker = new Worker(

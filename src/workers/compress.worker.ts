@@ -19,7 +19,9 @@ self.addEventListener('message', async (event: MessageEvent) => {
   };
 
   try {
-    const result = await compressImage({ file, targetKB, signatureMode, customWidth, customHeight });
+    const safeCustomWidth = typeof customWidth === 'number' && customWidth > 0 ? Math.min(Math.round(customWidth), 4096) : undefined;
+    const safeCustomHeight = typeof customHeight === 'number' && customHeight > 0 ? Math.min(Math.round(customHeight), 4096) : undefined;
+    const result = await compressImage({ file, targetKB, signatureMode, customWidth: safeCustomWidth, customHeight: safeCustomHeight });
     // Transfer the ArrayBuffer for zero-copy performance
     const arrayBuffer = await result.blob.arrayBuffer();
     self.postMessage(
