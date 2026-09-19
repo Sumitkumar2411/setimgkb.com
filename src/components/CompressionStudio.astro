@@ -4,13 +4,17 @@
 
 interface Props {
   mode?: 'default' | 'ssc';
+  defaultTarget?: '20kb' | '50kb' | '100kb' | string;
 }
 
-const { mode = 'default' } = Astro.props;
+const { mode = 'default', defaultTarget = '20kb' } = Astro.props;
 const isSsc = mode === 'ssc';
+const targetKbNum = parseInt(defaultTarget.replace(/\D/g, '')) || 20;
+const safeRangeLo = (targetKbNum * 0.95).toFixed(1);
+const safeRangeHi = (targetKbNum * 0.98).toFixed(1);
 ---
 
-<section class="studio-section" data-mode={mode} aria-labelledby="studio-heading">
+<section class="studio-section" data-mode={mode} data-default-target={defaultTarget} aria-labelledby="studio-heading">
   <div class="container">
 
     <!-- Studio heading (sr-only, semantic) -->
@@ -125,11 +129,11 @@ const isSsc = mode === 'ssc';
         <div class="presets-row">
           <!-- Segmented Pill Track (Coinbase 100px Pill Geometry) -->
           <div class="preset-track" role="group" aria-label="Target file size presets">
-            <button class="preset-pill active" data-kb="20" type="button" id="preset-20">
+            <button class={`preset-pill ${targetKbNum === 20 ? 'active' : ''}`} data-kb="20" type="button" id="preset-20">
               20 KB
             </button>
-            <button class="preset-pill" data-kb="50" type="button" id="preset-50">50 KB</button>
-            <button class="preset-pill" data-kb="100" type="button" id="preset-100">100 KB</button>
+            <button class={`preset-pill ${targetKbNum === 50 ? 'active' : ''}`} data-kb="50" type="button" id="preset-50">50 KB</button>
+            <button class={`preset-pill ${targetKbNum === 100 ? 'active' : ''}`} data-kb="100" type="button" id="preset-100">100 KB</button>
             <button class="preset-pill" data-kb="custom" type="button" id="preset-custom">Custom</button>
           </div>
 
@@ -151,7 +155,7 @@ const isSsc = mode === 'ssc';
         <!-- Safe Range Indicator -->
         <p class="safe-range-note body-sm" id="safe-range-note">
           Output guaranteed within&nbsp;
-          <strong id="safe-range-text">19.0 – 19.6 KB</strong>
+          <strong id="safe-range-text">{safeRangeLo} – {safeRangeHi} KB</strong>
           &nbsp;(95%–98% safety corridor)
         </p>
 
@@ -834,7 +838,9 @@ const isSsc = mode === 'ssc';
 
 <script>
   // ── Preserved State ──────────────────────────────────────────────────────────
-  let selectedKB = 20;
+  const studioSection = document.querySelector('.studio-section') as HTMLElement | null;
+  const initialTargetAttr = studioSection?.dataset.defaultTarget || '20kb';
+  let selectedKB = parseInt(initialTargetAttr.replace(/\D/g, '')) || 20;
   let currentFile: File | null = null;
   let outputBlob: Blob | null = null;
   let worker: Worker | null = null;
@@ -874,7 +880,6 @@ const isSsc = mode === 'ssc';
   const safeRangeText   = document.getElementById('safe-range-text')!;
 
   // ── SSC Mode Detection & Tab Elements ───────────────────────────────────────
-  const studioSection = document.querySelector('.studio-section') as HTMLElement | null;
   const isSscMode = studioSection?.dataset.mode === 'ssc';
   let activeSscTab: 'photo' | 'signature' = 'photo';
   const sscTabPhoto = document.getElementById('ssc-tab-photo');

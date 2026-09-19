@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import CompressionStudio from '../components/CompressionStudio.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Resize Image to 50KB Online — Exact KB Target Resizer";
+const pageDescription = "Compress JPG/PNG images to under 50KB with zero quality drop. Perfect for government forms and signatures. Fast and private.";
+const pageKeywords = "resize image to 50kb, compress image to 50kb, resize photo to 50kb online, pan card photo resizer 50kb, ssc photo resize 20 to 50 kb, reduce image size to 50kb, jpg compressor 50kb, compress photo to 50 kb";
+const canonicalURL = "https://setimgkb.com/resize-image-to-50kb";
+
+const schemaGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      '@id': 'https://setimgkb.com/resize-image-to-50kb#app',
+      url: canonicalURL,
+      name: 'Resize Image to 50KB Online — SetImgKB',
+      applicationCategory: 'MultimediaApplication',
+      operatingSystem: 'All',
+      browserRequirements: 'Requires HTML5 Canvas support',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      description: 'Precision client-side compression locked strictly within the 47.5 KB - 49.0 KB corridor for government forms and signatures.',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://setimgkb.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Core Utilities',
+          item: 'https://setimgkb.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Resize Image to 50KB',
+          item: canonicalURL,
+        },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://setimgkb.com/resize-image-to-50kb#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Which government portals and exams mandate photos under 50KB?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Popular portals requiring photos strictly between 20KB and 50KB include Staff Selection Commission (SSC CHSL, CGL, MTS, GD Constable), UPSC Civil Services, NSDL and UTIITSL PAN Card applications, State Public Service Commissions (UPPSC, BPSC, MPSC, TNPSC), and Indian Passport renewal portals.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How does the 47.5 KB – 49.0 KB safety corridor prevent portal rejection?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Many recruitment portals reject uploads that hit exactly 50,001 bytes due to binary versus metric kilobyte calculation discrepancies (1024 vs 1000 bytes) or unstripped EXIF tags. SetImgKB strips all headers and converges within a 95%–98% safety corridor (47.5 KB to 49.0 KB), guaranteeing maximum clarity while staying safely below the hard 51,200-byte ceiling.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I compress photos and signatures to 50KB on my mobile device?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. SetImgKB is fully responsive and executes 100% locally within mobile browsers (iOS Safari, Android Chrome, Firefox). Select the 50 KB preset on your smartphone, upload your photo directly from your camera roll, and download your compliant JPEG in milliseconds without uploading data or installing third-party apps.',
+          },
+        },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonicalURL}
+  schema={schemaGraph}
+>
+  <Header />
+
+  <main class="w-full min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center overflow-x-hidden">
+    <!-- Hero & Dropzone -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-6 flex flex-col items-center text-center" aria-label="Resize Image to 50KB">
+      
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-5 self-start sm:self-center" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+        <span class="text-slate-300 dark:text-slate-700">/</span>
+        <span class="text-slate-500 dark:text-slate-400">Core Utilities</span>
+        <span class="text-slate-300 dark:text-slate-700">/</span>
+        <span class="text-slate-900 dark:text-white font-semibold">Resize to 50KB</span>
+      </nav>
+
+      <!-- Badge Pill -->
+      <div class="mb-4">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-hidden="true"></span>
+          Precision 50 KB Corridor · Zero Quality Drop
+        </span>
+      </div>
+
+      <!-- H1 Headline -->
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+        Resize Image to <span class="text-blue-600">50 KB</span> Online
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        Precision client-side compression locked strictly within the 47.5 KB - 49.0 KB corridor.
+      </p>
+
+      <!-- Portal Highlights Pill Row -->
+      <div class="mt-4 mb-2 flex flex-wrap items-center justify-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-blue-50/80 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60">
+          <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          PAN Card (NSDL &amp; UTIITSL)
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50/80 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+          <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          SSC &amp; UPSC Photo (20–50KB)
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+          Instant Mobile Support
+        </span>
+      </div>
+
+      <!-- Compression Studio Dropzone Card -->
+      <div id="studio" class="w-full text-left mt-4">
+        <CompressionStudio defaultTarget="50kb" />
+      </div>
+    </section>
+
+    <!-- Key Specifications & Standards -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-10 border-t border-slate-100 dark:border-slate-800">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Precision 50 KB Target Standards
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2">
+          Engineered for government job applications, identity verifications, and passport portals.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm mb-3.5">
+            1
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">47.5 – 49.0 KB Safe Window</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            By landing between 95% and 98% of 50KB, you retain maximum resolution and clarity while staying strictly beneath the 51,200-byte limit.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm mb-3.5">
+            2
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">Zero Server Transmission</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            All compression happens 100% inside your browser memory using HTML5 Canvas and OffscreenCanvas. No data ever leaves your device.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-sm mb-3.5">
+            3
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">Universal Portal Compatibility</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Outputs standard RGB JPEG files with cleanly stripped EXIF data, compatible with PAN card, UPSC, SSC, and banking portals.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brief 3-Question FAQ Accordion on 50KB Image Standards -->
+    <section id="faq" class="w-full max-w-3xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-100 dark:border-slate-800" aria-labelledby="faq-heading">
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Portal Standards</span>
+        <h2 id="faq-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 mb-3 tracking-tight">
+          50KB Image Standards FAQ
+        </h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Frequently asked questions regarding photo compression for 50KB portal ceilings.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30" open>
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm sm:text-base cursor-pointer select-none">
+            <span>Which portals and application forms mandate photos under 50KB?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            Major Indian exam and government service portals set a <strong>20 KB – 50 KB ceiling</strong> for candidate passport photos. This includes the Staff Selection Commission (SSC CHSL, CGL, MTS, GD), UPSC Civil Services Examination, NSDL / UTIITSL PAN Card online applications, State PSCs, and public sector bank recruitment drives (IBPS, SBI).
+          </div>
+        </details>
+
+        <!-- FAQ 2 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm sm:text-base cursor-pointer select-none">
+            <span>How does the 47.5 KB – 49.0 KB safety corridor prevent portal rejection?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            Online form validators strictly reject files measuring even 1 byte over 50KB (51,200 bytes). If an image compresses to 50.1 KB, the upload instantly fails. SetImgKB targets a 95%–98% safety corridor (47.5 KB to 49.0 KB). This ensures maximum photographic fidelity and edge sharpness while guaranteeing the file is safely under 50KB.
+          </div>
+        </details>
+
+        <!-- FAQ 3 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm sm:text-base cursor-pointer select-none">
+            <span>Can I compress photos and signatures to 50KB on my mobile device?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            Yes. SetImgKB runs entirely inside your smartphone browser (Safari on iPhone, Chrome on Android). Simply tap the 50 KB preset, choose a photo from your photo library or camera, and the compressor downsamples and optimizes it locally in milliseconds, ready for immediate download and upload.
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

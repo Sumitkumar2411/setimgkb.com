@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import CompressionStudio from '../components/CompressionStudio.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Resize Image to 20KB Online — Instant In-Browser Compressor";
+const pageDescription = "Compress and resize images to strictly under 20KB for SSC, UPSC, and exam portals. 100% client-side, zero server uploads, 300 DPI compliance.";
+const pageKeywords = "resize image to 20kb, compress image to 20kb, resize image to 20kb online, photo resizer to 20kb, ssc photo resizer under 20kb, upsc signature resizer 20kb, image compressor 20kb, reduce photo size in kb to 20kb";
+const canonicalURL = "https://setimgkb.com/resize-image-to-20kb";
+
+const schemaGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      '@id': 'https://setimgkb.com/resize-image-to-20kb#app',
+      url: canonicalURL,
+      name: 'Resize Image to 20KB Online — SetImgKB',
+      applicationCategory: 'MultimediaApplication',
+      operatingSystem: 'All',
+      browserRequirements: 'Requires HTML5 Canvas support',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      description: 'Instant client-side image compressor locked strictly within the 19.0 KB - 19.6 KB safety corridor for government exams and portal uploads.',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://setimgkb.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Core Utilities',
+          item: 'https://setimgkb.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Resize Image to 20KB',
+          item: canonicalURL,
+        },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://setimgkb.com/resize-image-to-20kb#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Why do government portals reject photos even when marked as 20KB?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Most portals calculate file size by exact byte counts (20,480 bytes). Tools that approximate 20KB often export files slightly over the threshold (e.g. 20.2 KB or 20,600 bytes), or retain heavy EXIF metadata tags. SetImgKB completely strips EXIF data and mathematically converges strictly within the 19.0 KB – 19.6 KB safety corridor (95%–98% ceiling) for 100% upload acceptance.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How does SetImgKB compress images to 20KB without blurring?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'SetImgKB combines multi-step proportional Canvas downsampling with an iterative binary-search quantization engine. Rather than aggressively lowering JPEG quality on high-resolution noise, it optimizes dimensions to portal standards (e.g. 300 DPI compliance) while preserving crisp facial features and sharp signature ink lines.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it safe to compress identity photos and signatures on SetImgKB?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, 100%. SetImgKB operates with a zero-server upload architecture. All resizing, pixel quantization, and JPEG encoding are executed exclusively inside your browser memory using Web Workers and HTML5 Canvas. Your sensitive identity documents and signatures never leave your device.',
+          },
+        },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonicalURL}
+  schema={schemaGraph}
+>
+  <Header />
+
+  <main class="w-full min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center overflow-x-hidden">
+    <!-- Hero & Dropzone -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-6 flex flex-col items-center text-center" aria-label="Resize Image to 20KB">
+      
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-5 self-start sm:self-center" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+        <span class="text-slate-300 dark:text-slate-700">/</span>
+        <span class="text-slate-500 dark:text-slate-400">Core Utilities</span>
+        <span class="text-slate-300 dark:text-slate-700">/</span>
+        <span class="text-slate-900 dark:text-white font-semibold">Resize to 20KB</span>
+      </nav>
+
+      <!-- Badge Pill -->
+      <div class="mb-4">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-hidden="true"></span>
+          Deterministic 20 KB Safety Corridor · Zero Server Uploads
+        </span>
+      </div>
+
+      <!-- H1 Headline -->
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+        Resize Image to <span class="text-blue-600">20 KB</span> Online
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        Deterministic in-browser compression locked strictly within the 19.0 KB - 19.6 KB safety corridor.
+      </p>
+
+      <!-- Portal Highlights Pill Row -->
+      <div class="mt-4 mb-2 flex flex-wrap items-center justify-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-blue-50/80 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60">
+          <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          SSC CGL &amp; CHSL Signature (10–20KB)
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50/80 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+          <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          UPSC &amp; State PSC Portals
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+          300 DPI Compliant
+        </span>
+      </div>
+
+      <!-- Compression Studio Dropzone Card -->
+      <div id="studio" class="w-full text-left mt-4">
+        <CompressionStudio defaultTarget="20kb" />
+      </div>
+    </section>
+
+    <!-- Key Specifications & Standards -->
+    <section class="w-full max-w-4xl mx-auto px-4 sm:px-6 py-10 border-t border-slate-100 dark:border-slate-800">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Strict 20 KB Safety Corridor Specifications
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2">
+          Engineered to pass strict automated server parsers on Indian government and recruitment websites.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm mb-3.5">
+            1
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">19.0 – 19.6 KB Target</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Locked to a 95%–98% corridor so the final exported file never exceeds the 20,480-byte ceiling or causes a 413 upload rejection.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm mb-3.5">
+            2
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">Zero EXIF Metadata Bloat</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Camera headers, color profiles, and geolocation tags are stripped during canvas extraction, saving 15–30 KB of pure overhead.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-sm mb-3.5">
+            3
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">300 DPI Clarity Preservation</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Built-in dimension converters calculate exact centimeter and pixel ratios, ensuring sharp facial features and signature contrast.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brief 3-Question FAQ Accordion on 20KB Photo Requirements -->
+    <section id="faq" class="w-full max-w-3xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-100 dark:border-slate-800" aria-labelledby="faq-heading">
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Portal Guidelines</span>
+        <h2 id="faq-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1.5 mb-3 tracking-tight">
+          20KB Photo &amp; Signature FAQ
+        </h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Essential answers for candidates resizing photos and signatures to strictly under 20KB.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30" open>
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm sm:text-base cursor-pointer select-none">
+            <span>Why do government portals reject photos even when marked as 20KB?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            Most recruitment portals (such as SSC, UPSC, and State PSCs) evaluate file sizes down to the single byte (a 20KB limit is strictly <strong>20,480 bytes</strong>). General image editors frequently round down or leave camera EXIF headers intact, exporting files at 20.2 KB or 20,600 bytes. SetImgKB strips all metadata and locks the output strictly into a <strong>19.0 KB – 19.6 KB safety corridor</strong>, guaranteeing immediate validation.
+          </div>
+        </details>
+
+        <!-- FAQ 2 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm sm:text-base cursor-pointer select-none">
+            <span>How does SetImgKB achieve 19.0 KB - 19.6 KB without blurring the image?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            Rather than simply squashing JPEG quality to low percentages, our engine uses multi-step canvas halving combined with an intelligent binary search over standard quantization tables. It calculates the optimal pixel dimensions and compression factor together, preserving facial oval clarity, ear contours, and dark ink strokes.
+          </div>
+        </details>
+
+        <!-- FAQ 3 -->
+        <details class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-5 transition-all open:ring-1 open:ring-blue-500/30">
+          <summary class="flex items-center justify-between font-bold text-slate-900 dark:text-white text-sm sm:text-base cursor-pointer select-none">
+            <span>Is it secure to compress my passport photo or signature here?</span>
+            <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/60 dark:border-slate-800 pt-3">
+            Yes, completely safe. SetImgKB functions with a zero-server upload architecture. All pixel processing, scaling, and compression occur locally inside your browser's private memory using Web Workers and HTML5 Canvas. No image data is ever transmitted across the internet.
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
